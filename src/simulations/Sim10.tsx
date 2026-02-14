@@ -1,77 +1,86 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim10() {
-    const [phase, setPhase] = useState<"cam" | "hacked" | "result">("cam");
+    const [phase, setPhase] = useState<"login" | "dashboard" | "result">("login");
+    const [correct, setCorrect] = useState(false);
+
+    // Login form state
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleLogin = (isDefault: boolean) => {
+        if (isDefault) {
+            // User tried default credentials (admin/admin) - this is actually the "bad" outcome in a real scenario, 
+            // but for the simulation, we want them to CHANGE it.
+            // Wait, the simulation lesson is usually about CHANGING defaults.
+            // Scenario: You bought a new camera. It asks for login.
+            // Choice A: Keep using admin/admin (FAIL security)
+            // Choice B: Change password (WIN security)
+
+            // Let's adjust: The prompt asks to "Setup Device".
+        }
+    };
 
     return (
-        <div>
-            {(phase === "cam" || phase === "hacked") && (
-                <div className="max-w-lg mx-auto bg-black border-4 border-zinc-800 rounded-xl overflow-hidden relative aspect-video">
-                    {/* Camera Overlay UI */}
-                    <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
-                        <span className="text-red-500 font-mono text-xs animate-pulse">● CANLI</span>
-                        <span className="text-white/70 font-mono text-xs">KAMERA-01 [Bebek Odası]</span>
-                        <span className="text-white/50 font-mono text-[10px]">192.168.1.105:8080</span>
-                    </div>
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative">
+            <div className="bg-white border-b border-gray-200 p-4 flex justify-between items-center shadow-sm z-10">
+                <div className="flex items-center gap-2">
+                    <span className="text-2xl">📹</span>
+                    <h2 className="font-bold text-gray-700">Akıllı Kamera Kurulum</h2>
+                </div>
+                <div className="text-xs text-gray-500">v2.1.0</div>
+            </div>
 
-                    <div className="absolute top-4 right-4 z-10 text-white/70 font-mono text-xs">
-                        22:42:15 PM
-                    </div>
+            <AnimatePresence mode="wait">
+                {phase === "login" && (
+                    <motion.div
+                        key="login"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 flex flex-col items-center justify-center p-6 bg-gray-50"
+                    >
+                        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-sm w-full text-center">
+                            <h3 className="text-lg font-bold text-gray-800 mb-2">Cihaz Erişimi</h3>
+                            <p className="text-xs text-gray-500 mb-6">Lütfen varsayılan fabrika şifresini değiştiriniz.</p>
 
-                    {/* Scene */}
-                    <div className="w-full h-full bg-zinc-900 flex items-center justify-center relative">
-                        <div className="text-6xl grayscale opacity-30">🛏️</div>
-                        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 bg-[length:100%_2px,3px_100%] pointer-events-none"></div>
-                    </div>
+                            <div className="space-y-3 mb-6">
+                                <button
+                                    onClick={() => { setCorrect(false); setPhase("result"); }}
+                                    className="w-full border border-gray-300 bg-gray-50 text-gray-600 py-3 rounded hover:bg-gray-100 transition-colors text-sm flex items-center justify-center gap-2"
+                                >
+                                    <span>⏩</span> Geç (Daha Sonra)
+                                </button>
+                                <button
+                                    onClick={() => { setCorrect(true); setPhase("result"); }}
+                                    className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition-colors text-sm font-bold shadow-lg shadow-blue-500/20"
+                                >
+                                    🔒 Yeni Şifre Oluştur
+                                </button>
+                            </div>
 
-                    {/* Hacked Message */}
-                    {phase === "hacked" && (
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="absolute inset-0 flex items-center justify-center bg-black/60 z-20 flex-col"
-                        >
-                            <span className="text-6xl mb-2">👁️</span>
-                            <p className="text-red-500 font-mono font-bold text-xl px-4 text-center">
-                                "Merhaba, Annesi de buradaymış..."
-                            </p>
-                            <p className="text-white/70 text-sm mt-2 font-mono">Ses bağlantısı aktif...</p>
-                        </motion.div>
-                    )}
-
-                    {phase === "cam" && (
-                        <div className="absolute bottom-6 left-0 right-0 flex justify-center z-20">
-                            <button
-                                onClick={() => setPhase("hacked")}
-                                className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs rounded-full hover:bg-white/20 transition-colors"
-                            >
-                                Varsayılan Şifreyle Giriş Yap (admin/1234)
-                            </button>
+                            <div className="bg-yellow-50 p-3 rounded border border-yellow-100 text-[10px] text-yellow-800 text-left">
+                                <strong>Varsayılan:</strong> Kullanıcı adı 'admin', şifre 'admin' olarak tanımlıdır. Değiştirilmezse internetteki botlar kameranıza erişebilir.
+                            </div>
                         </div>
-                    )}
-                </div>
-            )}
+                    </motion.div>
+                )}
 
-            {phase === "hacked" && (
-                <div className="text-center mt-6">
-                    <button onClick={() => setPhase("result")} className="btn-danger">
-                        ⚠️ Bağlantıyı Kes
-                    </button>
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={false}
-                    title="Eviniz Gözetleniyor!"
-                    message="Kamera sisteminizin şifresini 'admin/admin' veya '1234' olarak bıraktığınız için tarayıcı botları kameranızı buldu ve sisteme sızdı."
-                    lesson="Aldığınız her akıllı cihazın (Kamera, Süpürge, Modem) varsayılan şifresini kurulumda MUTLAKA değiştirin. Kullanmadığınız zaman fişini çekin veya kamerasını kapatın."
-                    onReset={() => setPhase("cam")}
-                />
-            )}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-white z-20 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Eviniz Güvende!" : "Kameranız İzlendi!"}
+                            message={correct
+                                ? "Harika! Varsayılan şifreleri değiştirmek, IoT cihaz güvenliğinin ilk ve en önemli kuralıdır. Artık Mirai gibi botnetler cihazınızı ele geçiremez."
+                                : "Büyük hata! 'admin/admin' gibi varsayılan şifreleri değiştirmediniz. Shodan gibi arama motorlarında kameranız listelendi ve tüm dünyadan izlenebilir hale geldi."}
+                            lesson="Akıllı ev aletleri, modemler ve kameralar satın aldığınızda İLK işiniz varsayılan şifreyi değiştirmek ve varsa güncellemeleri yapmaktır."
+                            onReset={() => setPhase("login")}
+                        />
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
