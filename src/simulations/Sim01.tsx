@@ -158,12 +158,14 @@ export default function Sim01() {
                             </div>
                         )}
 
-                        <button
-                            onClick={handleHangUp}
-                            className="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-red-600/20 active:scale-95 transition-transform"
-                        >
-                            📞
-                        </button>
+                        <div className="w-full pb-8 flex justify-center">
+                            <button
+                                onClick={handleHangUp}
+                                className="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center text-2xl shadow-lg shadow-red-600/20 active:scale-95 transition-transform"
+                            >
+                                📞
+                            </button>
+                        </div>
                     </motion.div>
                 )}
 

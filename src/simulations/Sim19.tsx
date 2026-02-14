@@ -1,74 +1,123 @@
 "use client";
 import { useState } from "react";
-import SimulationsResult from "@/components/SimulationResult";
+import { motion, AnimatePresence } from "framer-motion";
+import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim19() {
-    const [phase, setPhase] = useState<"villa" | "result">("villa");
+    const [phase, setPhase] = useState<"listing" | "chat" | "result">("listing");
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div>
-            {phase === "villa" && (
-                <div className="max-w-3xl mx-auto bg-white text-zinc-900 rounded-xl overflow-hidden shadow-2xl">
-                    <div className="relative h-64 bg-zinc-200">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-6">
-                            <div>
-                                <h2 className="text-3xl font-bold text-white">Villa Paradise Kalkan</h2>
-                                <p className="text-white/90">Denize Sıfır, Sonsuzluk Havuzu, 5 Yatak Odası</p>
-                            </div>
-                        </div>
-                        {/* Fake Image Placeholder */}
-                        <div className="absolute inset-0 flex items-center justify-center text-6xl opacity-20 pointer-events-none">🏰</div>
-                    </div>
+        <div className="bg-white min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-200 flex flex-col font-sans relative max-w-2xl mx-auto">
 
-                    <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="col-span-2">
-                            <h3 className="font-bold text-xl mb-4 text-blue-900">Mükemmel Bayram Tatili</h3>
-                            <p className="text-sm text-zinc-600 mb-4 leading-relaxed">
-                                Erken rezervasyon fırsatıyla haftalık sadece 35.000 TL! (Normalde 75.000 TL).
-                                Bu fırsatı kaçırmamak için hemen kaporayı gönderin.
+            <AnimatePresence mode="wait">
+                {/* LISTING PHASE */}
+                {phase === "listing" && (
+                    <motion.div
+                        key="listing"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 flex flex-col"
+                    >
+                        {/* Fake Header */}
+                        <div className="bg-pink-600 text-white p-3 flex justify-between items-center">
+                            <span className="font-bold text-lg">TatilSepetim (Fake)</span>
+                            <span className="text-xs">Giriş Yap</span>
+                        </div>
+
+                        {/* Image Carousel */}
+                        <div className="h-48 bg-gray-200 relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1512918760532-3ed64bc80e89?auto=format&fit=crop&q=80")' }}></div>
+                            <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">1/12</div>
+                        </div>
+
+                        <div className="p-4 flex-1">
+                            <div className="flex justify-between items-start mb-2">
+                                <div>
+                                    <h2 className="text-xl font-bold text-gray-800">Ultra Lüks Villa - Kalkan</h2>
+                                    <p className="text-sm text-gray-500">Kaş, Antalya • Denize Sıfır</p>
+                                </div>
+                                <div className="text-right">
+                                    <span className="block text-2xl font-bold text-pink-600">₺2.500</span>
+                                    <span className="text-xs text-gray-400">/gece</span>
+                                </div>
+                            </div>
+
+                            <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                                Özel havuzlu, jakuzili, 5 yatak odalı muhteşem villa. Erken rezervasyonda %50 indirim fırsatı! TÜRSAB No: 9999 (Sahte)
                             </p>
-                            <div className="bg-green-50 p-4 border border-green-200 rounded text-center mb-4">
-                                <p className="text-green-800 font-bold mb-1">✅ TÜRSAB Doğrulanmış Acente</p>
-                                <p className="text-xs text-zinc-500">Belge No: 12345 (Sahte Belge)</p>
+
+                            <div className="border-t pt-4">
+                                <button
+                                    onClick={() => setPhase("chat")}
+                                    className="w-full bg-pink-600 hover:bg-pink-700 text-white py-3 rounded font-bold shadow-lg flex justify-center items-center gap-2"
+                                >
+                                    <span>💬</span> İlan Sahibiyle Görüş (WhatsApp)
+                                </button>
                             </div>
-                            <div className="flex items-center gap-2 text-red-600 font-bold text-sm animate-pulse">
-                                <span>🔥</span>
-                                <span>Şu an 14 kişi bu villayı inceliyor!</span>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* WHATSAPP CHAT PHASE */}
+                {phase === "chat" && (
+                    <motion.div
+                        key="chat"
+                        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
+                        className="absolute inset-0 bg-[#efe7dd] z-20 flex flex-col"
+                    >
+                        <div className="bg-[#075e54] text-white p-3 flex items-center gap-3">
+                            <button onClick={() => setPhase("listing")}>←</button>
+                            <div className="flex-1 font-bold">Villa Sahibi (Mert)</div>
+                        </div>
+
+                        <div className="flex-1 p-4 space-y-3 overflow-y-auto">
+                            <div className="self-end ml-auto bg-[#dcf8c6] p-2 rounded-lg max-w-[80%] text-sm shadow text-gray-800">
+                                Merhaba, 15-20 Temmuz arası müsait mi?
+                            </div>
+                            <div className="self-start mr-auto bg-white p-2 rounded-lg max-w-[80%] text-sm shadow text-gray-800">
+                                Evet müsait efendim. Çok yoğunluk var, başkası tutmadan kaporayı atarsanız rezerve ederim.
+                            </div>
+                            <div className="self-start mr-auto bg-white p-2 rounded-lg max-w-[80%] text-sm shadow text-gray-800">
+                                5.000 TL kapora yeterli. Aşağıdaki IBAN şahsi hesabımdır (eşim adına), şirket hesabımızda bloke var şu an.
+                            </div>
+                            <div className="self-start mr-auto bg-white p-2 rounded-lg text-sm shadow font-mono bg-blue-50 text-blue-900 border border-blue-100">
+                                IBAN: TR12 0000 ...<br />
+                                Alıcı: Ayşe Yılmaz
                             </div>
                         </div>
 
-                        <div className="bg-zinc-50 p-4 rounded border">
-                            <p className="text-center font-bold mb-4">Rezervasyon</p>
-                            <p className="text-xs text-center text-zinc-500 mb-4">Kapora Tutarı: 10.000 TL</p>
+                        <div className="p-4 bg-[#f0f0f0] flex gap-2">
                             <button
                                 onClick={() => { setCorrect(false); setPhase("result"); }}
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded mb-2 transition-transform hover:scale-105"
+                                className="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded font-bold"
                             >
-                                Hemen Öde & Kirala
+                                Kaporayı Gönder
                             </button>
                             <button
                                 onClick={() => { setCorrect(true); setPhase("result"); }}
-                                className="w-full bg-transparent border border-zinc-300 text-zinc-600 py-3 rounded hover:bg-zinc-100 font-bold text-sm"
+                                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded font-bold"
                             >
-                                TÜRSAB Sitesinden Kontrol Et
+                                İnanma ve Engelle
                             </button>
                         </div>
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
 
-            {phase === "result" && (
-                <SimulationsResult
-                    isCorrect={correct}
-                    title={correct ? "Tatilinizi Kurtardınız!" : "Kapıda Kaldınız!"}
-                    message={correct
-                        ? "TÜRSAB sitesinden belge numarasını sorguladınız ve böyle bir acentenin olmadığını gördünüz. Paranızı kaptırmadınız."
-                        : "Kaporayı gönderip Kalkan'a gittiniz. Adreste villa yoktu, boş bir arazi vardı. Telefonlara kimse bakmıyor."}
-                    lesson="Tatil dolandırıcılığından korunmak için acente belgesini (TÜRSAB) resmi sitesinden sorgulayın. Para gönderdiğiniz hesap şahıs hesabı değil, şirket hesabı olmalıdır."
-                    onReset={() => setPhase("villa")}
-                />
-            )}
+                {/* RESULT */}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-black/90 z-30 p-4 md:p-12 overflow-y-auto font-sans">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Tatilinizi Kurtardınız!" : "Kapora Dolandırıcılığı!"}
+                            message={correct
+                                ? "Harika! Şirket hesabı yerine şahıs hesabına para istenmesi ve TÜRSAB numarasının doğrulanamaması sizi şüphelendirdi. Dolandırıcıyı engellediniz."
+                                : "Kaporayı gönderdiniz ama adrese gittiğinizde öyle bir villa olmadığını (veya başkasına ait olduğunu) gördünüz. Telefon numarası da çoktan kapandı."}
+                            lesson="Tatil kiralarken TÜRSAB belgesini resmi web sitesinden doğrulayın. Para transferini sadece şirket hesabına yapın, şahıs IBAN'larına güvenmeyin."
+                            onReset={() => setPhase("listing")}
+                        />
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

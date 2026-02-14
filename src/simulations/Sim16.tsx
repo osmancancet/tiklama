@@ -1,103 +1,128 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim16() {
-    const [phase, setPhase] = useState<"sms" | "site" | "sms-verify" | "result">("sms");
-    const [correct, setCorrect] = useState(true); // Default correct, fails if they click code
+    const [phase, setPhase] = useState<"sms" | "tracking" | "payment" | "result">("sms");
+    const [correct, setCorrect] = useState(false);
 
     return (
-        <div>
-            {/* 1. Fake SMS */}
-            {phase === "sms" && (
-                <div className="max-w-sm mx-auto bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-                    <div className="flex gap-3 mb-4">
-                        <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center font-bold text-black">P</div>
-                        <div>
-                            <p className="font-bold text-white">PTT Kargo</p>
-                            <p className="text-xs text-zinc-500">Şimdi</p>
-                        </div>
-                    </div>
-                    <p className="text-sm text-zinc-300 mb-2">
-                        Koliniz adresinize teslim edilememistir. Tekrar dagitima cikmasi icin 24 TL gumruk/hizmet bedelini odeyiniz: <span className="text-blue-400 underline cursor-pointer" onClick={() => setPhase("site")}>https://ptt-takip-gumruk.com</span>
-                    </p>
-                </div>
-            )}
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto">
 
-            {/* 2. Fake Payment Site */}
-            {phase === "site" && (
-                <div className="max-w-sm mx-auto bg-white text-black rounded-lg overflow-hidden border">
-                    <div className="bg-yellow-400 p-4 flex justify-between items-center">
-                        <span className="font-bold text-lg">PTT Kargo Takip</span>
-                        <span>📦</span>
-                    </div>
-                    <div className="p-6">
-                        <p className="mb-4 text-sm font-semibold">Ödeme Tutarı: 24,00 TL</p>
-                        <input type="text" placeholder="Kart Sahibi" className="border w-full p-2 mb-2 rounded" defaultValue="Mustafa Yılmaz" />
-                        <input type="text" placeholder="Kart No" className="border w-full p-2 mb-2 rounded" defaultValue="4543 **** **** 9800" />
-                        <div className="flex gap-2 mb-4">
-                            <input type="text" placeholder="AA/YY" className="border w-1/2 p-2 rounded" defaultValue="12/28" />
-                            <input type="text" placeholder="CVV" className="border w-1/2 p-2 rounded" defaultValue="***" />
-                        </div>
-                        <button
-                            onClick={() => setPhase("sms-verify")}
-                            className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded"
-                        >
-                            Öde ve Dağıtıma Çıkar
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* 3. SMS OTP Trap */}
-            {phase === "sms-verify" && (
-                <div className="max-w-sm mx-auto text-center">
-                    <div className="bg-zinc-800 p-6 rounded-xl border border-zinc-700 mb-6">
-                        <p className="text-white text-lg font-bold mb-4">🔒 3D Secure Doğrulama</p>
-                        <p className="text-zinc-400 text-sm mb-4">Telefonunuza gelen şifreyi giriniz.</p>
-
-                        {/* The TRAP SMS Content */}
-                        <motion.div
-                            initial={{ scale: 0.9, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            className="bg-zinc-900 border border-zinc-600 p-3 rounded text-left mb-6"
-                        >
-                            <p className="text-xs text-zinc-500 mb-1">Mesaj İçeriği:</p>
-                            <p className="text-sm text-white">
-                                Banka Kartınızla <span className="font-bold text-red-500">24.500 TL</span> harcama yapmak için onay kodunuz: 192384. Kimseyle paylaşmayın.
+            <AnimatePresence mode="wait">
+                {/* SMS Phase */}
+                {phase === "sms" && (
+                    <motion.div
+                        key="sms"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 bg-white p-4"
+                    >
+                        <div className="bg-gray-100 rounded-xl p-4 mb-4 relative">
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-2 bg-gray-200 text-[10px] px-2 rounded-full text-gray-500">Bugün 09:42</div>
+                            <div className="font-bold text-gray-800 mb-1">MNG KARGO</div>
+                            <p className="text-gray-700 text-sm">
+                                Sayın Müşterimiz, kargonuz adresinize teslim edilememiştir. Lütfen 24 TL gümrük ücretini ödemek ve teslimat tarihini güncellemek için tıklayınız: <span onClick={() => setPhase("tracking")} className="text-blue-500 underline cursor-pointer">mng-kargo-odeme-takip.net</span>
                             </p>
-                        </motion.div>
+                        </div>
+                        <div className="text-center text-xs text-gray-400">
+                            *Linke tıklayarak senaryoyu devam ettirin.
+                        </div>
+                    </motion.div>
+                )}
 
-                        <input type="text" className="bg-black border border-zinc-600 text-white p-3 text-center text-2xl tracking-widest w-full rounded mb-4" placeholder="------" />
+                {/* Fake Tracking Page */}
+                {phase === "tracking" && (
+                    <motion.div
+                        key="tracking"
+                        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
+                        className="absolute inset-0 bg-white z-10 flex flex-col"
+                    >
+                        <div className="bg-blue-900 p-4 text-white flex justify-between items-center shadow-md">
+                            <div className="font-bold text-lg italic">MNG KARGO</div>
+                            <div className="text-xs">menü ☰</div>
+                        </div>
 
-                        <button
-                            onClick={() => { setCorrect(false); setPhase("result"); }}
-                            className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded font-bold"
-                        >
-                            Onayla
-                        </button>
-                        <button
-                            onClick={() => { setCorrect(true); setPhase("result"); }}
-                            className="w-full mt-3 text-sm text-red-400 underline"
-                        >
-                            İptal Et (Tutar Yanlış!)
-                        </button>
+                        <div className="p-6 flex-1">
+                            <h2 className="text-xl font-bold text-gray-800 mb-2">Kargo Takip</h2>
+                            <div className="bg-yellow-50 border border-yellow-200 p-3 rounded mb-6 text-sm text-yellow-800">
+                                ⚠️ Teslimat başarısız. Gümrük vergisi eksik.
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="border rounded p-3">
+                                    <div className="text-xs text-gray-500">Takip No</div>
+                                    <div className="font-mono font-bold">TR-882931102</div>
+                                </div>
+                                <div className="border rounded p-3 bg-red-50 border-red-100">
+                                    <div className="text-xs text-red-500">Kalan Borç</div>
+                                    <div className="font-bold text-red-700">24.00 TL</div>
+                                </div>
+
+                                <button
+                                    onClick={() => setPhase("payment")}
+                                    className="w-full bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700 shadow-lg"
+                                >
+                                    Ödeme Yap (24 TL)
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Payment / SMS OTP Phase */}
+                {phase === "payment" && (
+                    <motion.div
+                        key="payment"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        className="absolute inset-0 bg-black/50 z-20 flex items-end sm:items-center justify-center p-4"
+                    >
+                        <div className="bg-white w-full rounded-t-xl sm:rounded-xl p-6 shadow-2xl animate-slide-up">
+                            <h3 className="font-bold text-lg mb-4 text-center border-b pb-2">3D Secure Doğrulama</h3>
+                            <p className="text-sm text-gray-600 mb-4 text-center">
+                                Bankanızdan gelen SMS şifresini giriniz.
+                            </p>
+
+                            {/* The Trick: Amount is different */}
+                            <div className="bg-gray-100 p-3 rounded mb-4 font-mono text-xs text-gray-700 border border-gray-300">
+                                SMS: Sayın Müşterimiz, .... nolu kartınızla <span className="font-bold bg-yellow-200">24,500.00 TL</span> tutarındaki işleminiz için şifreniz: 192381. Kimseyle paylaşmayınız.
+                            </div>
+
+                            <input type="text" placeholder="Şifreyi Giriniz" className="w-full border p-2 rounded mb-4 text-center tracking-widest" />
+
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={() => { setCorrect(false); setPhase("result"); }}
+                                    className="flex-1 bg-green-600 text-white py-2 rounded font-bold text-sm"
+                                >
+                                    Onayla
+                                </button>
+                                <button
+                                    onClick={() => { setCorrect(true); setPhase("result"); }}
+                                    className="flex-1 bg-red-500 text-white py-2 rounded font-bold text-sm"
+                                >
+                                    İptal (Tutarı Fark Ettim!)
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Result */}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-white z-30 p-4 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Dikkatli Gözler Kazandı!" : "24.500 TL Dolandırıldınız!"}
+                            message={correct
+                                ? "Mükemmel dikkat! Ekranda '24 TL' yazsa da, bankadan gelen SMS'te '24.500 TL' çekilmek istendiğini fark edip işlemi iptal ettiniz."
+                                : "Tuzağa düştünüz. Sahte kargo sitesi sadece 24 TL ister gibi göründü ama arka planda kartınızdan 24.500 TL çekmeye çalıştı. SMS'i okumadan onayladınız."}
+                            lesson="3D Secure SMS'lerini sadece şifre için değil, 'Tutar' ve 'İşyeri Adı'nı kontrol etmek için okuyun. Kargo firmaları SMS ile borç tahsil etmez."
+                            onReset={() => setPhase("sms")}
+                        />
                     </div>
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={correct}
-                    title={correct ? "Dikkat Testini Geçtiniz!" : "24.500 TL Dolandırıldınız!"}
-                    message={correct
-                        ? "SMS içeriğindeki tutarı (24.500 TL) fark edip işlemi onaylamadınız. Harikasınız!"
-                        : "Ekranda 24 TL yazıyordu ama gelen SMS kodunda 24.500 TL yazıyordu. Okumadan kodu girdiğiniz için hesabınız boşaltıldı."}
-                    lesson="3D Secure mesajlarındaki tutarı ve işyeri adını MUTLAKA okuyun. Ekranda yazan tutar ile SMS'teki tutar farklıysa işlemi derhal iptal edin."
-                    onReset={() => setPhase("sms")}
-                />
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 }
