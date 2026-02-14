@@ -1,87 +1,128 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
-import TerminalText from "@/components/TerminalText";
 
 export default function Sim22() {
-    const [phase, setPhase] = useState<"site" | "install" | "result">("site");
+    const [phase, setPhase] = useState<"search" | "download" | "install" | "result">("search");
+    const [correct, setCorrect] = useState(false);
+    const [progress, setProgress] = useState(0);
 
-    const installLog = [
-        "Extracting Adobe_Photoshop_2024_Crack.exe...",
-        "Bypassing license verification...",
-        "Patching host file...",
-        "Injecting stealer.dll -> chrome.exe [SUCCESS]",
-        "Harvesting saved passwords...",
-        "Harvesting session cookies...",
-        "Uploading to remote C2 server...",
-        "Cleaning up traces..."
-    ];
+    const startInstall = () => {
+        setPhase("install");
+        let p = 0;
+        const interval = setInterval(() => {
+            p += 5;
+            setProgress(p);
+            if (p >= 100) {
+                clearInterval(interval);
+                setCorrect(false);
+                setPhase("result");
+            }
+        }, 100);
+    };
 
     return (
-        <div>
-            {phase === "site" && (
-                <div className="max-w-2xl mx-auto bg-[#1e1e1e] text-white rounded-lg shadow-2xl border border-zinc-700 font-sans">
-                    {/* Fake Warez Site Header */}
-                    <div className="p-4 border-b border-zinc-700 flex justify-between items-center bg-[#252526]">
-                        <span className="font-bold text-orange-500">CRACK-WORLD</span>
-                        <div className="flex gap-2 text-xs">
-                            <span className="text-zinc-400">Home / Software / Design</span>
+        <div className="bg-[#2D2D2D] min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-600 flex flex-col font-sans relative select-none">
+
+            <AnimatePresence mode="wait">
+                {/* 1. SEARCH/LANDING */}
+                {phase === "search" && (
+                    <motion.div
+                        key="search"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 bg-white flex flex-col"
+                    >
+                        <div className="bg-gray-100 p-2 border-b flex items-center gap-2 text-sm text-gray-500">
+                            <span className="bg-white px-2 rounded border">🔍 photoshop full crack indir ücretsiz</span>
                         </div>
-                    </div>
+                        <div className="p-4 space-y-4">
+                            <div className="text-blue-800 text-xl font-medium underline cursor-pointer hover:text-blue-600" onClick={() => setPhase("download")}>
+                                Adobe Photoshop 2024 FULL + Crack (Tek Link)
+                            </div>
+                            <div className="text-green-700 text-sm">www.fullprogram-indir-crack.net › software</div>
+                            <p className="text-sm text-gray-600">
+                                Bedava full sürüm indir. Keygen dahil. Serial key gerekmez. %100 Çalışıyor. Virüssüz.
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
 
-                    <div className="p-8">
-                        <h1 className="text-2xl font-bold mb-4">Adobe Photoshop 2024 Full (Pre-Cracked) - No Key Needed</h1>
-
-                        <div className="bg-[#2d2d2d] p-4 rounded mb-6 text-sm">
-                            <p className="text-green-400 mb-2">✅ Tested & Working</p>
-                            <p className="text-zinc-400">Instructions: Turn off antivirus, run installer, enjoy!</p>
+                {/* 2. DOWNLOAD PAGE */}
+                {phase === "download" && (
+                    <motion.div
+                        key="download"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 bg-gray-900 text-white flex flex-col items-center justify-center p-6 text-center relative overflow-hidden"
+                    >
+                        {/* Annoying Ads Background */}
+                        <div className="absolute inset-0 opacity-10 pointer-events-none flex flex-wrap gap-4 overflow-hidden">
+                            {Array.from({ length: 10 }).map((_, i) => <div key={i} className="bg-red-500 w-32 h-32 rotate-12">DOWNLOAD</div>)}
                         </div>
 
-                        <div className="flex justify-center">
-                            <button
-                                onClick={() => setPhase("install")}
-                                className="flex flex-col items-center bg-green-600 hover:bg-green-500 px-10 py-4 rounded font-bold shadow-lg transition-transform hover:scale-105"
-                            >
-                                <span className="text-xl">DOWNLOAD</span>
-                                <span className="text-xs font-normal opacity-80">(1.2 GB - ZIP)</span>
-                            </button>
+                        <h2 className="text-3xl font-bold mb-8 z-10">DOSYA HAZIR</h2>
+
+                        <div className="z-10 bg-black/50 p-6 rounded-xl border border-green-500/50 backdrop-blur-sm">
+                            <p className="mb-4">Photoshop_Setup_Crack.exe (1.2 GB)</p>
+                            <p className="text-red-400 text-xs mb-4 font-bold animate-pulse">
+                                ! Kurulumdan önce antivirüsü kapatın, yoksa crack silinir!
+                            </p>
+
+                            <div className="flex gap-4">
+                                <button
+                                    onClick={startInstall}
+                                    className="bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded font-bold shadow-[0_0_20px_rgba(34,197,94,0.5)]"
+                                >
+                                    ⬇️ İNDİR VE KUR
+                                </button>
+                                <button
+                                    onClick={() => { setCorrect(true); setPhase("result"); }}
+                                    className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded font-bold"
+                                >
+                                    ❌ İPTAL ET
+                                </button>
+                            </div>
                         </div>
+                    </motion.div>
+                )}
 
-                        <p className="text-center text-xs text-zinc-500 mt-4 italic">
-                            Password for zip: 1234
-                        </p>
+                {/* 3. INSTALLING (Infection) */}
+                {phase === "install" && (
+                    <motion.div
+                        key="install"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        className="flex-1 bg-black flex flex-col items-center justify-center p-8"
+                    >
+                        <div className="w-full max-w-md">
+                            <h2 className="text-white mb-2">Kuruluyor...</h2>
+                            <div className="h-4 bg-gray-700 rounded-full overflow-hidden">
+                                <div className="h-full bg-green-500 transition-all duration-75" style={{ width: `${progress}%` }}></div>
+                            </div>
+                            <div className="mt-4 font-mono text-xs text-green-500 h-32 overflow-hidden">
+                                {progress > 20 && <p>&gt; Injecting payload...</p>}
+                                {progress > 40 && <p>&gt; Disabling Windows Defender...</p>}
+                                {progress > 60 && <p>&gt; Stealing Chrome Passwords...</p>}
+                                {progress > 80 && <p>&gt; Uploading to C2 Server...</p>}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* RESULT */}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-black/95 z-30 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Bilgisayarınızı Korudunuz!" : "Truva Atı (Trojan) Şimdi İçeride!"}
+                            message={correct
+                                ? "Tebrikler. Korsan yazılım (Crack/Warez) siteleri, virüslerin bir numaralı kaynağıdır. 'Antivirüsü kapat' uyarısı, zararlı yazılımın sisteme girmesi için bir aldatmacadır."
+                                : "Bedava yazılım kullanmak isterken tüm kişisel verilerinizi çaldırdınız. İndirdiğiniz dosya masum görünse de arka planda şifrelerinizi çalan bir 'Stealer' (Hırsız) yazılımıydı."}
+                            lesson="Lisanslı yazılım kullanın. Korsan yazılımlar genellikle Trojan içerir. Bir program sizden antivirüsü kapatmanızı istiyorsa %99.9 zararlıdır."
+                            onReset={() => { setPhase("search"); setProgress(0); }}
+                        />
                     </div>
-                </div>
-            )}
-
-            {phase === "install" && (
-                <div className="max-w-xl mx-auto">
-                    <div className="bg-black rounded-t-lg p-2 border border-zinc-700 flex gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span className="ml-2 text-xs text-zinc-400 font-mono">Installer.exe</span>
-                    </div>
-
-                    <TerminalText
-                        lines={installLog}
-                        speed={50}
-                        onComplete={() => setTimeout(() => setPhase("result"), 1500)}
-                        className="rounded-t-none border-t-0"
-                    />
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={false}
-                    title="Şifreleriniz Çalındı!"
-                    message="İndirdiğiniz crack dosyası içinde 'Stealer' (Hırsız) yazılımı vardı. Tarayıcınızda kayıtlı tüm şifreleri, çerezleri ve oturumları saniyeler içinde çaldı."
-                    lesson="Bedava yazılımın bedeli, kişisel verilerinizdir. Antivirüs yazılımını kapatmanızı isteyen dosyalar %100 zararlıdır."
-                    onReset={() => setPhase("site")}
-                />
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 }

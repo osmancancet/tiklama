@@ -1,88 +1,111 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim24() {
-    const [phase, setPhase] = useState<"telegram" | "blackmail" | "result">("telegram");
+    const [phase, setPhase] = useState<"chat" | "blackmail" | "result">("chat");
+    const [correct, setCorrect] = useState(false);
 
     return (
-        <div>
-            {/* Telegram Channel UI */}
-            {phase === "telegram" && (
-                <div className="max-w-md mx-auto bg-[#17212b] rounded overflow-hidden shadow-xl text-white font-sans h-[500px] flex flex-col">
-                    <div className="bg-[#242f3d] p-3 flex items-center gap-3">
-                        <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center font-bold">Ö</div>
-                        <div>
-                            <p className="font-bold">ÖSYM Soruları Teyitli 2024</p>
-                            <p className="text-xs text-zinc-400">14.500 abone</p>
-                        </div>
-                    </div>
+        <div className="bg-[#17212b] min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-700 flex flex-col font-sans relative max-w-sm mx-auto">
 
-                    <div className="flex-1 bg-[#0e1621] p-4 overflow-y-auto space-y-4">
-                        <div className="bg-[#182533] p-2 rounded-lg max-w-[85%] self-start">
-                            <div className="h-32 bg-white/10 rounded mb-2 overflow-hidden relative">
-                                {/* Blurred Image */}
-                                <div className="absolute inset-0 bg-white blur-xl opacity-30"></div>
-                                <div className="absolute inset-0 flex items-center justify-center text-xs text-zinc-400">
-                                    [GÖRÜNTÜ SANSÜRLENDİ]
+            {/* Telegram Header */}
+            <div className="bg-[#242f3d] text-white p-3 flex items-center gap-3 shadow-sm z-10">
+                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold">OS</div>
+                <div>
+                    <h3 className="font-bold text-sm">ÖSYM Soruları 2024</h3>
+                    <p className="text-xs text-blue-300">bot</p>
+                </div>
+            </div>
+
+            <AnimatePresence mode="wait">
+                {phase === "chat" && (
+                    <motion.div
+                        key="chat"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 p-4 bg-[#0e1621] flex flex-col gap-3 overflow-y-auto"
+                    >
+                        <div className="self-start bg-[#182533] p-3 rounded-lg rounded-tl-none max-w-[85%] text-white text-sm">
+                            Merhaba! Yarınki TYT/AYT sınav soruları elimizde. %100 Orijinal. Kanıt için bulanık sayfaya bak 👇
+                        </div>
+
+                        <div className="self-start bg-[#182533] p-2 rounded-lg max-w-[85%]">
+                            <div className="w-48 h-64 bg-white relative overflow-hidden blur-sm flex items-center justify-center">
+                                {/* Fake Exam Paper Look */}
+                                <div className="absolute inset-0 p-4 text-[6px] text-black">
+                                    <p className="font-bold text-lg mb-4 text-center">TYT DENEME</p>
+                                    <p>Lorem ipsum dolor sit amet...</p>
+                                    <p>1. Soru: .................</p>
+                                </div>
+                                <div className="absolute inset-0 bg-black/50 z-10 flex items-center justify-center text-white font-bold text-xs text-center p-2">
+                                    Sansürlü Görüntü<br />Satın almadan açılmaz
                                 </div>
                             </div>
-                            <p className="text-sm">Matematik 2. oturum soruları elimize ulaştı! Fiyat sadece 1500 TL. Sınavdan sonra 10k olacak. Almak isteyenler DM.</p>
-                            <span className="text-[10px] text-zinc-500 block text-right mt-1">11:45</span>
                         </div>
-                    </div>
 
-                    <div className="p-3 bg-[#17212b]">
-                        <button
-                            onClick={() => setPhase("blackmail")}
-                            className="w-full bg-[#5288c1] hover:bg-[#4679ae] text-white py-3 rounded font-bold"
-                        >
-                            DM: "Satın Almak İstiyorum" (1500 TL Gönder)
-                        </button>
-                    </div>
-                </div>
-            )}
+                        <div className="self-start bg-[#182533] p-3 rounded-lg max-w-[85%] text-white text-sm">
+                            Tamamı için sadece 500 TL. Hemen gönder, soruları al. IBAN: TR12...
+                        </div>
 
-            {/* Blackmail UI */}
-            {phase === "blackmail" && (
-                <div className="max-w-md mx-auto bg-[#17212b] rounded p-4 text-white text-center">
-                    <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="bg-red-500/20 text-red-400 p-4 rounded mb-6 border border-red-500/50">
-                        <h3 className="font-bold text-lg mb-2">⚠️ TUZAK!</h3>
-                        <p className="text-sm">Parayı gönderdiniz ama sorular gelmedi...</p>
+                        <div className="mt-auto grid grid-cols-2 gap-2">
+                            <button
+                                onClick={() => setPhase("blackmail")}
+                                className="bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-bold text-sm"
+                            >
+                                💸 Gönder (Satın Al)
+                            </button>
+                            <button
+                                onClick={() => { setCorrect(true); setPhase("result"); }}
+                                className="bg-red-500 hover:bg-red-600 text-white py-2 rounded font-bold text-sm"
+                            >
+                                🚫 Engelle ve İhbar Et
+                            </button>
+                        </div>
                     </motion.div>
+                )}
 
-                    <div className="bg-[#182533] p-4 rounded text-left mb-6">
-                        <p className="font-bold text-red-400 mb-1">Admin:</p>
-                        <p className="text-sm">"Kimlik bilgilerini ve IBAN ismini bulduk Ecrin. Soruları almaya çalıştığını ailene ve okuluna bildirmememizi istiyorsan 5000 TL daha ateşle. Yoksa hayatın kayar."</p>
-                    </div>
+                {phase === "blackmail" && (
+                    <motion.div
+                        key="blackmail"
+                        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
+                        className="flex-1 p-4 bg-[#0e1621] flex flex-col gap-3"
+                    >
+                        <div className="self-end bg-[#2b5278] p-3 rounded-lg rounded-tr-none max-w-[85%] text-white text-sm">
+                            Parayı attım, soruları bekliyorum?
+                        </div>
 
-                    <div className="flex gap-3">
+                        <div className="self-start bg-[#182533] p-3 rounded-lg rounded-tl-none max-w-[85%] text-white text-sm border-l-4 border-red-500">
+                            Haha! Sorular falan yok. Ama kimlik bilgilerin ve suç işlediğine dair (soru çalmaya teşebbüs) kayıtlar elimizde.
+                        </div>
+
+                        <div className="self-start bg-[#182533] p-3 rounded-lg max-w-[85%] text-white text-sm">
+                            Ya bize 5.000 TL daha ateşlersin ya da seni ÖSYM'ye ve okuluna şikayet ederiz, hayatın kayar! 😉
+                        </div>
+
                         <button
-                            onClick={() => setPhase("result")}
-                            className="flex-1 bg-zinc-700 py-3 rounded hover:bg-zinc-600 text-sm"
+                            onClick={() => { setCorrect(false); setPhase("result"); }}
+                            className="bg-red-600 hover:bg-red-700 text-white py-3 rounded font-bold mt-auto shadow-lg animate-pulse"
                         >
-                            Korktum, parayı atıyorum...
+                            😱 Ne Yapacağım?! (Sonuç)
                         </button>
-                        <button
-                            onClick={() => setPhase("result")}
-                            className="flex-1 bg-blue-600 py-3 rounded hover:bg-blue-500 font-bold text-sm"
-                        >
-                            Engelle ve İhbar Et
-                        </button>
-                    </div>
-                </div>
-            )}
+                    </motion.div>
+                )}
 
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={true} // Lesson is important regardless of choice
-                    title="Soru Yok, Şantaj Var!"
-                    message="ÖSYM soruları sızdırılamaz. Bu gruplar tamamen dolandırıcıdır. Parayı kaptırdığınız yetmezmiş gibi bir de 'suça teşebbüs ettiğiniz' için şantaja maruz kalırsınız."
-                    lesson="Sınav sorularını sattığını iddia edenlere asla inanmayın. Şantaja boyun eğmeyin, para göndermeyi kesin ve savcılığa başvurun."
-                    onReset={() => setPhase("telegram")}
-                />
-            )}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-black/90 z-20 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Geleceğinizi Kurtardınız!" : "Hem Paranız Gitti Hem Şantaj Yediniz!"}
+                            message={correct
+                                ? "Aferin! ÖSYM sorularının sınavdan önce sızdırılması teknik olarak imkansıza yakındır. Bu dolandırıcılar, umut tacirliği yapar ve tuzağa düşenlere şantaj uygular. İnanmayarak en doğrusunu yaptınız."
+                                : "Büyük hata. Sorular sahteydi (muhtemelen eski deneme sınavları). Daha kötüsü, dolandırıcılar 'suça teşebbüs ettiğinizi' bildikleri için size şantaj yapmaya başladı. Bu döngüden çıkmak zordur."}
+                            lesson="Sınav soruları asla Telegram/Discord gibi yerlerde satılmaz. Bu vaatlere inananlar dolandırılmaya ve şantaja mahkumdur."
+                            onReset={() => setPhase("chat")}
+                        />
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
