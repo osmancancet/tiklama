@@ -1,109 +1,133 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim20() {
-    const [phase, setPhase] = useState<"dashboard" | "withdraw" | "result">("dashboard");
-    const [balance, setBalance] = useState(250); // Initial lure amount
+    const [phase, setPhase] = useState<"tasks" | "withdraw" | "result">("tasks");
+    const [balance, setBalance] = useState(0);
+    const [taskCount, setTaskCount] = useState(0);
+    const [correct, setCorrect] = useState(false);
+
+    const handleTask = () => {
+        setBalance(prev => prev + 50);
+        setTaskCount(prev => prev + 1);
+    };
 
     return (
-        <div>
-            {/* Fake Earnings Dashboard */}
-            {phase === "dashboard" && (
-                <div className="max-w-lg mx-auto bg-[#0f172a] text-white rounded-xl overflow-hidden shadow-2xl border border-zinc-700">
-                    <div className="p-6 bg-gradient-to-r from-indigo-900 to-slate-900 border-b border-zinc-700">
-                        <div className="flex justify-between items-center mb-6">
-                            <span className="font-bold text-lg text-indigo-400">TaskMaster Earn</span>
-                            <span className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-xs font-bold">VIP 1 Üye</span>
-                        </div>
+        <div className="bg-gray-900 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-700 flex flex-col font-mono relative max-w-sm mx-auto">
 
-                        <div className="text-center py-4">
-                            <p className="text-zinc-400 text-sm mb-1">Toplam Kazanç</p>
-                            <motion.p
-                                initial={{ scale: 0.8 }} animate={{ scale: 1 }}
-                                className="text-5xl font-bold mb-4"
-                            >
-                                ₺{balance.toLocaleString()}
-                            </motion.p>
-                            <div className="flex justify-center gap-4 text-xs">
-                                <span className="text-green-400">▲ +₺250 bugün</span>
-                            </div>
-                        </div>
-                    </div>
+            {/* Dashboard Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-6 text-white shadow-lg z-10">
+                <div className="text-xs opacity-70 mb-1">TOPLAM KAZANÇ</div>
+                <div className="text-4xl font-bold flex items-center gap-2">
+                    <span className="text-2xl">₺</span>
+                    <motion.span
+                        key={balance}
+                        initial={{ scale: 1.5, color: "#ffff00" }}
+                        animate={{ scale: 1, color: "#ffffff" }}
+                    >
+                        {balance.toFixed(2)}
+                    </motion.span>
+                </div>
+                <div className="text-xs text-green-300 mt-2 flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                    Canlı Sistem
+                </div>
+            </div>
 
-                    <div className="p-6 space-y-4">
-                        <p className="text-sm font-bold text-zinc-300">Günün Görevleri</p>
+            <AnimatePresence mode="wait">
+                {/* TASKS PHASE */}
+                {phase === "tasks" && (
+                    <motion.div
+                        key="tasks"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 p-4 bg-gray-800"
+                    >
+                        <h3 className="text-white text-sm mb-4 font-bold border-b border-gray-700 pb-2">GÜNLÜK GÖREVLER ({taskCount}/5)</h3>
 
-                        {/* Task Item */}
-                        <div className="flex items-center justify-between bg-white/5 p-4 rounded-lg">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-red-600 rounded flex items-center justify-center">▶️</div>
-                                <div>
-                                    <p className="font-bold text-sm">YouTube Video Beğen</p>
-                                    <p className="text-xs text-zinc-400">3 Video • ₺150 Kazanç</p>
+                        <div className="space-y-4">
+                            {taskCount < 5 ? (
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={handleTask}
+                                    className="w-full bg-gray-700 hovered:bg-gray-600 border border-gray-600 p-4 rounded-xl flex items-center gap-4 transition-colors group"
+                                >
+                                    <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">▶️</div>
+                                    <div className="text-left">
+                                        <div className="text-white font-bold">YouTube Videosunu Beğen</div>
+                                        <div className="text-gray-400 text-xs">+50.00 TL</div>
+                                    </div>
+                                </motion.button>
+                            ) : (
+                                <div className="text-center py-4">
+                                    <div className="text-green-500 text-4xl mb-2">✅</div>
+                                    <p className="text-white mb-4">Günlük limit doldu!</p>
+                                    <button
+                                        onClick={() => setPhase("withdraw")}
+                                        className="bg-green-600 hover:bg-green-500 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-green-600/20 animate-bounce"
+                                    >
+                                        PARAYI ÇEK 💸
+                                    </button>
                                 </div>
-                            </div>
+                            )}
+                        </div>
+
+                        <div className="mt-8 bg-black/20 p-2 rounded text-[10px] text-gray-500 text-center">
+                            *Görevleri tamamla, anında kazan. Yatırım tavsiyesidir. (!)
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* WITHDRAW PHASE */}
+                {phase === "withdraw" && (
+                    <motion.div
+                        key="withdraw"
+                        initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+                        className="absolute inset-0 bg-gray-800 z-20 flex flex-col p-6 items-center justify-center"
+                    >
+                        <h2 className="text-2xl text-white font-bold mb-6">Para Çekme Talebi</h2>
+                        <div className="text-4xl text-green-400 font-bold mb-8">₺{balance.toFixed(2)}</div>
+
+                        <div className="bg-red-900/30 border border-red-500/50 p-4 rounded-xl mb-8 max-w-xs text-center">
+                            <h3 className="text-red-400 font-bold mb-2">⚠️ Hesabınız Doğrulanmadı</h3>
+                            <p className="text-gray-300 text-sm mb-4">
+                                Güvenlik nedeniyle parayı çekebilmek için <strong>2.000 TL</strong> teminat yatırarak hesabınızı "VIP Üye" statüsüne yükseltmelisiniz. (Teminat 10 dk sonra iade edilir)
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-3 w-full max-w-xs">
                             <button
-                                onClick={() => setBalance(prev => prev + 150)}
-                                disabled={balance > 500}
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded text-xs font-bold disabled:opacity-50 disabled:cursor-not-allowed"
+                                onClick={() => { setCorrect(false); setPhase("result"); }}
+                                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-bold"
                             >
-                                {balance > 500 ? "Tamamlandı" : "Görevi Yap"}
+                                2.000 TL Teminat Yatır
+                            </button>
+                            <button
+                                onClick={() => { setCorrect(true); setPhase("result"); }}
+                                className="bg-transparent border border-gray-500 text-gray-300 hover:text-white py-3 rounded-lg font-bold"
+                            >
+                                Dolandırıcılık! (Çık)
                             </button>
                         </div>
+                    </motion.div>
+                )}
 
-                        {balance > 500 && (
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} className="pt-4">
-                                <p className="text-yellow-400 text-sm text-center mb-3">Günlük limitinize ulaştınız! Paranızı çekebilirsiniz.</p>
-                                <button
-                                    onClick={() => setPhase("withdraw")}
-                                    className="w-full py-4 bg-green-600 hover:bg-green-500 rounded font-bold shadow-[0_0_20px_rgba(34,197,94,0.3)] animate-pulse"
-                                >
-                                    💰 PARAYI HESABA ÇEK
-                                </button>
-                            </motion.div>
-                        )}
+                {/* RESULT */}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-black/95 z-30 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Ponzi Sistemini Fark Ettiniz!" : "Teminatı Kaptırdınız!"}
+                            message={correct
+                                ? "Tebrikler. 'Görev yap para kazan' sistemleri klasik bir Ponzi şemasıdır. İlk başta küçük paralar verirler, sonra 'içeride biriken' büyük parayı çekebilmeniz için sizden para isterler."
+                                : "Teminatı yatırdınız ama paranızı yine çekemediniz. Şimdi de 'Vergi ödemesi' adı altında 5.000 TL daha isteyecekler. Bu bataklık hiç bitmez."}
+                            lesson="İnternette 'Sadece video beğenerek günlük 2000 TL kazan' gibi işler GERÇEK DEĞİLDİR. İş veren size para öder, sizden para istemez."
+                            onReset={() => { setPhase("tasks"); setBalance(0); setTaskCount(0); }}
+                        />
                     </div>
-                </div>
-            )}
-
-            {phase === "withdraw" && (
-                <div className="max-w-sm mx-auto bg-zinc-800 rounded-xl p-6 border border-zinc-600 text-center">
-                    <h3 className="text-xl font-bold mb-4 text-white">VIP 2 Yükseltmesi Gerekli</h3>
-                    <p className="text-zinc-300 text-sm mb-6">
-                        Kazandığınız 550 TL'yi ve sonraki ödemeleri çekebilmek için hesabınızı VIP 2 seviyesine yükseltmelisiniz. Bu sadece bir teminattır ve geri ödenecektir.
-                    </p>
-
-                    <div className="bg-black/50 p-4 rounded mb-6 border border-zinc-700">
-                        <p className="text-zinc-400 text-xs mb-1">İstenen Teminat:</p>
-                        <p className="text-2xl font-bold text-white">20.000 TL</p>
-                    </div>
-
-                    <button
-                        onClick={() => setPhase("result")}
-                        className="w-full py-3 bg-indigo-600 text-white rounded font-bold mb-3"
-                    >
-                        Gönder ve Yükselt
-                    </button>
-                    <button
-                        onClick={() => { setPhase("result"); }} // Simplified logic for demo
-                        className="text-zinc-400 text-sm hover:text-white"
-                    >
-                        Vazgeç (Para İçeride Kalsın)
-                    </button>
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={true} // Educational simulation, always "Correct" outcome is effectively learning the lesson
-                    title="Ponzi Şeması Tuzağı!"
-                    message="İlk başta 250-500 TL gibi küçük paralar ödeyerek güveninizi kazanırlar. Sonra 'teminat' adı altında sizden 20.000 TL alıp kaybolurlar. İçerideki paranızı asla çekemezsiniz."
-                    lesson="İnternetten 'video beğenerek' para kazanılmaz. Bir işveren sizden para istemez, size para öder. Para isteyen her 'iş' teklifi dolandırıcılıktır."
-                    onReset={() => { setPhase("dashboard"); setBalance(250); }}
-                />
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 }
