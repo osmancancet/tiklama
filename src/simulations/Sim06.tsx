@@ -44,7 +44,7 @@ export default function Sim06() {
                     <motion.div
                         key="browser"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="flex-1 bg-white p-4 md:p-8 flex flex-col items-center justify-center relative"
+                        className="flex-1 bg-white p-4 md:p-8 flex flex-col items-center justify-center relative text-gray-800"
                     >
                         <div className="w-full max-w-sm border border-gray-200 rounded-lg p-8 shadow-sm">
                             <h2 className="text-2xl font-bold text-blue-900 mb-6 text-center">BankaGiriş</h2>

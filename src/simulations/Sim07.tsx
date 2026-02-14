@@ -31,14 +31,14 @@ export default function Sim07() {
         <div>
             {phase === "player" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md mx-auto">
-                    <div className="bg-bg-card border border-border-color rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+                    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
 
                         {/* Audio Wave Visualization (Fake) */}
                         <div className="flex items-center justify-center gap-1 h-32 mb-6">
                             {[...Array(20)].map((_, i) => (
                                 <motion.div
                                     key={i}
-                                    className="w-2 bg-neon-blue rounded-full"
+                                    className="w-2 bg-cyan-400 rounded-full"
                                     animate={{
                                         height: isPlaying ? [10, 60, 20, 80, 40] : 10,
                                     }}
@@ -53,9 +53,9 @@ export default function Sim07() {
                         </div>
 
                         <div className="text-center mb-6">
-                            <p className="text-xs text-text-muted mb-2">Bilinmeyen Numara</p>
-                            <h3 className="text-2xl font-bold text-text-primary mb-1">05XX XXX XX XX</h3>
-                            <p className="text-sm text-danger-red italic">&quot;Baba yardım et, çok kötüyüm...&quot;</p>
+                            <p className="text-xs text-gray-500 mb-2">Bilinmeyen Numara</p>
+                            <h3 className="text-2xl font-bold text-white mb-1">05XX XXX XX XX</h3>
+                            <p className="text-sm text-red-500 italic">&quot;Baba yardım et, çok kötüyüm...&quot;</p>
                         </div>
 
                         <div className="flex justify-center gap-4 mb-4">
@@ -67,7 +67,7 @@ export default function Sim07() {
                             </button>
                         </div>
 
-                        <p className="text-center text-xs text-text-secondary mb-6">
+                        <p className="text-center text-xs text-gray-400 mb-6">
                             {isPlaying ? "Ses oynatılıyor..." : "Sesi dinlemek için oynatın"}
                         </p>
 

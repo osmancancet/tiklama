@@ -31,7 +31,7 @@ export default function Sim22() {
                     <motion.div
                         key="search"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="flex-1 bg-white flex flex-col"
+                        className="flex-1 bg-white flex flex-col text-gray-900"
                     >
                         <div className="bg-gray-100 p-2 border-b flex items-center gap-2 text-sm text-gray-500">
                             <span className="bg-white px-2 rounded border">🔍 photoshop full crack indir ücretsiz</span>

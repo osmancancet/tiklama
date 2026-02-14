@@ -8,7 +8,7 @@ export default function Sim19() {
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div className="bg-white min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-200 flex flex-col font-sans relative max-w-2xl mx-auto">
+        <div className="bg-white min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-200 flex flex-col font-sans relative max-w-2xl mx-auto text-gray-800">
 
             <AnimatePresence mode="wait">
                 {/* LISTING PHASE */}

@@ -8,7 +8,7 @@ export default function Sim16() {
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto">
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto text-gray-800">
 
             <AnimatePresence mode="wait">
                 {/* SMS Phase */}
@@ -19,7 +19,7 @@ export default function Sim16() {
                         className="flex-1 bg-white p-4"
                     >
                         <div className="bg-gray-100 rounded-xl p-4 mb-4 relative">
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-2 bg-gray-200 text-[10px] px-2 rounded-full text-gray-500">Bugün 09:42</div>
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-2 bg-gray-200 text-[10px] px-2 rounded-full text-gray-700">Bugün 09:42</div>
                             <div className="font-bold text-gray-800 mb-1">MNG KARGO</div>
                             <p className="text-gray-700 text-sm">
                                 Sayın Müşterimiz, kargonuz adresinize teslim edilememiştir. Lütfen 24 TL gümrük ücretini ödemek ve teslimat tarihini güncellemek için tıklayınız: <span onClick={() => setPhase("tracking")} className="text-blue-500 underline cursor-pointer">mng-kargo-odeme-takip.net</span>

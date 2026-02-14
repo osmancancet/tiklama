@@ -8,7 +8,7 @@ export default function Sim25() {
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto">
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto text-gray-800">
 
             <AnimatePresence mode="wait">
                 {/* 1. THE OFFER */}

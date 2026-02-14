@@ -49,7 +49,7 @@ export default function Sim13() {
                                 onClick={() => setPhase("payment")}
                                 className="w-full bg-white rounded-lg shadow-sm overflow-hidden text-left group hover:opacity-90 transition-opacity"
                             >
-                                <div className="h-24 bg-gray-200 flex items-center justify-center text-4xl text-gray-400">🛡️</div>
+                                <div className="h-24 bg-gray-200 flex items-center justify-center text-4xl text-gray-500">🛡️</div>
                                 <div className="p-2 border-l-4 border-yellow-500">
                                     <h4 className="font-bold text-blue-600 text-sm truncate">guvenli-sahibinden-param-guvende.com/odeme-al</h4>
                                     <p className="text-xs text-gray-500">Ödeme Almak İçin Tıkla</p>

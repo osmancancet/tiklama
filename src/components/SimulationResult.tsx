@@ -24,8 +24,8 @@ export default function SimulationResult({ isCorrect, title, message, lesson, on
                     style={{
                         borderColor: isCorrect ? "var(--success-green)" : "var(--danger-red)",
                         background: isCorrect
-                            ? "linear-gradient(135deg, rgba(48, 209, 88, 0.1), rgba(48, 209, 88, 0.03))"
-                            : "linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(255, 45, 85, 0.03))",
+                            ? "linear-gradient(135deg, rgba(48, 209, 88, 0.1), rgba(48, 209, 88, 0.03)), #0f172a"
+                            : "linear-gradient(135deg, rgba(255, 45, 85, 0.1), rgba(255, 45, 85, 0.03)), #0f172a",
                     }}
                 >
                     {/* Header */}
