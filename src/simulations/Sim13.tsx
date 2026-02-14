@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim13() {
@@ -8,85 +8,118 @@ export default function Sim13() {
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div>
-            {phase === "chat" && (
-                <div className="max-w-sm mx-auto bg-[#0b141a] rounded-xl overflow-hidden border border-zinc-800">
-                    {/* WhatsApp Header */}
-                    <div className="bg-[#202c33] p-3 flex items-center gap-3 border-b border-zinc-700">
-                        <div className="w-8 h-8 rounded-full bg-zinc-500"></div>
-                        <div>
-                            <p className="text-white text-sm font-bold">Bebek Arabası Alıcı</p>
-                            <p className="text-zinc-400 text-xs">Çevrimiçi</p>
+        <div className="bg-[#efe7dd] min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative max-w-sm mx-auto">
+            {/* Header */}
+            <div className="bg-[#075e54] text-white p-3 flex items-center gap-3 shadow-md z-10">
+                <div className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden">
+                    <div className="w-full h-full bg-gray-400 flex items-center justify-center text-lg">👤</div>
+                </div>
+                <div className="flex-1">
+                    <h3 className="font-bold text-sm">Alıcı (Ahmet)</h3>
+                    <p className="text-[10px] opacity-80">çevrimiçi</p>
+                </div>
+                <div className="text-xl">📹 📞 ⋮</div>
+            </div>
+
+            <AnimatePresence mode="wait">
+                {phase === "chat" && (
+                    <motion.div
+                        key="chat"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 p-4 flex flex-col gap-3 overflow-y-auto"
+                        style={{ backgroundImage: 'linear-gradient(#e5ddd5 2px, transparent 2px), linear-gradient(90deg, #e5ddd5 2px, transparent 2px)', backgroundSize: '100px 100px', backgroundColor: '#efe7dd' }}
+                    >
+                        {/* Messages */}
+                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                            Bebek arabası hâlâ satılık mı?
+                            <span className="text-[10px] text-gray-500 block text-right mt-1">14:30 ✓✓</span>
                         </div>
-                    </div>
-
-                    {/* Chat Area */}
-                    <div className="bg-[url('https://camo.githubusercontent.com/854ecb3d4f55b98cb3d2a7bc7723940172e297800c43666b610c36e448b11eb1/68747470733a2f2f757365722d696d616765732e67697468756275736572636f6e74656e742e636f6d2f31353037353735392f32383731393134342d38366463306637302d373362312d343566302d383563642d3938643039646535386434332e706e67')] p-4 space-y-4 h-80 overflow-y-auto">
-
-                        <div className="bg-[#202c33] p-2 rounded-lg rounded-tl-none self-start max-w-[80%]">
-                            <p className="text-white text-sm">Merhaba, bebek arabası hala satılık mı?</p>
-                            <span className="text-[10px] text-zinc-400 block text-right">14:30</span>
+                        <div className="self-start bg-white p-2 rounded-lg rounded-tl-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                            Evet, duruyor. Fiyat son 2500 TL.
+                            <span className="text-[10px] text-gray-500 block text-right mt-1">14:32</span>
+                        </div>
+                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                            Tamam alıyorum. Ama şehir dışındayım, "Güvenli Ödeme" ile halledelim. Link atıyorum, oraya kart bilgilerini gir, para hesabına yatsın. Kurye gelip alacak.
+                            <span className="text-[10px] text-gray-500 block text-right mt-1">14:33 ✓✓</span>
                         </div>
 
-                        <div className="bg-[#005c4b] p-2 rounded-lg rounded-tr-none self-end ml-auto max-w-[80%]">
-                            <p className="text-white text-sm">Evet duruyor, fiyatı 2000 TL.</p>
-                            <span className="text-[10px] text-green-200 block text-right">14:31</span>
+                        {/* Fake Link Block */}
+                        <div className="self-end w-full max-w-[80%]">
+                            <button
+                                onClick={() => setPhase("payment")}
+                                className="w-full bg-white rounded-lg shadow-sm overflow-hidden text-left group hover:opacity-90 transition-opacity"
+                            >
+                                <div className="h-24 bg-gray-200 flex items-center justify-center text-4xl text-gray-400">🛡️</div>
+                                <div className="p-2 border-l-4 border-yellow-500">
+                                    <h4 className="font-bold text-blue-600 text-sm truncate">guvenli-sahibinden-param-guvende.com/odeme-al</h4>
+                                    <p className="text-xs text-gray-500">Ödeme Almak İçin Tıkla</p>
+                                </div>
+                            </button>
                         </div>
+                    </motion.div>
+                )}
 
-                        <div className="bg-[#202c33] p-2 rounded-lg rounded-tl-none self-start max-w-[80%]">
-                            <p className="text-white text-sm">Tamam alıyorum. "Güvenli Ödeme" ile parayı gönderdim. Aşağıdaki linkten parayı hesabına aktarabilirsin 👇</p>
-                            <div className="mt-2 bg-[#1f2c34] p-2 rounded border border-zinc-700 cursor-pointer hover:opacity-80" onClick={() => setPhase("payment")}>
-                                <div className="text-blue-400 text-xs mb-1">guvenli-sahibinden-param.com/odeme-al</div>
-                                <p className="text-white font-bold text-sm">Ödemeyi Hesabına Aktar</p>
+                {phase === "payment" && (
+                    <motion.div
+                        key="payment"
+                        initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }}
+                        className="absolute inset-0 bg-white z-20 flex flex-col"
+                    >
+                        <div className="p-2 border-b flex items-center bg-gray-50">
+                            <span className="text-xs text-gray-500 mr-2">🔒</span>
+                            <div className="flex-1 bg-white border rounded px-2 py-1 text-xs text-gray-700 truncate">
+                                https://guvenli-sahibinden-param-guvende.com/odeme...
                             </div>
-                            <span className="text-[10px] text-zinc-400 block text-right">14:33</span>
+                            <button onClick={() => setPhase("chat")} className="ml-2 text-gray-500 text-lg">✕</button>
                         </div>
+
+                        <div className="p-6 flex-1 flex flex-col items-center">
+                            <h2 className="text-xl font-bold text-blue-900 mb-4">Ödeme Alma Ekranı</h2>
+                            <p className="text-sm text-gray-600 mb-6 text-center">
+                                Hesabınıza 2.500 TL yatırılması için kart bilgilerinizi doğrulayın.
+                            </p>
+
+                            <div className="w-full space-y-4">
+                                <input type="text" placeholder="Kart Numarası" className="w-full border p-2 rounded" />
+                                <div className="flex gap-2">
+                                    <input type="text" placeholder="Ay/Yıl" className="w-1/2 border p-2 rounded" />
+                                    <input type="text" placeholder="CVV" className="w-1/2 border p-2 rounded" />
+                                </div>
+                                <div className="bg-yellow-50 p-2 text-[10px] text-yellow-800 rounded">
+                                    *Kartınızdan çekim yapılmayacaktır, sadece doğrulama içindir.
+                                </div>
+                                <button
+                                    onClick={() => { setCorrect(false); setPhase("result"); }}
+                                    className="w-full bg-green-500 text-white py-3 rounded font-bold hover:bg-green-600"
+                                >
+                                    Onayla ve Parayı Al
+                                </button>
+                                <button
+                                    onClick={() => { setCorrect(true); setPhase("result"); }}
+                                    className="w-full mt-2 text-red-500 text-sm font-bold hover:underline"
+                                >
+                                    Bu İşte Bir Terslik Var! (İptal)
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* Result */}
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-black/80 z-50 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Dolandırıcıyı Fark Ettiniz!" : "Kart Bilgilerinizi Çaldırdınız!"}
+                            message={correct
+                                ? "Mükemmel! Bir ürün satarken 'ödeme almak için' ASLA kart numaranızı veya CVV kodunuzu girmemelisiniz. Sadece IBAN yeterlidir."
+                                : "Tuzağa düştünüz. 'Parayı hesabına yatıracağız' yalanıyla kart bilgilerinizi aldılar. Gerçekte kartınızdan para çekeceklerdi."}
+                            lesson="Para ALMAK için kart bilgisi (özellikle CVV ve son kullanma tarihi) gerekmez! Sadece IBAN verilir. Size link atıp kart bilgisi isteyenler %100 dolandırıcıdır."
+                            onReset={() => setPhase("chat")}
+                        />
                     </div>
-
-                    <div className="p-2 bg-[#202c33]">
-                        <p className="text-center text-xs text-zinc-500">Linke tıklayın 👆</p>
-                    </div>
-                </div>
-            )}
-
-            {phase === "payment" && (
-                <div className="max-w-sm mx-auto bg-white rounded-xl p-6 text-black">
-                    <h3 className="text-center font-bold text-lg mb-4 text-blue-800">Ödemeyi Al</h3>
-                    <p className="text-sm text-center mb-6">2000 TL tutarındaki ödemeyi almak için kart bilgilerinizi giriniz.</p>
-
-                    <input type="text" placeholder="Ad Soyad" className="w-full border p-2 rounded mb-3" />
-                    <input type="text" placeholder="Kart Numarası" className="w-full border p-2 rounded mb-3" />
-                    <div className="flex gap-2 mb-6">
-                        <input type="text" placeholder="AA/YY" className="w-1/2 border p-2 rounded" />
-                        <input type="text" placeholder="CVV" className="w-1/2 border p-2 rounded" />
-                    </div>
-
-                    <button
-                        onClick={() => { setCorrect(false); setPhase("result"); }}
-                        className="w-full bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700 mb-3"
-                    >
-                        Parayı Al
-                    </button>
-                    <button
-                        onClick={() => { setCorrect(true); setPhase("result"); }}
-                        className="w-full bg-zinc-200 text-black py-3 rounded font-bold hover:bg-zinc-300"
-                    >
-                        İptal Et / Şüpheli
-                    </button>
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={correct}
-                    title={correct ? "Dikkatlisiniz!" : "Kart Bilgileriniz Çalındı!"}
-                    message={correct
-                        ? "Para almak için kart bilgisi veya CVV girilmeyeceğini biliyorsunuz."
-                        : "Satıcı sizsiniz ama kart bilgilerinizi girdiniz! Dolandırıcı hem ürünü almayacak hem de kartınızı boşaltacak."}
-                    lesson="Para almak için IBAN (TR...) yeterlidir! CVV, Kart Numarası veya SMS şifresi asla ve asla istenmez."
-                    onReset={() => setPhase("chat")}
-                />
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 }

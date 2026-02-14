@@ -71,7 +71,7 @@ export default function Sim03() {
                         {/* Address Bar */}
                         <div className="px-3 py-2 bg-white border-b border-gray-200 flex text-xs text-gray-500 gap-2 items-center">
                             <span>⬅</span> <span>➡</span>
-                            <div className="bg-gray-100 flex-1 px-2 py-1 rounded border border-gray-200">Bilgisayarım > FUSB (E:)</div>
+                            <div className="bg-gray-100 flex-1 px-2 py-1 rounded border border-gray-200">Bilgisayarım &gt; FUSB (E:)</div>
                         </div>
 
                         {/* Content */}

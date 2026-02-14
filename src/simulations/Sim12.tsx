@@ -1,88 +1,108 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim12() {
-    const [phase, setPhase] = useState<"wifi" | "hack" | "result">("wifi");
-    const [selectedWifi, setSelectedWifi] = useState<string | null>(null);
+    const [phase, setPhase] = useState<"list" | "connected" | "result">("list");
+    const [correct, setCorrect] = useState(false);
+    const [selectedNet, setSelectedNet] = useState<string | null>(null);
 
     const networks = [
-        { ssid: "Hotel_Network_Secure", lock: true, signal: 3 },
-        { ssid: "Free_Guest_WiFi", lock: false, signal: 4 }, // Trap
-        { ssid: "Cafe_Latte_Guest", lock: true, signal: 2 },
+        { ssid: "Hotel_Grand_Secure", secure: true, signal: 3, locked: true },
+        { ssid: "Free_Guest_WiFi", secure: false, signal: 4, locked: false }, // Trap
+        { ssid: "Cafe_Latte_5G", secure: true, signal: 2, locked: true },
+        { ssid: "HP-Printer-Network", secure: false, signal: 1, locked: false },
     ];
 
-    const handleConnect = (ssid: string) => {
-        setSelectedWifi(ssid);
-        if (ssid === "Free_Guest_WiFi") {
-            setTimeout(() => setPhase("hack"), 1000);
+    const connectTo = (ssid: string, isTrap: boolean) => {
+        setSelectedNet(ssid);
+        if (isTrap) {
+            // Trap network
+            setCorrect(false);
+            setPhase("result");
         } else {
-            // Simulate password prompt then fail or success (simplified for demo)
-            alert("Şifre gerekli. Açık ağa bağlanmayı deneyin (Simülasyon gereği).");
+            // Secure network (simulate asking for password or just success if we assume they have it)
+            // For gamification, let's say they can't connect to locked ones without asking reception,
+            // but the easy 'Free' one is tempting.
+            // Actually, connecting to 'Secure' should be the 'Good' choice (assuming they get password from reception).
+            setCorrect(true);
+            setPhase("result");
         }
     };
 
     return (
-        <div>
-            {phase === "wifi" && (
-                <div className="max-w-sm mx-auto bg-white text-black rounded-3xl overflow-hidden border-4 border-zinc-200 shadow-xl">
-                    <div className="bg-zinc-100 p-4 border-b flex justify-between items-center">
-                        <span className="font-bold">Wi-Fi</span>
-                        <div className="w-10 h-5 bg-green-500 rounded-full relative">
-                            <div className="absolute right-1 top-1 w-3 h-3 bg-white rounded-full"></div>
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-300 flex flex-col font-sans relative max-w-sm mx-auto">
+
+            {/* Phone Header */}
+            <div className="bg-white p-4 border-b border-gray-200 flex justify-between items-center sticky top-0 z-10">
+                <h2 className="text-lg font-bold text-gray-800">Wi-Fi</h2>
+                <div className="w-10 h-6 bg-green-500 rounded-full p-1 flex justify-end">
+                    <div className="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+                </div>
+            </div>
+
+            <div className="p-2 bg-gray-50 text-xs text-gray-500 uppercase font-bold tracking-wider px-4 py-2">
+                Kullanılabilir Ağlar
+            </div>
+
+            <div className="flex-1 bg-white">
+                {networks.map((net, i) => (
+                    <motion.div
+                        key={i}
+                        whileTap={{ backgroundColor: "#f3f4f6" }}
+                        onClick={() => {
+                            if (net.locked) {
+                                // Simulate password prompt for secure net, let's just say it's the right choice
+                                setCorrect(true);
+                                setPhase("result");
+                            } else {
+                                // Insecure net
+                                setCorrect(false);
+                                setPhase("result");
+                            }
+                        }}
+                        className="flex items-center justify-between p-4 border-b border-gray-100 cursor-pointer"
+                    >
+                        <div className="flex flex-col">
+                            <span className="text-gray-900 font-medium">{net.ssid}</span>
+                            {!net.locked && <span className="text-xs text-gray-400">Güvenliksiz Ağ</span>}
                         </div>
-                    </div>
-
-                    <div className="p-2">
-                        <p className="text-xs text-zinc-500 px-2 py-1 uppercase">Ağlar</p>
-                        {networks.map((net, i) => (
-                            <div
-                                key={i}
-                                onClick={() => handleConnect(net.ssid)}
-                                className="flex items-center justify-between p-3 border-b border-zinc-100 hover:bg-blue-50 cursor-pointer"
-                            >
-                                <div className="flex flex-col">
-                                    <span className="font-medium text-sm">{net.ssid}</span>
-                                    {!net.lock && <span className="text-[10px] text-zinc-400">Güvenliksiz Ağ</span>}
-                                </div>
-                                <div className="flex items-center gap-2 text-zinc-600">
-                                    {net.lock && <span>🔒</span>}
-                                    <span className="font-bold tracking-tighter">📶</span>
-                                </div>
+                        <div className="flex items-center gap-3">
+                            {net.locked && <span className="text-gray-400 text-xs">🔒</span>}
+                            <div className="flex items-end gap-0.5 h-4">
+                                <div className={`w-1 rounded-sm ${net.signal > 0 ? "bg-black" : "bg-gray-300"} h-2`}></div>
+                                <div className={`w-1 rounded-sm ${net.signal > 1 ? "bg-black" : "bg-gray-300"} h-3`}></div>
+                                <div className={`w-1 rounded-sm ${net.signal > 2 ? "bg-black" : "bg-gray-300"} h-4`}></div>
                             </div>
-                        ))}
+                            <span className="text-blue-500 text-xl">ℹ️</span>
+                        </div>
+                    </motion.div>
+                ))}
+
+                <div className="p-4 text-center mt-4">
+                    <p className="text-sm text-gray-500 mb-4">
+                        Tatilde oteldesiniz. İnternet bankacılığına girip fatura ödemeniz gerekiyor. Hangi ağa bağlanırsınız?
+                    </p>
+                    <div className="text-xs bg-yellow-50 p-2 rounded border border-yellow-200 text-yellow-800">
+                        💡 İpucu: 'Free' veya şifresiz ağlar her zaman caziptir ama güvenli midir?
                     </div>
                 </div>
-            )}
+            </div>
 
-            {phase === "hack" && (
-                <div className="flex flex-col items-center">
-                    <div className="max-w-md w-full bg-black text-terminal-green font-mono p-4 rounded-xl border border-terminal-green/50 text-xs mb-6">
-                        <p className="border-b border-terminal-green/30 pb-2 mb-2 font-bold text-center">HACKER PANEL [packet_sniffer.py]</p>
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ staggerChildren: 0.2 }}>
-                            <p>{">"} Target connected: 192.168.1.14 (Merve's iPhone)</p>
-                            <p>{">"} Intercepting HTTP traffic...</p>
-                            <p className="text-white mt-2">{">"} POST /login.php</p>
-                            <p className="text-white">{">"} user=merve_yilmaz</p>
-                            <p className="text-danger-red font-bold animate-pulse">{">"} pass=tatil2024!</p>
-                            <p className="text-zinc-500 mt-2">{">"} Session cookie captured.</p>
-                        </motion.div>
-                    </div>
-                    <button onClick={() => setPhase("result")} className="btn-danger">
-                        Simülasyonu Bitir
-                    </button>
-                </div>
-            )}
-
+            {/* Result */}
             {phase === "result" && (
-                <SimulationResult
-                    isCorrect={false}
-                    title="Açık Ağ Tuzağı!"
-                    message="Otel veya kafelardeki şifresiz 'Free' ağları genellikle tuzaktır. (Man-in-the-Middle). Gönderdiğiniz tüm veriler saldırganın üzerinden geçer."
-                    lesson="Kamusal alanlarda asla bankacılık işlemi yapmayın. Mümkünse kendi hücresel verinizi (4G/5G) veya güvenilir bir VPN kullanın."
-                    onReset={() => setPhase("wifi")}
-                />
+                <div className="absolute inset-0 bg-white z-20 p-4 overflow-y-auto">
+                    <SimulationResult
+                        isCorrect={correct}
+                        title={correct ? "Güvenli Bağlantı!" : "Man-in-the-Middle Saldırısı!"}
+                        message={correct
+                            ? "Doğru tercih! Resepsiyondan şifresini aldığınız şifreli (kilitli) ağa bağlanarak veya kendi hücresel verinizi kullanarak verilerinizi şifrelediniz."
+                            : "Tuzağa düştünüz! 'Free_Guest_WiFi' gibi şifresiz ağlar genellikle hackerlar tarafından kurulur (Evil Twin). Bu ağ üzerinden yaptığınız tüm bankacılık işlemleri izlendi."}
+                        lesson="Halka açık şifresiz Wi-Fi ağlarında asla bankacılık işlemi veya e-devlet girişi yapmayın. Mümkünse VPN veya kendi mobil verinizi kullanın."
+                        onReset={() => setPhase("list")}
+                    />
+                </div>
             )}
         </div>
     );
