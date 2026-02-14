@@ -27,7 +27,7 @@ export default function AuthorPage() {
 
                     <div className="text-center md:text-left">
                         <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Öğr. Gör. Osman Can Çetlenbik</h1>
-                        <p className="text-lg text-accent-blue font-mono mb-4">Akademisyen (Kütahya Dumlupınar Üni.) & Yazar</p>
+                        <p className="text-lg text-accent-blue font-mono mb-4">Akademisyen & Yazar</p>
                         <p className="text-text-secondary leading-relaxed max-w-2xl text-sm">
                             Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği mezunu ve Isparta Uygulamalı Bilimler Üniversitesi'nde Yüksek Lisans eğitimini tamamlamış bir teknoloji araştırmacısı.
                             Siber Güvenlik ve Bilişim Hukuku Derneği üyesi olarak, akademik çalışmalarını "farkındalık" ve "insan odaklı güvenlik" üzerine yoğunlaştırmaktadır.
@@ -120,6 +120,6 @@ export default function AuthorPage() {
                 </motion.div>
 
             </div>
-        </div> >
+        </div>
     );
 }
