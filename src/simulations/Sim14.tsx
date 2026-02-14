@@ -1,75 +1,91 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim14() {
-    const [phase, setPhase] = useState<"email" | "result">("email");
+    const [phase, setPhase] = useState<"email" | "decision" | "result">("email");
     const [correct, setCorrect] = useState(false);
 
     return (
-        <div>
-            {phase === "email" && (
-                <div className="bg-bg-primary border border-border-color rounded-xl overflow-hidden max-w-2xl mx-auto">
-                    {/* Email Header */}
-                    <div className="bg-bg-card p-4 border-b border-border-color">
-                        <h3 className="text-xl font-bold text-text-primary">RE: Köşk Satış Sözleşmesi ve Ödeme</h3>
-                        <div className="mt-2 flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 bg-zinc-700 rounded-full flex items-center justify-center font-bold">A</div>
+        <div className="bg-white min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-300 flex flex-col font-sans relative max-w-2xl mx-auto">
+
+            {/* Outlook Header Reused */}
+            <div className="bg-[#0078d4] text-white p-3 flex justify-between items-center shadow-md">
+                <span className="font-bold">Outlook</span>
+            </div>
+
+            <AnimatePresence mode="wait">
+                {phase === "email" && (
+                    <motion.div
+                        key="email"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 p-6 flex flex-col"
+                    >
+                        <h2 className="text-xl font-bold mb-4">Re: Köşk Satışı / Tapu Devir İşlemleri</h2>
+
+                        {/* Old Email (Context) */}
+                        <div className="mb-4 opacity-50 border-l-2 border-gray-300 pl-4 py-2">
+                            <div className="flex justify-between text-xs mb-1">
+                                <span className="font-bold">Av. Kemal Yılmaz</span>
+                                <span>Dün 14:00</span>
+                            </div>
+                            <p className="text-sm truncate">Burak Bey merhaba, tapu işlemleri için hazırlıklar tamam...</p>
+                        </div>
+
+                        {/* New Fake Email */}
+                        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100 shadow-sm mb-6">
+                            <div className="flex items-center gap-3 mb-4">
+                                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">KY</div>
                                 <div>
-                                    <p className="text-sm font-semibold">Avukat Ahmet Yılmaz <span className="text-text-muted text-xs">&lt;ahmet.yilmaz@avukat-hukuk.com&gt;</span></p>
-                                    <p className="text-xs text-text-muted">Alıcı: Burak Bey</p>
+                                    <div className="font-bold text-gray-900">Av. Kemal Yılmaz</div>
+                                    <div className="text-xs text-gray-500">av.kemal.yilmaz@hukuk-burosu.com.tr.domain-service.net</div>
                                 </div>
                             </div>
-                            <span className="text-xs text-text-muted">Bugün, 09:15</span>
-                        </div>
-                    </div>
 
-                    {/* Email Body */}
-                    <div className="p-6 text-sm leading-relaxed text-text-secondary">
-                        <p className="mb-4">Sayın Burak Bey,</p>
-                        <p className="mb-4">Tapu işlemleri öncesinde 5.000.000 TL kapora ödemesinin bugün yapılması gerekmektedir. İşlemleri hızlandırmak adına lütfen ödemeyi aşağıdaki yeni hesabımıza yapınız. Eski hesabımızda teknik bir blokaj mevcuttur.</p>
-
-                        <div className="bg-yellow-900/10 border border-yellow-700/30 p-4 rounded mb-6">
-                            <p className="font-bold text-yellow-500 mb-2">📌 YENİ HESAP BİLGİLERİ:</p>
-                            <p className="font-mono text-text-primary">Alıcı: Yılmaz Danışmanlık A.Ş.</p>
-                            <p className="font-mono text-text-primary">IBAN: TR12 0006 1000 2345 6789 0101 99</p>
+                            <div className="text-sm text-gray-800 space-y-3 leading-relaxed">
+                                <p>Burak Bey,</p>
+                                <p>Tapu dairesindeki yoğunluk nedeniyle işlem günümüz yarına sarktı. Ancak harç ödemesinin bugün yapılması gerekiyor.</p>
+                                <p><strong>ÖNEMLİ:</strong> Muhasebecimizin hesaplarında bloke olduğu için, ödemeyi aşağıdaki yeni IBAN adresimize yapmanızı rica ederim. Eski hesaba gönderim yapmayınız.</p>
+                                <div className="bg-white p-3 border border-gray-200 rounded font-mono text-gray-700">
+                                    TR99 0006 1000 2888 3444 5555 11<br />
+                                    ALICI: Yılmaz Hukuk Danışmanlık
+                                </div>
+                                <p className="text-red-600 font-bold text-xs">Aksi takdirde satış işlemi iptal olacaktır.</p>
+                            </div>
                         </div>
 
-                        <p className="mb-8">Dekontu paylaşırsanız hemen tapu randevusunu oluşturacağım.</p>
-                        <p>Saygılarımla,<br />Av. Ahmet Yılmaz</p>
-                    </div>
+                        <div className="flex gap-4 mt-auto">
+                            <button
+                                onClick={() => { setCorrect(false); setPhase("result"); }}
+                                className="flex-1 bg-blue-600 text-white py-3 rounded font-bold hover:bg-blue-700 transition-colors"
+                            >
+                                💸 Hemen Gönder
+                            </button>
+                            <button
+                                onClick={() => { setCorrect(true); setPhase("result"); }}
+                                className="flex-1 bg-white border border-blue-600 text-blue-600 py-3 rounded font-bold hover:bg-blue-50 transition-colors"
+                            >
+                                📞 Avukatı Ara
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
 
-                    {/* Actions */}
-                    <div className="bg-bg-card p-4 border-t border-border-color flex gap-4">
-                        <button
-                            onClick={() => { setCorrect(false); setPhase("result"); }}
-                            className="flex-1 bg-neon-blue/10 border border-neon-blue text-neon-blue py-3 rounded hover:bg-neon-blue/20"
-                        >
-                            💸 Hesaba Gönder
-                        </button>
-                        <button
-                            onClick={() => { setCorrect(true); setPhase("result"); }}
-                            className="flex-1 bg-zinc-800 border border-zinc-600 text-white py-3 rounded hover:bg-zinc-700"
-                        >
-                            📞 Avukatı Ara & Teyit Et
-                        </button>
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-white z-20 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Dolandırıcılığı Önlediniz!" : "Sahte Hesaba Para Gönderdiniz!"}
+                            message={correct
+                                ? "Harika refleks! Yüksek meblağlı ödemelerde veya ani hesap değişikliklerinde SADECE e-postaya güvenilmez. Telefonla sesli teyit alarak aslında mailin sahte olduğunu öğrendiniz."
+                                : "Büyük kayıp! E-posta adresi dikkatli bakıldığında sahteydi (spoofing). Avukatınızın mail hesabı hacklenmiş veya taklit edilmişti. Parayı dolandırıcıların hesabına yolladınız."}
+                            lesson="Özellikle gayrimenkul ve araç alım-satımlarında, 'IBAN değişti', 'Hesap bloke oldu' gibi bahanelerle gelen e-postalara ASLA itibar etmeyin. Mutlaka telefonla doğrulayın."
+                            onReset={() => setPhase("email")}
+                        />
                     </div>
-                </div>
-            )}
-
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={correct}
-                    title={correct ? "Dolandırıcılık Önlendi!" : "5 Milyon TL Buhar Oldu!"}
-                    message={correct
-                        ? "Müthiş! Son anda gelen hesap değişiklikleri %99 dolandırıcılıktır. Arayıp teyit ederek e-postanın hacklendiğini öğrendiniz."
-                        : "E-postaya güvendiniz ancak avukatınızın maili hacklenmişti. Parayı dolandırıcıların 'Yılmaz Danışmanlık' adıyla açtığı paravan şirkete gönderdiniz."}
-                    lesson="Büyük finansal işlemlerde, e-posta ile gelen 'Hesap Değişti' uyarılarına asla güvenmeyin. Mutlaka telefonda sesli teyit alın."
-                    onReset={() => setPhase("email")}
-                />
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 }
