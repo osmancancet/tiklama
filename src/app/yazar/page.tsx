@@ -23,7 +23,7 @@ const itemVariants = {
 
 export default function AuthorPage() {
     return (
-        <div className="min-h-screen pt-24 pb-20 overflow-hidden">
+        <div className="min-h-screen pt-24 pb-20">
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -69,7 +69,7 @@ export default function AuthorPage() {
                                 <span>E-POSTA</span>
                             </a>
                             <a
-                                href="https://linkedin.com/in/osmancancet"
+                                href="https://www.linkedin.com/in/osmancancetlenbik/"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="px-6 py-3 rounded-lg bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600/40 transition-all active:scale-95 flex items-center gap-2 text-xs font-mono text-blue-200"
@@ -180,7 +180,7 @@ export default function AuthorPage() {
                                 gücünü ortaya koymak için tasarlandı."
                             </p>
                             <p>
-                                <strong>'İnsan Zihnini Hackleme Sanatı'</strong> kitabının bir uzantısı olan bu platform, sayfalar arasında kaybolan
+                                <strong>'TIKLAMA: İnsan Zihnini Hackleme Sanatı'</strong> kitabının bir uzantısı olan bu platform, sayfalar arasında kaybolan
                                 okuyucuyu pasif bir gözlemciden aktif bir savunmacıya dönüştürmeyi hedefler. Sosyal mühendislik sadece bir kodlama hatası değil,
                                 insan doğasının bir açığıdır; ve bu açık ancak onu bizzat deneyimleyerek kapatılabilir.
                             </p>
