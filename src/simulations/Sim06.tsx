@@ -1,77 +1,99 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim06() {
-    const [phase, setPhase] = useState<"sms" | "fake-site" | "result">("sms");
-    const [step, setStep] = useState(0);
+    const [phase, setPhase] = useState<"browser" | "inspection" | "result">("browser");
+    const [correct, setCorrect] = useState(false);
+    const [showHint, setShowHint] = useState(false);
 
     return (
-        <div>
-            {phase === "sms" && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-sm mx-auto bg-zinc-900 rounded-2xl border border-zinc-800 p-4">
-                    {/* Fake SMS UI */}
-                    <div className="flex items-center gap-3 mb-6 border-b border-zinc-800 pb-3">
-                        <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">B</div>
-                        <div>
-                            <p className="text-white font-bold">BANKA</p>
-                            <p className="text-zinc-500 text-xs">Şimdi</p>
+        <div className="bg-gray-100 min-h-[500px] rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative">
+            {/* Browser Window Chrome */}
+            <div className="bg-gray-200 border-b border-gray-300 p-2 flex items-center gap-3">
+                <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <div className="flex-1 flex gap-2">
+                    <div className="bg-white rounded px-3 py-1 text-xs text-gray-600 flex-1 flex items-center justify-between border border-gray-300 relative group cursor-help"
+                        onMouseEnter={() => setShowHint(true)}
+                        onMouseLeave={() => setShowHint(false)}>
+                        <div className="flex items-center gap-2 overflow-hidden">
+                            <span className="text-gray-400">🔒</span>
+                            <span className="truncate">https://secure-banka.com.tr.login-update.xyz/giris</span>
                         </div>
-                    </div>
+                        <span className="text-[10px] text-blue-500 hover:underline">URL'yi İncele 🔍</span>
 
-                    <div className="bg-zinc-800 p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl text-sm leading-relaxed mb-4">
-                        <p className="text-white">Degerli Musterimiz, hesabinizdan supheli 4500 TL islem yapilmistir. Iptal etmek icin: <span className="text-blue-400 underline cursor-pointer" onClick={() => setPhase("fake-site")}>https://banka-iade.com/giris</span></p>
-                    </div>
-
-                    <p className="text-center text-xs text-zinc-500 animate-pulse">Linke tıklayarak devam edin 👆</p>
-                </motion.div>
-            )}
-
-            {phase === "fake-site" && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-                    <div className="bg-white rounded-lg overflow-hidden max-w-sm mx-auto">
-                        {/* Fake Browser Bar */}
-                        <div className="bg-zinc-100 border-b p-2 flex items-center gap-2">
-                            <div className="flex gap-1">
-                                <div className="w-2 h-2 rounded-full bg-red-400"></div>
-                                <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
-                                <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                            </div>
-                            <div className="flex-1 bg-white border rounded px-2 py-1 text-xs text-zinc-600 text-center flex items-center justify-center gap-1">
-                                <span className="text-red-500">🔓</span>
-                                <span>banka-iade.com/giris</span>
-                            </div>
-                        </div>
-
-                        <div className="p-6 flex flex-col items-center">
-                            <div className="w-12 h-12 bg-blue-600 rounded mb-4"></div>
-                            <h3 className="text-zinc-800 font-bold text-lg mb-6">İnternet Şubesi</h3>
-
-                            <input type="text" placeholder="Müşteri No / TCKN" className="w-full bg-zinc-50 border p-2 rounded mb-3 text-sm text-black" />
-                            <input type="password" placeholder="Şifre" className="w-full bg-zinc-50 border p-2 rounded mb-6 text-sm text-black" />
-
-                            <button
-                                onClick={() => setPhase("result")}
-                                className="w-full bg-blue-600 text-white py-2 rounded font-semibold hover:bg-blue-700"
+                        {showHint && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                                className="absolute top-full left-0 mt-2 bg-yellow-100 border border-yellow-300 text-yellow-800 p-2 rounded text-xs shadow-lg z-50 w-full"
                             >
-                                Giriş Yap
-                            </button>
-                        </div>
+                                <strong>İpucu:</strong> Alan adına dikkat et! 'secure-banka.com.tr' gerçek alan adı değil, sadece bir alt alan adı (subdomain).
+                            </motion.div>
+                        )}
                     </div>
-                    <p className="text-center text-xs text-zinc-500 mt-4">Adres çubuğuna dikkat ettiniz mi?</p>
-                </motion.div>
-            )}
+                </div>
+            </div>
 
-            {phase === "result" && (
-                <SimulationResult
-                    isCorrect={false} // User clicked the link and tried to login
-                    title="Hesabınız Ele Geçirildi!"
-                    message="Girdiğiniz site 'banka.com' değil, 'banka-iade.com' idi. Şifreniz saldırganlara gitti."
-                    lesson="Adres çubuğunu harf harf okuyun! Bankalar SMS ile doğrudan giriş linki göndermez. İşlemleri kendi uygulamasından yapın."
-                    onReset={() => setPhase("sms")}
-                />
-            )}
+            <AnimatePresence mode="wait">
+                {phase === "browser" && (
+                    <motion.div
+                        key="browser"
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        className="flex-1 bg-white p-4 md:p-8 flex flex-col items-center justify-center relative"
+                    >
+                        <div className="w-full max-w-sm border border-gray-200 rounded-lg p-8 shadow-sm">
+                            <h2 className="text-2xl font-bold text-blue-900 mb-6 text-center">BankaGiriş</h2>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-sm text-gray-600 mb-1">Müşteri No / T.C.</label>
+                                    <input type="text" className="w-full border border-gray-300 rounded p-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="12345678" />
+                                </div>
+                                <div>
+                                    <label className="block text-sm text-gray-600 mb-1">Şifre</label>
+                                    <input type="password" className="w-full border border-gray-300 rounded p-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none" placeholder="••••••" />
+                                </div>
+                                <button
+                                    onClick={() => { setCorrect(false); setPhase("result"); }}
+                                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition-colors"
+                                >
+                                    Giriş Yap
+                                </button>
+                            </div>
+
+                            <div className="mt-8 pt-6 border-t border-gray-100 text-center">
+                                <p className="text-xs text-gray-400 mb-4">Güvenliğiniz için URL'yi kontrol ediniz.</p>
+                                <button
+                                    onClick={() => { setCorrect(true); setPhase("result"); }}
+                                    className="text-red-500 text-sm hover:underline font-semibold"
+                                >
+                                    ⚠️ Bu site sahte! (Bildir)
+                                </button>
+                            </div>
+                        </div>
+
+                    </motion.div>
+                )}
+
+                {phase === "result" && (
+                    <div className="absolute inset-0 bg-white z-20 p-4 md:p-12 overflow-y-auto">
+                        <SimulationResult
+                            isCorrect={correct}
+                            title={correct ? "Phishing Sitesini Tespit Ettiniz!" : "Kimlik Bilgileriniz Çalındı!"}
+                            message={correct
+                                ? "Mükemmel dikkat! Adres çubuğundaki (URL) garipliği fark ettiniz. 'login-update.xyz' gibi alakasız bir alan adı kullanılmıştı."
+                                : "Görünüşe aldandınız. Site tasarımı birebir aynı olsa da, yukarıdaki adres çubuğu sahte olduğunu haykırıyordu. Bilgilerinizi girdiniz ve korsanlara gönderildi."}
+                            lesson="Bir siteye şifre girmeden önce MUTLAKA adres çubuğunu (URL) kontrol edin. Tasarım kopyalanabilir ama alan adı (domain) kopyalanamaz."
+                            onReset={() => setPhase("browser")}
+                        />
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
