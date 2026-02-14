@@ -21,6 +21,25 @@ const itemVariants = {
     }
 };
 
+const listContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
+const listItemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.4 }
+    }
+};
+
 export default function AuthorPage() {
     return (
         <div className="min-h-screen pt-24 pb-20">
@@ -57,7 +76,7 @@ export default function AuthorPage() {
                         <p className="text-text-secondary leading-relaxed max-w-2xl text-sm mb-6">
                             Manisa Celal Bayar Üniversitesi'nde Öğretim Görevlisi olarak çalışmaktadır.
                             Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği lisans ve Isparta Uygulamalı Bilimler Üniversitesi Yüksek Lisans eğitimlerini tamamlamıştır.
-                            Akademik çalışmalarını Siber Güvenlik, IoT Güvenliği ve İnsan Odaklı Güvenlik (Sosyal Mühendislik) üzerine yoğunlaştırmaktadır.
+                            Akademik çalışmalarını Siber Güvenlik, IoT Güvenliği ve Sosyal Mühendislik üzerine yoğunlaştırmaktadır.
                         </p>
 
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start relative z-50 pointer-events-auto">
@@ -92,44 +111,50 @@ export default function AuthorPage() {
                         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                             <span className="text-2xl">🎓</span> Akademik & Kariyer
                         </h3>
-                        <div className="space-y-6">
-                            <div>
+                        <motion.div
+                            variants={listContainerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="space-y-6"
+                        >
+                            <motion.div variants={listItemVariants}>
                                 <h4 className="text-accent-blue font-bold text-sm">Akademik Görevler</h4>
                                 <ul className="mt-2 space-y-3 text-sm text-text-secondary">
-                                    <li className="flex flex-col">
-                                        <span className="text-white">Öğretim Görevlisi</span>
+                                    <li className="flex flex-col group hover:text-white transition-colors">
+                                        <span className="text-white group-hover:text-accent-blue transition-colors">Öğretim Görevlisi</span>
                                         <span className="text-xs opacity-70">Manisa Celal Bayar Üniversitesi (2026 - ...)</span>
                                     </li>
-                                    <li className="flex flex-col">
-                                        <span className="text-white">Öğretim Görevlisi</span>
+                                    <li className="flex flex-col group hover:text-white transition-colors">
+                                        <span className="text-white group-hover:text-accent-blue transition-colors">Öğretim Görevlisi</span>
                                         <span className="text-xs opacity-70">Kütahya Dumlupınar Üniversitesi (2025)</span>
                                     </li>
-                                    <li className="flex flex-col">
-                                        <span className="text-white">Öğretim Görevlisi</span>
+                                    <li className="flex flex-col group hover:text-white transition-colors">
+                                        <span className="text-white group-hover:text-accent-blue transition-colors">Öğretim Görevlisi</span>
                                         <span className="text-xs opacity-70">Doğuş Üniversitesi (2025)</span>
                                     </li>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            <div className="border-t border-white/5 pt-4">
+                            <motion.div variants={listItemVariants} className="border-t border-white/5 pt-4">
                                 <h4 className="text-accent-blue font-bold text-sm">Sektör Deneyimi</h4>
                                 <ul className="mt-2 space-y-3 text-sm text-text-secondary">
-                                    <li className="flex flex-col">
-                                        <span className="text-white">Yazılım Mühendisi</span>
+                                    <li className="flex flex-col group hover:text-white transition-colors">
+                                        <span className="text-white group-hover:text-accent-blue transition-colors">Yazılım Mühendisi</span>
                                         <span className="text-xs opacity-70">Verkosis Bilişim Teknolojileri (2024 - 2025)</span>
                                     </li>
-                                    <li className="flex flex-col">
-                                        <span className="text-white">Bilgisayar Mühendisi</span>
+                                    <li className="flex flex-col group hover:text-white transition-colors">
+                                        <span className="text-white group-hover:text-accent-blue transition-colors">Bilgisayar Mühendisi</span>
                                         <span className="text-xs opacity-70">Somut Yönetim Danışmanlık (2023)</span>
                                     </li>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            <div className="border-t border-white/5 pt-4">
+                            <motion.div variants={listItemVariants} className="border-t border-white/5 pt-4">
                                 <h4 className="text-accent-blue font-bold text-sm">Dernek Üyelikleri</h4>
-                                <p className="text-sm text-text-secondary mt-1">Siber Güvenlik ve Bilişim Hukuku Derneği (2022 - Devam)</p>
-                            </div>
-                        </div>
+                                <p className="text-sm text-text-secondary mt-1 group hover:text-white transition-colors">Siber Güvenlik ve Bilişim Hukuku Derneği (2022 - Devam)</p>
+                            </motion.div>
+                        </motion.div>
                     </motion.div>
 
                     {/* Publications */}
@@ -140,25 +165,56 @@ export default function AuthorPage() {
                         <h3 className="text-lg font-bold text-white mb-6 flex items-center gap-2">
                             <span className="text-2xl">📚</span> Yayınlar ve Bildiriler
                         </h3>
-                        <div className="space-y-6 text-sm text-text-secondary">
+                        <motion.div
+                            variants={listContainerVariants}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            className="space-y-6 text-sm text-text-secondary"
+                        >
 
-                            <div>
+                            <motion.div variants={listItemVariants}>
                                 <h4 className="text-white font-bold mb-2">Makaleler</h4>
-                                <ul className="list-disc list-inside space-y-2 marker:text-accent-blue">
-                                    <li>Çetlenbik, O. C., Süzen, A. A. & Duman, B. (2024). <strong>IOT SECURITY AND SOFTWARE TESTING.</strong> Yalvaç Akademi Dergisi, 9().</li>
+                                <ul className="list-disc list-inside space-y-3 marker:text-accent-blue">
+                                    <li className="hover:text-white transition-colors duration-300">
+                                        Çetlenbik, O. C., Süzen, A. A. & Duman, B. (2024).
+                                        <br />
+                                        <strong className="text-accent-blue">IOT SECURITY AND SOFTWARE TESTING.</strong>
+                                        <br /><span className="text-xs opacity-70">Yalvaç Akademi Dergisi, 9().</span>
+                                    </li>
                                 </ul>
-                            </div>
+                            </motion.div>
 
-                            <div>
+                            <motion.div variants={listItemVariants}>
                                 <h4 className="text-white font-bold mb-2">Bildiriler</h4>
-                                <ul className="list-disc list-inside space-y-2 marker:text-accent-blue">
-                                    <li>Çetlenbik, O. C. & Süzen, A. A. (2025). <strong>USING EXPLAINABLE ARTIFICIAL INTELLIGENCE IN BUY AND SELL SIGNALS IN THE CRYPTOCURRENCY MARKET.</strong> 4th International Conference on Contemporary Academic Research ICCAR 2025.</li>
-                                    <li>Çetlenbik, O. C. & Süzen, A. A. (2024). <strong>Hybrid Approaches to Price Prediction in Cryptocurrency Markets: Machine Learning and Technical Analysis.</strong> 5th International Conference on Engineering and Applied Natural Sciences ICEANS 2024.</li>
-                                    <li>Çetlenbik, O. C., Gürfidan, R. & Süzen, A. A. (2024). <strong>CLASSIFICATION OF PHISHING ATTACKS USING THE RoBERTa MODEL.</strong> 4th International Conference on Innovative Academic Studies ICIAS 2024.</li>
-                                    <li>Süzen, A. A. & Çetlenbik, O. C. (2022). <strong>Examining the Results of Phishing Attacks in a Sample Attack Simulation.</strong> 1st International Conference on Innovative Academic Studies.</li>
+                                <ul className="list-disc list-inside space-y-4 marker:text-accent-blue">
+                                    <li className="hover:text-white transition-colors duration-300">
+                                        Çetlenbik, O. C. & Süzen, A. A. (2025).
+                                        <br />
+                                        <strong className="text-accent-blue">USING EXPLAINABLE ARTIFICIAL INTELLIGENCE IN BUY AND SELL SIGNALS IN THE CRYPTOCURRENCY MARKET.</strong>
+                                        <br /><span className="text-xs opacity-70">4th International Conference on Contemporary Academic Research ICCAR 2025.</span>
+                                    </li>
+                                    <li className="hover:text-white transition-colors duration-300">
+                                        Çetlenbik, O. C. & Süzen, A. A. (2024).
+                                        <br />
+                                        <strong className="text-accent-blue">Hybrid Approaches to Price Prediction in Cryptocurrency Markets: Machine Learning and Technical Analysis.</strong>
+                                        <br /><span className="text-xs opacity-70">5th International Conference on Engineering and Applied Natural Sciences ICEANS 2024.</span>
+                                    </li>
+                                    <li className="hover:text-white transition-colors duration-300">
+                                        Çetlenbik, O. C., Gürfidan, R. & Süzen, A. A. (2024).
+                                        <br />
+                                        <strong className="text-accent-blue">CLASSIFICATION OF PHISHING ATTACKS USING THE RoBERTa MODEL.</strong>
+                                        <br /><span className="text-xs opacity-70">4th International Conference on Innovative Academic Studies ICIAS 2024.</span>
+                                    </li>
+                                    <li className="hover:text-white transition-colors duration-300">
+                                        Süzen, A. A. & Çetlenbik, O. C. (2022).
+                                        <br />
+                                        <strong className="text-accent-blue">Examining the Results of Phishing Attacks in a Sample Attack Simulation.</strong>
+                                        <br /><span className="text-xs opacity-70">1st International Conference on Innovative Academic Studies.</span>
+                                    </li>
                                 </ul>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </motion.div>
                 </div>
 
@@ -180,7 +236,11 @@ export default function AuthorPage() {
                                 gücünü ortaya koymak için tasarlandı."
                             </p>
                             <p>
-                                <strong>'TIKLAMA: İnsan Zihnini Hackleme Sanatı'</strong> kitabının bir uzantısı olan bu platform, sayfalar arasında kaybolan
+                                <strong className="text-white block text-xl not-italic mb-2 border-l-4 border-accent-blue pl-4 py-2 bg-white/5 rounded-r-lg">
+                                    TIKLA(MA)!<br />
+                                    İNSAN ZİHNİNİ HACKLEME SANATI
+                                </strong>
+                                kitabının bir uzantısı olan bu platform, sayfalar arasında kaybolan
                                 okuyucuyu pasif bir gözlemciden aktif bir savunmacıya dönüştürmeyi hedefler. Sosyal mühendislik sadece bir kodlama hatası değil,
                                 insan doğasının bir açığıdır; ve bu açık ancak onu bizzat deneyimleyerek kapatılabilir.
                             </p>
