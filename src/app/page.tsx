@@ -20,14 +20,37 @@ export default function HomePage() {
           >
 
 
-            <h1 className="text-6xl sm:text-7xl md:text-9xl font-black leading-none mb-4 tracking-tighter" style={{ fontFamily: "'Inter', sans-serif" }}>
-              <span className="text-blue-600 drop-shadow-[0_0_15px_rgba(37,99,235,0.5)]">TIKLA</span>
-              <span className="text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">(MA)!</span>
-            </h1>
-            <p className="text-lg sm:text-2xl text-zinc-400 font-serif italic tracking-widest mb-10">
-              İNSAN ZİHNİNİ HACKLEME SANATI
-            </p>
+            <div className="text-center z-10 max-w-4xl px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="text-6xl sm:text-7xl md:text-9xl font-black leading-none mb-6 tracking-tighter text-white drop-shadow-2xl" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  <span className="text-blue-500 drop-shadow-[0_0_25px_rgba(59,130,246,0.4)]">TIKLA</span>
+                  <span className="text-red-600 drop-shadow-[0_0_25px_rgba(239,68,68,0.4)]">(MA)!</span>
+                </h1>
 
+                <p className="text-xl sm:text-3xl text-text-secondary font-serif italic tracking-widest mb-12">
+                  İNSAN ZİHNİNİ HACKLEME SANATI
+                </p>
+
+                <blockquote className="text-lg md:text-xl text-text-muted max-w-2xl mx-auto mb-16 font-mono border-l-2 border-accent-blue pl-6 italic">
+                  "Bir sisteme sızmak için bilgisayarları değil, onları kullanan insanları hedef alın."
+                  <footer className="text-sm font-bold text-text-secondary mt-2 not-italic">— Kevin Mitnick</footer>
+                </blockquote>
+
+                <div className="flex justify-center">
+                  <button
+                    onClick={() => document.getElementById('bolumler')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="animate-bounce"
+                  >
+                    <span className="text-4xl text-text-muted hover:text-white transition-colors">↓</span>
+                  </button>
+                </div>
+
+              </motion.div>
+            </div>
             <motion.p
               className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed mb-8"
               initial={{ opacity: 0 }}
@@ -40,21 +63,7 @@ export default function HomePage() {
               </span>
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link href="/bolum/otoriteye-itaat"
-                className="px-8 py-4 bg-neon-blue/10 border border-neon-blue text-neon-blue rounded-xl font-semibold hover:bg-neon-blue/20 transition-all hover:shadow-[0_0_30px_rgba(0,212,255,0.2)] no-underline pulse-ring">
-                🚀 Simülasyonlara Başla
-              </Link>
-              <a href="#bolumler"
-                className="px-8 py-4 bg-bg-card border border-border-color text-text-secondary rounded-xl font-semibold hover:border-neon-purple/50 hover:text-neon-purple transition-all no-underline">
-                📖 Bölümleri İncele
-              </a>
-            </motion.div>
+
           </motion.div>
 
           {/* Stats */}
@@ -69,8 +78,8 @@ export default function HomePage() {
               { num: "25", label: "Simülasyon" },
               { num: "∞", label: "Farkındalık" },
             ].map((s, i) => (
-              <div key={i} className="text-center p-4 rounded-xl border border-border-color bg-bg-card/50">
-                <span className="block text-2xl font-bold text-neon-blue font-mono">{s.num}</span>
+              <div key={i} className="text-center p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                <span className="block text-2xl font-bold text-accent-blue font-mono">{s.num}</span>
                 <span className="text-xs text-text-muted">{s.label}</span>
               </div>
             ))}
@@ -79,7 +88,7 @@ export default function HomePage() {
       </section>
 
       {/* Author Section */}
-      <section className="py-16 border-t border-b border-border-color" style={{ background: "rgba(18,18,26,0.5)" }}>
+      <section id="yazar" className="py-16 border-t border-white/5 bg-black/20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
             className="flex flex-col md:flex-row items-center gap-8"
@@ -87,7 +96,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex-shrink-0 w-32 h-32 rounded-full overflow-hidden border-4 border-zinc-800 shadow-xl">
+            <div className="flex-shrink-0 w-32 h-32 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl">
               <img
                 src="/author.jpg"
                 alt="Osman Can Çetlenbik"
@@ -98,7 +107,7 @@ export default function HomePage() {
               />
             </div>
             <div>
-              <span className="text-xs font-mono text-neon-blue uppercase tracking-wider">Yazar</span>
+              <span className="text-xs font-mono text-accent-blue uppercase tracking-wider">Yazar</span>
               <h2 className="text-2xl font-bold text-text-primary mt-1">Osman Can Çetlenbik</h2>
               <p className="text-text-secondary mt-2 text-sm leading-relaxed">
                 Akademisyen & Bilgisayar Mühendisi. İnsan doğasının siber güvenlik üzerindeki etkisini
@@ -109,12 +118,12 @@ export default function HomePage() {
 
           {/* Önsöz */}
           <motion.div
-            className="mt-10 p-6 rounded-xl border border-border-color bg-bg-card/30"
+            className="mt-10 p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-sm font-mono text-neon-purple uppercase tracking-wider mb-3">📜 Önsöz</h3>
+            <h3 className="text-sm font-mono text-accent-blue uppercase tracking-wider mb-3">📜 Önsöz</h3>
             <p className="text-text-secondary text-sm leading-relaxed italic">
               &ldquo;Teknolojik kaleler ne kadar yükselirse yükselsin, insan doğası rasyonel olmayan kararlar
               vermeye meyillidir. Bu kitap, siber saldırganların en güçlü silahının kod değil, psikoloji olduğunu
@@ -134,7 +143,7 @@ export default function HomePage() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <span className="text-xs font-mono text-terminal-green uppercase tracking-[0.2em]">
+            <span className="text-xs font-mono text-accent-blue uppercase tracking-[0.2em]">
               İnteraktif Bölümler
             </span>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary mt-2">
@@ -155,42 +164,34 @@ export default function HomePage() {
                 transition={{ delay: i * 0.05 }}
               >
                 <Link href={`/bolum/${ch.slug}`}
-                  className="block relative overflow-hidden rounded-xl bg-black border border-zinc-800 hover:border-blue-500/50 transition-all duration-300 md:hover:-translate-y-2 group no-underline"
+                  className="glass-card block relative overflow-hidden group hover:bg-white/[0.05] transition-all duration-300 no-underline"
                 >
-                  {/* Glowing Effect Background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-red-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  {/* Card Content */}
-                  <div className="relative p-6 z-10">
+                  <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
-                      <span className="text-4xl filter drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] group-hover:scale-110 transition-transform duration-300">
+                      <div className="p-3 rounded-lg bg-white/5 text-2xl group-hover:scale-110 transition-transform duration-300">
                         {ch.icon}
-                      </span>
-                      <span className="text-xs font-black text-zinc-600 group-hover:text-white transition-colors border border-zinc-800 px-2 py-1 rounded">
-                        #{ch.id.toString().padStart(2, '0')}
+                      </div>
+                      <span className="font-mono text-xs text-text-muted tracking-widest opacity-50">
+                        BÖLÜM {ch.id}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors mb-2 leading-tight">
+                    <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-accent-blue transition-colors">
                       {ch.subtitle}
                     </h3>
 
-                    <p className="text-sm text-zinc-500 line-clamp-2 group-hover:text-zinc-400 transition-colors">
+                    <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed">
                       {ch.case}
                     </p>
 
-                    <div className="mt-6 pt-4 border-t border-zinc-800/50 flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-widest text-zinc-600 group-hover:text-blue-500 transition-colors font-bold">
-                        Simülasyonu Başlat
-                      </span>
-                      <span className="text-zinc-600 group-hover:text-red-500 transition-colors transform group-hover:translate-x-1">
-                        →
-                      </span>
+                    <div className="mt-6 flex items-center gap-2 text-xs font-medium text-accent-blue opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      <span>SİMÜLASYONA BAŞLA</span>
+                      <span>→</span>
                     </div>
                   </div>
 
-                  {/* Neon Border Line */}
-                  <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 to-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                  {/* Subtle top border accent */}
+                  <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50"></div>
                 </Link>
               </motion.div>
             ))}
@@ -199,19 +200,18 @@ export default function HomePage() {
       </section>
 
       {/* Privacy Banner */}
-      <section className="py-12 border-t border-border-color">
+      <section className="py-12 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <motion.div
-            className="flex flex-col sm:flex-row items-center gap-6 p-6 rounded-xl border border-success-green/20"
-            style={{ background: "rgba(48, 209, 88, 0.03)" }}
+            className="flex flex-col sm:flex-row items-center gap-6 p-6 rounded-xl border border-white/10 bg-white/[0.02]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            <span className="text-4xl">🔐</span>
+            <span className="text-4xl grayscale opacity-70">🔐</span>
             <div>
-              <h3 className="text-lg font-bold text-success-green">Verileriniz Güvende</h3>
-              <p className="text-sm text-text-muted mt-1">
+              <h3 className="text-lg font-bold text-text-primary">Verileriniz Güvende</h3>
+              <p className="text-sm text-text-secondary mt-1">
                 Bu platform tamamen istemci tarafında (client-side) çalışır. Hiçbir kişisel veri, klik
                 veya simülasyon sonucu sunucuya gönderilmez, kaydedilmez veya izlenmez.
               </p>

@@ -12,8 +12,8 @@ export default function Sim10() {
                 <div className="max-w-lg mx-auto bg-black border-4 border-zinc-800 rounded-xl overflow-hidden relative aspect-video">
                     {/* Camera Overlay UI */}
                     <div className="absolute top-4 left-4 z-10 flex flex-col gap-1">
-                        <span className="text-red-500 font-mono text-xs animate-pulse">● LIVE</span>
-                        <span className="text-white/70 font-mono text-xs">CAM-01 [Baby Room]</span>
+                        <span className="text-red-500 font-mono text-xs animate-pulse">● CANLI</span>
+                        <span className="text-white/70 font-mono text-xs">KAMERA-01 [Bebek Odası]</span>
                         <span className="text-white/50 font-mono text-[10px]">192.168.1.105:8080</span>
                     </div>
 

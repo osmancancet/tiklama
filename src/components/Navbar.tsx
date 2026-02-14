@@ -13,24 +13,24 @@ export default function Navbar() {
             style={{ background: "rgba(10, 10, 15, 0.85)", backdropFilter: "blur(20px)" }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    {/* Logo */}
-                    <Link href="/" className="flex items-center gap-3 no-underline">
-
-                        <div>
-                            <div className="font-black text-lg tracking-tighter leading-none" style={{ fontFamily: "'Inter', sans-serif" }}>
-                                <span className="text-blue-600">TIKLA</span>
-                                <span className="text-red-600">(MA)!</span>
-                            </div>
-                            <span className="hidden sm:block text-[8px] text-text-muted tracking-widest uppercase font-serif italic">
-                                İNSAN ZİHNİNİ HACKLEME SANATI
-                            </span>
-                        </div>
+                    {/* Logo (Removed) */}
+                    <Link href="/" className="flex flex-col no-underline group">
+                        <h1 className="text-lg font-black tracking-tighter leading-none" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            <span className="text-blue-500 group-hover:text-blue-400 transition-colors">TIKLA</span>
+                            <span className="text-red-600 group-hover:text-red-500 transition-colors">(MA)!</span>
+                        </h1>
+                        <span className="text-[9px] text-text-muted tracking-widest uppercase font-serif italic mt-0.5 group-hover:text-text-secondary transition-colors">
+                            İNSAN ZİHNİNİ HACKLEME SANATI
+                        </span>
                     </Link>
 
                     {/* Desktop Nav */}
                     <div className="hidden md:flex items-center gap-6">
                         <Link href="/" className="text-sm text-text-secondary hover:text-neon-blue transition-colors no-underline">
                             Ana Sayfa
+                        </Link>
+                        <Link href="/yazar" className="text-sm text-text-secondary hover:text-neon-blue transition-colors no-underline">
+                            Yazar
                         </Link>
                         <div className="relative"
                             onMouseEnter={() => setChaptersOpen(true)}
@@ -92,6 +92,10 @@ export default function Navbar() {
                             <Link href="/" className="block py-2 text-text-secondary hover:text-neon-blue transition-colors no-underline"
                                 onClick={() => setMenuOpen(false)}>
                                 🏠 Ana Sayfa
+                            </Link>
+                            <Link href="/yazar" className="block py-2 text-text-secondary hover:text-neon-blue transition-colors no-underline"
+                                onClick={() => setMenuOpen(false)}>
+                                ✍️ Yazar
                             </Link>
                             <div className="border-t border-border-color pt-2 mt-2">
                                 <span className="text-xs text-text-muted font-mono uppercase tracking-wider">Bölümler</span>

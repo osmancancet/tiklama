@@ -60,13 +60,20 @@ export default function ChapterLayout({ chapter, children }: ChapterLayoutProps)
                     transition={{ duration: 0.6, delay: 0.3 }}
                     className="sim-container"
                 >
-                    <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border-color">
-                        <span className="w-2 h-2 rounded-full bg-danger-red inline-block animate-pulse"></span>
-                        <span className="text-xs font-mono text-text-muted uppercase tracking-wider">
-                            Canlı Simülasyon
-                        </span>
+                    <div className="status-bar">
+                        <div className="flex items-center gap-3">
+                            <span className="w-2 h-2 rounded-full bg-accent-red animate-pulse"></span>
+                            <span>CANLI_ORTAM</span>
+                        </div>
+                        <div className="flex items-center gap-2 opacity-50">
+                            <span>ŞİFRELİ</span>
+                            <span className="text-xs">🔒</span>
+                        </div>
                     </div>
-                    {children}
+
+                    <div>
+                        {children}
+                    </div>
                 </motion.div>
 
                 {/* Lesson box */}
