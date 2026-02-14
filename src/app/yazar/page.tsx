@@ -17,7 +17,7 @@ export default function AuthorPage() {
                         <div className="absolute inset-0 bg-blue-500/10 group-hover:bg-transparent transition-colors"></div>
                         <img
                             src="/author.jpg"
-                            alt="Osman Can Çetlenbik"
+                            alt="Öğr. Gör. Osman Can Çetlenbik"
                             className="w-full h-full object-cover"
                             onError={(e) => {
                                 e.currentTarget.src = "https://ui-avatars.com/api/?name=Osman+Can&background=0D8ABC&color=fff&size=192";
@@ -26,11 +26,11 @@ export default function AuthorPage() {
                     </div>
 
                     <div className="text-center md:text-left">
-                        <h1 className="text-4xl sm:text-5xl font-bold text-white mb-2">Osman Can Çetlenbik</h1>
-                        <p className="text-xl text-accent-blue font-mono mb-4">Akademisyen & Yazar & Bilgisayar Mühendisi</p>
-                        <p className="text-text-secondary leading-relaxed max-w-2xl">
-                            Teknoloji ve insan psikolojisinin kesişim noktasında çalışmalar yürüten bir araştırmacı.
-                            Siber güvenlik farkındalığını artırmak için "İnsan Zihnini Hackleme Sanatı" projesini geliştirdi.
+                        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Öğr. Gör. Osman Can Çetlenbik</h1>
+                        <p className="text-lg text-accent-blue font-mono mb-4">Akademisyen (Kütahya Dumlupınar Üni.) & Yazar</p>
+                        <p className="text-text-secondary leading-relaxed max-w-2xl text-sm">
+                            Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği mezunu ve Isparta Uygulamalı Bilimler Üniversitesi'nde Yüksek Lisans eğitimini tamamlamış bir teknoloji araştırmacısı.
+                            Siber Güvenlik ve Bilişim Hukuku Derneği üyesi olarak, akademik çalışmalarını "farkındalık" ve "insan odaklı güvenlik" üzerine yoğunlaştırmaktadır.
                         </p>
 
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start mt-6">
@@ -48,7 +48,7 @@ export default function AuthorPage() {
                     </div>
                 </motion.div>
 
-                {/* Vision Section */}
+                {/* Experience & Academic */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -57,13 +57,22 @@ export default function AuthorPage() {
                         className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors"
                     >
                         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            <span className="text-2xl">🎯</span> Vizyon
+                            <span className="text-2xl">🎓</span> Akademik & Kariyer
                         </h3>
-                        <p className="text-text-secondary leading-relaxed">
-                            Siber güvenlik sadece kodlardan ibaret değildir; en büyük güvenlik açığı insan zihnidir.
-                            Amacım, karmaşık teknik kavramları herkesin anlayabileceği interaktif deneyimlere dönüştürerek
-                            toplumsal farkındalık yaratmaktır.
-                        </p>
+                        <ul className="space-y-4 text-text-secondary text-sm">
+                            <li className="flex flex-col gap-1">
+                                <span className="text-white font-medium">Öğretim Görevlisi</span>
+                                <span className="text-xs text-text-muted">Kütahya Dumlupınar Üniversitesi (2025 - Günümüz)</span>
+                            </li>
+                            <li className="flex flex-col gap-1">
+                                <span className="text-white font-medium">Yazılım Mühendisi</span>
+                                <span className="text-xs text-text-muted">Verkosis Bilişim (2024 - 2025)</span>
+                            </li>
+                            <li className="flex flex-col gap-1">
+                                <span className="text-white font-medium">Bilgisayar Mühendisi</span>
+                                <span className="text-xs text-text-muted">Somut Yönetim (2023)</span>
+                            </li>
+                        </ul>
                     </motion.div>
 
                     <motion.div
@@ -73,26 +82,18 @@ export default function AuthorPage() {
                         className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors"
                     >
                         <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                            <span className="text-2xl">🔬</span> Uzmanlık Alanları
+                            <span className="text-2xl">📚</span> Yayınlar & Uzmanlık
                         </h3>
-                        <ul className="space-y-2 text-text-secondary">
-                            <li className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
-                                Sosyal Mühendislik & İnsan Psikolojisi
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
-                                Siber Güvenlik Farkındalık Eğitimi
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
-                                Web Uygulama Güvenliği
-                            </li>
-                            <li className="flex items-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-accent-blue"></span>
-                                Oyunlaştırma (Gamification)
-                            </li>
-                        </ul>
+                        <div className="space-y-4 text-text-secondary text-sm">
+                            <p className="leading-relaxed">
+                                <span className="text-accent-blue">Odak Alanları:</span> IoT Güvenliği, Phishing Analizi, Yapay Zeka ve Kripto Varlıklar.
+                            </p>
+                            <div className="border-l-2 border-white/10 pl-4 italic opacity-80">
+                                "Classification of Phishing Attacks Using RoBERTa Model"
+                                <br />
+                                "IoT Security and Software Testing"
+                            </div>
+                        </div>
                     </motion.div>
                 </div>
 
@@ -101,20 +102,24 @@ export default function AuthorPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/10 to-transparent border border-blue-500/20"
+                    className="p-8 rounded-2xl bg-gradient-to-br from-blue-900/20 to-transparent border border-blue-500/30 shadow-2xl relative overflow-hidden"
                 >
-                    <h3 className="text-xl font-bold text-white mb-4">TIKLA(MA)! Projesi Hakkında</h3>
-                    <p className="text-text-secondary mb-6 leading-relaxed">
-                        Bu proje, klasik sıkıcı eğitimlerin aksine, kullanıcıyı saldırganın yerine koyarak
-                        tehlikeyi içeriden görmesini sağlayan bir simülasyon platformudur.
+                    <div className="absolute top-0 right-0 p-4 opacity-10 text-9xl">📖</div>
+                    <h3 className="text-2xl font-bold text-white mb-4 relative z-10">TIKLA(MA)! Projesi ve Kitap Entegrasyonu</h3>
+                    <p className="text-text-secondary mb-6 leading-relaxed relative z-10">
+                        Bu çalışma, siber güvenlik farkındalığını sadece teorik bir bilgi olmaktan çıkarıp,
+                        <span className="text-white font-bold"> "İnsan Zihnini Hackleme Sanatı"</span> kitabı ile entegre çalışan hibrit bir eğitim platformudur.
+                        <br /><br />
+                        Okuyucular, kitapta anlatılan psikolojik manipülasyon tekniklerini (Sosyal Mühendislik) bu platform üzerinden
+                        <span className="text-accent-blue"> simüle ederek deneyimler</span>. Amaç, yazarın akademik birikimini pratik bir savunma refleksine dönüştürmektir.
                     </p>
-                    <Link href="/" className="inline-flex items-center text-accent-blue hover:text-white transition-colors">
-                        <span className="border-b border-accent-blue/30 pb-0.5">Simülasyonlara Göz At</span>
+                    <Link href="/" className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors font-bold relative z-10">
+                        <span>Projeyi Deneyimle</span>
                         <span className="ml-2">→</span>
                     </Link>
                 </motion.div>
 
-            </div >
-        </div >
+            </div>
+        </div> >
     );
 }
