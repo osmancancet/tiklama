@@ -81,11 +81,13 @@ export default function AuthorPage() {
 
                         <div className="flex flex-wrap gap-4 justify-center md:justify-start relative z-50 pointer-events-auto">
                             <a
-                                href="mailto:osmancancetlenbik@gmail.com"
-                                className="px-6 py-3 rounded-lg bg-blue-600/20 border border-blue-500/30 hover:bg-blue-600/40 transition-all active:scale-95 flex items-center gap-2 text-xs font-mono text-blue-200"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=osmancancetlenbik@gmail.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-6 py-3 rounded-lg bg-red-600/20 border border-red-500/30 hover:bg-red-600/40 transition-all active:scale-95 flex items-center gap-2 text-xs font-mono text-red-200"
                             >
-                                <span className="text-lg">✉️</span>
-                                <span>E-POSTA</span>
+                                <span className="text-lg">📩</span>
+                                <span>GMAIL'DEN YAZ</span>
                             </a>
                             <a
                                 href="https://www.linkedin.com/in/osmancancetlenbik/"
@@ -101,75 +103,101 @@ export default function AuthorPage() {
                 </motion.div>
 
                 {/* Main Content Grid */}
-                <div className="grid grid-cols-1 gap-12 mb-20">
+                <div className="grid grid-cols-1 gap-16 mb-20">
 
-                    {/* Academic & Experience - Timeline Design */}
-                    <motion.div
-                        variants={itemVariants}
-                        className="relative"
-                    >
-                        <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3 border-b border-white/10 pb-4">
-                            <span className="text-3xl">🎓</span> Akademik & Kariyer
-                        </h3>
+                    {/* Split Career Section */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                        <motion.div
-                            variants={listContainerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                            className="space-y-8 relative pl-6 border-l border-white/10 ml-2"
-                        >
-                            {/* Manisa CBÜ */}
-                            <motion.div variants={listItemVariants} className="relative group">
-                                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-blue-600 border-4 border-[#0a0a0a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
-                                <div className="p-5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
-                                    <span className="text-xs font-mono text-accent-blue mb-1 block">2026 - Günümüz</span>
-                                    <h4 className="text-white font-bold text-lg">Öğretim Görevlisi</h4>
-                                    <p className="text-text-secondary text-sm">Manisa Celal Bayar Üniversitesi</p>
-                                </div>
-                            </motion.div>
+                        {/* Academic Column */}
+                        <motion.div variants={itemVariants} className="relative">
+                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-3">
+                                <span className="text-2xl">🎓</span> Akademik Kariyer
+                            </h3>
+                            <motion.div
+                                variants={listContainerVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                className="space-y-6 relative pl-6 border-l border-white/10 ml-2"
+                            >
+                                {/* Manisa CBÜ */}
+                                <motion.div variants={listItemVariants} className="relative group">
+                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-blue-500 border-4 border-[#0a0a0a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
+                                        <span className="text-xs font-mono text-accent-blue mb-1 block">2026 - Günümüz</span>
+                                        <h4 className="text-white font-bold text-base">Öğretim Görevlisi</h4>
+                                        <p className="text-text-secondary text-sm">Manisa Celal Bayar Üniversitesi</p>
+                                    </div>
+                                </motion.div>
 
-                            {/* Dumlupınar */}
-                            <motion.div variants={listItemVariants} className="relative group">
-                                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white/20 border-4 border-[#0a0a0a] group-hover:bg-accent-blue transition-colors"></div>
-                                <div className="p-5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
-                                    <span className="text-xs font-mono text-text-secondary mb-1 block">2025</span>
-                                    <h4 className="text-white font-bold text-lg opacity-90">Öğretim Görevlisi</h4>
-                                    <p className="text-text-secondary text-sm">Kütahya Dumlupınar Üniversitesi</p>
-                                </div>
-                            </motion.div>
+                                {/* Dumlupınar */}
+                                <motion.div variants={listItemVariants} className="relative group">
+                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white/20 border-4 border-[#0a0a0a] group-hover:bg-blue-500/50 transition-colors"></div>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
+                                        <span className="text-xs font-mono text-text-secondary mb-1 block">2025</span>
+                                        <h4 className="text-white font-bold text-base opacity-90">Öğretim Görevlisi</h4>
+                                        <p className="text-text-secondary text-sm">Kütahya Dumlupınar Üniversitesi</p>
+                                    </div>
+                                </motion.div>
 
-                            {/* Doğuş */}
-                            <motion.div variants={listItemVariants} className="relative group">
-                                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white/20 border-4 border-[#0a0a0a] group-hover:bg-accent-blue transition-colors"></div>
-                                <div className="p-5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
-                                    <span className="text-xs font-mono text-text-secondary mb-1 block">2025</span>
-                                    <h4 className="text-white font-bold text-lg opacity-90">Öğretim Görevlisi</h4>
-                                    <p className="text-text-secondary text-sm">Doğuş Üniversitesi</p>
-                                </div>
-                            </motion.div>
-
-                            {/* Verkosis */}
-                            <motion.div variants={listItemVariants} className="relative group">
-                                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-purple-500/50 border-4 border-[#0a0a0a] group-hover:bg-purple-500 transition-colors"></div>
-                                <div className="p-5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
-                                    <span className="text-xs font-mono text-text-secondary mb-1 block">2024 - 2025</span>
-                                    <h4 className="text-white font-bold text-lg opacity-90">Yazılım Mühendisi</h4>
-                                    <p className="text-text-secondary text-sm">Verkosis Bilişim Teknolojileri</p>
-                                </div>
-                            </motion.div>
-
-                            {/* Somut */}
-                            <motion.div variants={listItemVariants} className="relative group">
-                                <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-green-500/50 border-4 border-[#0a0a0a] group-hover:bg-green-500 transition-colors"></div>
-                                <div className="p-5 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
-                                    <span className="text-xs font-mono text-text-secondary mb-1 block">2023</span>
-                                    <h4 className="text-white font-bold text-lg opacity-90">Bilgisayar Mühendisi</h4>
-                                    <p className="text-text-secondary text-sm">Somut Yönetim Danışmanlık</p>
-                                </div>
+                                {/* Doğuş */}
+                                <motion.div variants={listItemVariants} className="relative group">
+                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-white/20 border-4 border-[#0a0a0a] group-hover:bg-blue-500/50 transition-colors"></div>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
+                                        <span className="text-xs font-mono text-text-secondary mb-1 block">2025</span>
+                                        <h4 className="text-white font-bold text-base opacity-90">Öğretim Görevlisi</h4>
+                                        <p className="text-text-secondary text-sm">Doğuş Üniversitesi</p>
+                                    </div>
+                                </motion.div>
                             </motion.div>
                         </motion.div>
-                    </motion.div>
+
+                        {/* Industry Column */}
+                        <motion.div variants={itemVariants} className="relative">
+                            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 border-b border-white/10 pb-3">
+                                <span className="text-2xl">💼</span> Özel Sektör & Deneyim
+                            </h3>
+                            <motion.div
+                                variants={listContainerVariants}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true }}
+                                className="space-y-6 relative pl-6 border-l border-white/10 ml-2"
+                            >
+                                {/* Verkosis */}
+                                <motion.div variants={listItemVariants} className="relative group">
+                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-purple-500 border-4 border-[#0a0a0a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(168,85,247,0.5)]"></div>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
+                                        <span className="text-xs font-mono text-purple-400 mb-1 block">2024 - 2025</span>
+                                        <h4 className="text-white font-bold text-base">Yazılım Mühendisi</h4>
+                                        <p className="text-text-secondary text-sm">Verkosis Bilişim Teknolojileri</p>
+                                    </div>
+                                </motion.div>
+
+                                {/* Somut */}
+                                <motion.div variants={listItemVariants} className="relative group">
+                                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full bg-green-500 border-4 border-[#0a0a0a] group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors">
+                                        <span className="text-xs font-mono text-green-400 mb-1 block">2023</span>
+                                        <h4 className="text-white font-bold text-base">Bilgisayar Mühendisi</h4>
+                                        <p className="text-text-secondary text-sm">Somut Yönetim Danışmanlık</p>
+                                    </div>
+                                </motion.div>
+
+                                <motion.div variants={listItemVariants} className="relative group pt-4">
+                                    <h4 className="text-xs text-text-secondary uppercase tracking-widest mb-4 mt-2">Üyelikler</h4>
+                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] transition-colors flex items-center gap-3">
+                                        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                                        <div>
+                                            <h4 className="text-white font-bold text-sm">Siber Güvenlik ve Bilişim Hukuku Derneği</h4>
+                                            <p className="text-xs text-text-secondary">2022 - Devam</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        </motion.div>
+
+                    </div>
 
                     {/* Publications - Card Grid Design */}
                     <motion.div
