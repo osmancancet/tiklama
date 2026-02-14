@@ -8,7 +8,24 @@ export default function Sim07() {
     const [correct, setCorrect] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const togglePlay = () => setIsPlaying(!isPlaying);
+    const togglePlay = () => {
+        if (isPlaying) {
+            window.speechSynthesis.cancel();
+            setIsPlaying(false);
+        } else {
+            const text = "Baba... Baba yardım et! Çok kötü bir kaza yaptım... Lütfen babacığım, acil paraya ihtiyacım var... Telefonum kapanmak üzere, lütfen yardım et!";
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "tr-TR";
+            utterance.pitch = 1.2; // Biraz daha tiz (çocuksu/kadınsı)
+            utterance.rate = 1.1;  // Telaşlı ve hızlı
+
+            utterance.onend = () => setIsPlaying(false);
+
+            window.speechSynthesis.cancel(); // Öncekileri temizle
+            window.speechSynthesis.speak(utterance);
+            setIsPlaying(true);
+        }
+    };
 
     return (
         <div>
@@ -44,7 +61,7 @@ export default function Sim07() {
                         <div className="flex justify-center gap-4 mb-4">
                             <button
                                 onClick={togglePlay}
-                                className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center text-2xl hover:scale-105 transition-transform"
+                                className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center text-2xl hover:scale-105 transition-transform shadow-lg shadow-white/20 active:scale-95"
                             >
                                 {isPlaying ? "⏸" : "▶"}
                             </button>
