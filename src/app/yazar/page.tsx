@@ -87,7 +87,7 @@ export default function AuthorPage() {
                                 className="px-6 py-3 rounded-lg bg-red-600/20 border border-red-500/30 hover:bg-red-600/40 transition-all active:scale-95 flex items-center gap-2 text-xs font-mono text-red-200"
                             >
                                 <span className="text-lg">📩</span>
-                                <span>GMAIL'DEN YAZ</span>
+                                <span>E-POSTA</span>
                             </a>
                             <a
                                 href="https://www.linkedin.com/in/osmancancetlenbik/"
