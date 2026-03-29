@@ -76,7 +76,7 @@ export default function Sim29() {
                                 transition={{ delay: 1.5 }}
                                 className="text-center text-xs text-gray-500 mt-6 bg-yellow-50 p-2 rounded border border-yellow-200"
                             >
-                                Hüseyin Amca bu SMS&apos;i bankasından geldiğini sanarak linke tıkladı...
+                                Hüseyin Bey bu SMS&apos;i bankasından geldiğini sanarak linke tıkladı...
                             </motion.p>
                         </div>
 
@@ -289,7 +289,7 @@ export default function Sim29() {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         className="flex-1 flex flex-col items-center justify-center p-6 text-center"
                     >
-                        <p className="text-lg mb-6">Hüseyin Amca ne yapmalı?</p>
+                        <p className="text-lg mb-6">Hüseyin Bey ne yapmalı?</p>
                         <div className="flex flex-col gap-4 w-full">
                             <button
                                 onClick={() => setPhase("app-login")}
@@ -312,10 +312,10 @@ export default function Sim29() {
                     <div className="absolute inset-0 bg-black/90 backdrop-blur-sm z-30 p-3 sm:p-6 overflow-y-auto">
                         <SimulationResult
                             isCorrect={correct}
-                            title={correct ? "Hüseyin Amca Kurtuldu!" : "Hesap Boşaltıldı!"}
+                            title={correct ? "Hüseyin Bey Kurtuldu!" : "Hesap Boşaltıldı!"}
                             message={correct
-                                ? "Doğru karar! Hüseyin Amca SMS'teki linke tıklamak yerine resmi uygulama mağazasından bankasını aradı. Gerçek uygulamanın zaten güncel olduğunu gördü ve dolandırıcılık girişimini fark etti."
-                                : "Hüseyin Amca sahte uygulamaya bilgilerini girdi. Saldırgan TC kimlik, şifre ve SMS onay kodunu ele geçirip hesaptaki 47.500 TL'yi saniyeler içinde başka hesaplara aktardı. Uygulama 'İşlem başarısız' diyerek Hüseyin Amca'yı oyaladı."}
+                                ? "Doğru karar! Hüseyin Bey SMS'teki linke tıklamak yerine resmi uygulama mağazasından bankasını aradı. Gerçek uygulamanın zaten güncel olduğunu gördü ve dolandırıcılık girişimini fark etti."
+                                : "Hüseyin Bey sahte uygulamaya bilgilerini girdi. Saldırgan TC kimlik, şifre ve SMS onay kodunu ele geçirip hesaptaki 47.500 TL'yi saniyeler içinde başka hesaplara aktardı. Uygulama 'İşlem başarısız' diyerek Hüseyin Bey'yı oyaladı."}
                             lesson="Banka uygulamalarını YALNIZCA resmi App Store veya Google Play'den indirin. SMS ile gelen 'güncelleme' linkleri sahte olabilir. Gerçek bankalar asla SMS ile uygulama linki göndermez."
                             onReset={() => {
                                 setPhase("sms");

@@ -324,7 +324,7 @@ export const chapters: Chapter[] = [
     slug: "sahte-banka-uygulamasi",
     title: "Sahte Banka Uygulaması",
     subtitle: "İndirdiğiniz Uygulama Gerçek mi?",
-    case: "Hüseyin Amca, bankasından geldiğini sandığı bir SMS'teki linkten 'güncellenmiş' mobil bankacılık uygulamasını indirir. Uygulama gerçeğinin birebir kopyasıdır ama girilen her bilgi dolandırıcıya akar.",
+    case: "Hüseyin Bey, bankasından geldiğini sandığı bir SMS'teki linkten 'güncellenmiş' mobil bankacılık uygulamasını indirir. Uygulama gerçeğinin birebir kopyasıdır ama girilen her bilgi dolandırıcıya akar.",
     webDetail: "Sahte uygulama mağazası indirme sayfası, ardından birebir banka giriş ekranı. Kullanıcı bilgi girdikçe arka planda saldırgan terminali verilerin aktığını gösterir.",
     lesson: "Banka uygulamalarını YALNIZCA resmi App Store veya Google Play'den indirin. SMS veya e-postayla gelen 'güncelleme' linklerine asla tıklamayın. Şüphelendiğinizde bankanızın resmi numarasını kendiniz arayın.",
     icon: "🏧",
