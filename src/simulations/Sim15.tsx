@@ -70,12 +70,12 @@ export default function Sim15() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-6 max-w-[240px] sm:max-w-[280px] mx-auto">
                             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
                                 <button
                                     key={num}
                                     onClick={() => { setCorrect(false); setPhase("result"); }}
-                                    className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gray-700 hover:bg-gray-600 text-white text-xl sm:text-2xl font-bold transition-colors"
+                                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gray-700 hover:bg-gray-600 active:bg-gray-500 text-white text-xl sm:text-2xl font-bold transition-colors mx-auto"
                                 >
                                     {num}
                                 </button>

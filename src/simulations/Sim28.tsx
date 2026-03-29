@@ -116,11 +116,11 @@ export default function Sim28() {
                         {/* Fake address bar with magnifying glass */}
                         <div className="bg-gray-100 px-3 py-2 flex items-center gap-2 border-b border-gray-200">
                             <span className="text-xs">🔒</span>
-                            <div className="flex-1 bg-white rounded-full px-3 py-1 text-xs text-gray-600 border border-gray-300 relative">
-                                <span>e-dev<span className="text-gray-800">I</span>et-giris.com/dogrula</span>
+                            <div className="flex-1 bg-white rounded-full px-3 py-1 text-xs text-gray-600 border border-gray-300 relative flex items-center min-w-0">
+                                <span className="truncate pr-6">e-dev<span className="text-gray-800">I</span>et-giris.com/dogrula</span>
                                 <button
                                     onClick={() => setShowDomainTip(!showDomainTip)}
-                                    className="absolute right-1 top-0.5 text-sm cursor-pointer"
+                                    className="absolute right-1.5 top-1/2 -translate-y-1/2 text-sm cursor-pointer"
                                     title="Adresi incele"
                                 >
                                     🔍

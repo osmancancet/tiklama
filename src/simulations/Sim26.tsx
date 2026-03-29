@@ -243,7 +243,7 @@ export default function Sim26() {
                         </div>
 
                         {/* Bottom: Hacker's terminal */}
-                        <div className="flex-1 bg-black p-3">
+                        <div className="flex-1 bg-black p-3 overflow-hidden">
                             <div className="flex items-center gap-2 mb-2">
                                 <span className="text-red-500 text-xs font-bold animate-pulse">● REC</span>
                                 <span className="text-xs text-gray-500">Saldırgan Terminali — Gerçekte Olan</span>

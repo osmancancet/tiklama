@@ -30,15 +30,15 @@ export default function Sim13() {
                         style={{ backgroundImage: 'linear-gradient(#e5ddd5 2px, transparent 2px), linear-gradient(90deg, #e5ddd5 2px, transparent 2px)', backgroundSize: '100px 100px', backgroundColor: '#efe7dd' }}
                     >
                         {/* Messages */}
-                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[85%] text-sm text-gray-800 break-words">
                             Bebek arabası hâlâ satılık mı?
                             <span className="text-[11px] text-gray-500 block text-right mt-1">14:30 ✓✓</span>
                         </div>
-                        <div className="self-start bg-white p-2 rounded-lg rounded-tl-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                        <div className="self-start bg-white p-2 rounded-lg rounded-tl-none shadow-sm max-w-[85%] text-sm text-gray-800 break-words">
                             Evet, duruyor. Fiyat son 2500 TL.
                             <span className="text-[11px] text-gray-500 block text-right mt-1">14:32</span>
                         </div>
-                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[80%] text-sm text-gray-800">
+                        <div className="self-end bg-[#dcf8c6] p-2 rounded-lg rounded-tr-none shadow-sm max-w-[85%] text-sm text-gray-800 break-words">
                             Tamam alıyorum. Ama şehir dışındayım, "Güvenli Ödeme" ile halledelim. Link atıyorum, oraya kart bilgilerini gir, para hesabına yatsın. Kurye gelip alacak.
                             <span className="text-[11px] text-gray-500 block text-right mt-1">14:33 ✓✓</span>
                         </div>

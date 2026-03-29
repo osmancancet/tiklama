@@ -98,7 +98,7 @@ export default function Sim27() {
                         </div>
 
                         {/* Two phones side by side */}
-                        <div className="flex-1 flex gap-2 p-3">
+                        <div className="flex-1 flex flex-col sm:flex-row gap-2 p-3">
                             {/* Mücahit's Phone */}
                             <div className="flex-1 bg-gray-800 rounded-xl p-3 border border-gray-600">
                                 <div className="flex justify-between items-center mb-3 text-xs text-gray-400">
@@ -154,7 +154,7 @@ export default function Sim27() {
                             <h3 className="font-bold text-sm text-red-300">⚠️ Saldırı Başladı</h3>
                         </div>
 
-                        <div className="flex-1 flex gap-2 p-3">
+                        <div className="flex-1 flex flex-col sm:flex-row gap-2 p-3">
                             {/* Mücahit - losing signal */}
                             <div className="flex-1 bg-gray-800 rounded-xl p-3 border-2 border-red-500/50">
                                 <div className="flex justify-between items-center mb-3 text-xs">

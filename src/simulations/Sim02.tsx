@@ -26,9 +26,9 @@ export default function Sim02() {
 
             <div className="flex flex-1 overflow-hidden relative">
                 {/* Sidebar (Desktop only) */}
-                <div className="w-48 bg-[#f0f0f0] border-r border-gray-200 hidden md:flex flex-col p-2 gap-1">
+                <div className="w-36 bg-[#f0f0f0] border-r border-gray-200 hidden md:flex flex-col p-2 gap-1 shrink-0">
                     {["Gelen Kutusu (1)", "Gönderilmiş", "Taslaklar", "Silinmiş", "Gereksiz"].map((folder, i) => (
-                        <div key={i} className={`px-4 py-2 rounded text-sm cursor-pointer ${i === 0 ? "bg-[#c7e0f4] text-[#0078d4] font-bold" : "hover:bg-gray-200 text-gray-700"}`}>
+                        <div key={i} className={`px-3 py-2 rounded text-xs cursor-pointer truncate ${i === 0 ? "bg-[#c7e0f4] text-[#0078d4] font-bold" : "hover:bg-gray-200 text-gray-700"}`}>
                             {folder}
                         </div>
                     ))}

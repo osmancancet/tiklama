@@ -49,7 +49,7 @@ export default function Sim04() {
                         {/* Character */}
                         <motion.div
                             initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }}
-                            className="absolute bottom-32 md:bottom-20 w-48 h-48 md:w-64 md:h-64 bg-gray-200 rounded-full border-4 border-white shadow-2xl flex items-center justify-center overflow-hidden z-10"
+                            className="absolute bottom-28 sm:bottom-32 md:bottom-20 w-32 h-32 sm:w-48 sm:h-48 md:w-56 md:h-56 bg-gray-200 rounded-full border-4 border-white shadow-2xl flex items-center justify-center overflow-hidden z-10"
                         >
                             <span className="text-8xl md:text-9xl mt-4">👨‍💼</span>
                         </motion.div>
