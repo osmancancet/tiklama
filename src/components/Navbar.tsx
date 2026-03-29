@@ -1,0 +1,118 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { chapters } from "@/data/chapters";
+
+export default function Navbar() {
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [chaptersOpen, setChaptersOpen] = useState(false);
+
+    return (
+        <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border-color safe-area-top"
+            style={{ background: "rgba(10, 10, 15, 0.85)", backdropFilter: "blur(20px)" }}>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-14 sm:h-16">
+                    <Link href="/" className="flex flex-col no-underline group shrink-0">
+                        <h1 className="text-base sm:text-lg font-black tracking-tighter leading-none" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            <span className="text-blue-500 group-hover:text-blue-400 transition-colors">TIKLA</span>
+                            <span className="text-red-600 group-hover:text-red-500 transition-colors">(MA)!</span>
+                        </h1>
+                        <span className="text-[8px] sm:text-[9px] text-text-muted tracking-widest uppercase font-serif italic mt-0.5 group-hover:text-text-secondary transition-colors">
+                            İNSAN ZİHNİNİ HACKLEME SANATI
+                        </span>
+                    </Link>
+
+                    {/* Desktop Nav */}
+                    <div className="hidden md:flex items-center gap-6">
+                        <Link href="/" className="text-sm text-text-secondary hover:text-neon-blue transition-colors no-underline">
+                            Ana Sayfa
+                        </Link>
+                        <Link href="/yazar" className="text-sm text-text-secondary hover:text-neon-blue transition-colors no-underline">
+                            Yazar
+                        </Link>
+                        <div className="relative"
+                            onMouseEnter={() => setChaptersOpen(true)}
+                            onMouseLeave={() => setChaptersOpen(false)}>
+                            <button className="text-sm text-text-secondary hover:text-neon-blue transition-colors bg-transparent border-none cursor-pointer font-[inherit] py-2">
+                                Bölümler ▾
+                            </button>
+                            <AnimatePresence>
+                                {chaptersOpen && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        className="absolute top-full right-0 mt-2 w-72 lg:w-80 max-h-[70vh] overflow-y-auto rounded-xl border border-border-color p-2"
+                                        style={{ background: "rgba(18, 18, 26, 0.98)", backdropFilter: "blur(20px)" }}>
+                                        {chapters.map((ch) => (
+                                            <Link
+                                                key={ch.id}
+                                                href={`/bolum/${ch.slug}`}
+                                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-bg-card-hover transition-colors no-underline"
+                                                onClick={() => setChaptersOpen(false)}>
+                                                <span className="text-lg shrink-0">{ch.icon}</span>
+                                                <div className="min-w-0">
+                                                    <span className="text-[10px] text-text-muted font-mono">
+                                                        Bölüm {ch.id}
+                                                    </span>
+                                                    <span className="block text-sm text-text-primary truncate">
+                                                        {ch.subtitle}
+                                                    </span>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="md:hidden bg-transparent border-none text-text-primary cursor-pointer text-xl w-11 h-11 flex items-center justify-center rounded-lg active:bg-white/10"
+                        onClick={() => setMenuOpen(!menuOpen)}
+                        aria-label="Menü">
+                        {menuOpen ? "✕" : "☰"}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="md:hidden overflow-hidden border-t border-border-color"
+                        style={{ background: "rgba(10, 10, 15, 0.98)" }}>
+                        <div className="px-4 py-3 space-y-1 max-h-[70vh] overflow-y-auto safe-area-bottom">
+                            <Link href="/" className="flex items-center gap-3 py-3 text-text-secondary hover:text-neon-blue transition-colors no-underline"
+                                onClick={() => setMenuOpen(false)}>
+                                🏠 Ana Sayfa
+                            </Link>
+                            <Link href="/yazar" className="flex items-center gap-3 py-3 text-text-secondary hover:text-neon-blue transition-colors no-underline"
+                                onClick={() => setMenuOpen(false)}>
+                                ✍️ Yazar
+                            </Link>
+                            <div className="border-t border-border-color pt-2 mt-2">
+                                <span className="text-[10px] text-text-muted font-mono uppercase tracking-wider px-1">Bölümler</span>
+                                {chapters.map((ch) => (
+                                    <Link
+                                        key={ch.id}
+                                        href={`/bolum/${ch.slug}`}
+                                        className="flex items-center gap-3 py-2.5 text-sm text-text-secondary hover:text-neon-blue transition-colors no-underline"
+                                        onClick={() => setMenuOpen(false)}>
+                                        <span className="shrink-0">{ch.icon}</span>
+                                        <span className="truncate">B{ch.id}: {ch.subtitle}</span>
+                                    </Link>
+                                ))}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </nav>
+    );
+}

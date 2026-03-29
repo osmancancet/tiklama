@@ -1,0 +1,373 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Elite Color Palette */
+  --bg-primary: #020204;
+  --bg-secondary: #0a0a0f;
+  --accent-blue: #3b82f6;
+  --accent-red: #ef4444;
+  --gold: #d4af37;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Fix: Missing color variables used by components */
+  --success-green: #30d158;
+  --danger-red: #ff2d55;
+  --neon-blue: #60a5fa;
+  --neon-purple: #a78bfa;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --bg-card-hover: rgba(255, 255, 255, 0.08);
+}
+
+@theme inline {
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-red: var(--accent-red);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Fix: Map missing colors to Tailwind utility classes */
+  --color-neon-blue: var(--neon-blue);
+  --color-neon-purple: var(--neon-purple);
+  --color-success-green: var(--success-green);
+  --color-danger-red: var(--danger-red);
+  --color-border-color: var(--border-color);
+  --color-bg-card-hover: var(--bg-card-hover);
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(239, 68, 68, 0.08), transparent 40%);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  margin: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Mobile: Prevent accidental text selection during interactions */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Elite Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* ==========================================
+   MOBILE-FIRST RESPONSIVE UTILITIES
+   ========================================== */
+
+/* Fix: Mobile tap highlight removal */
+button,
+a,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Fix: Ensure inputs don't zoom on iOS (min 16px) */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* Fix: Safe area padding for notch devices */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Glass Card - Professional */
+.glass-card {
+  background: var(--glass-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Navigation & Header */
+.nav-blur {
+  background: rgba(2, 2, 4, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Typography Enhancements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: -0.025em;
+}
+
+/* Simulation Container - Elite Interface */
+.sim-container {
+  background: rgba(10, 10, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: visible;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+html {
+  overflow-x: hidden;
+}
+
+/* Fix: Simulation container mobile padding */
+@media (max-width: 640px) {
+  .sim-container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}
+
+/* Protocol Status Bar */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Fix: Status bar wrap on small screens */
+@media (max-width: 640px) {
+  .status-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 0.65rem;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+/* Professional Buttons */
+.btn-action {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Mobile: Ensure minimum touch target */
+  min-height: 44px;
+}
+
+.btn-safe {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  /* Mobile: Ensure readable */
+  min-height: 44px;
+  padding: 12px 20px;
+}
+
+.btn-safe:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: #60a5fa;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+/* Mobile: Active state instead of hover */
+@media (hover: none) {
+  .btn-safe:active {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #60a5fa;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+  }
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  /* Mobile: Ensure readable */
+  min-height: 44px;
+  padding: 12px 20px;
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: #f87171;
+  box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+}
+
+/* Mobile: Active state instead of hover */
+@media (hover: none) {
+  .btn-danger:active {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #f87171;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* Lesson Box - High End */
+.lesson-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 4px 12px 12px 4px;
+  padding: 24px;
+}
+
+@media (max-width: 640px) {
+  .lesson-box {
+    padding: 16px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================
+   SIMULATION MOBILE RESPONSIVE OVERRIDES
+   ========================================== */
+
+/* Fix: All simulation wrappers should not overflow on mobile */
+@media (max-width: 640px) {
+
+  /* Ensure simulation containers fit viewport */
+  .sim-wrapper {
+    min-height: auto !important;
+  }
+
+  /* Fix absolute result overlays to be scrollable on mobile */
+  [class*="absolute"][class*="inset-0"][class*="overflow-y-auto"] {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Fix: Ensure proper word wrapping everywhere */
+p,
+span,
+div,
+li,
+td,
+th,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+button,
+a {
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Fix: URL text should break */
+.font-mono,
+[class*="font-mono"] {
+  word-break: break-all;
+}
+
+/* ==========================================
+   MOBILE KEYPAD FIX
+   ========================================== */
+@media (max-width: 400px) {
+
+  /* Make keypad buttons smaller on very small screens */
+  .keypad-btn {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.25rem !important;
+  }
+}
+
+/* ==========================================
+   ANIMATION PERFORMANCE
+   ========================================== */
+/* Reduce animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================
+   PRINT STYLES
+   ========================================== */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .nav-blur,
+  footer {
+    display: none;
+  }
+}
