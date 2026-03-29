@@ -2,275 +2,333 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const stolenDataLines = [
-    "Cihaz bilgileri alınıyor...",
-    "IP Adresi: 85.103.XX.XXX (Türkiye)",
-    "Tarayıcı: Chrome 124.0 — Mobil",
-    "İşletim Sistemi: Android 14 / iOS 18",
-    "Ekran Çözünürlüğü: " + (typeof window !== "undefined" ? `${window.screen?.width || 390}x${window.screen?.height || 844}` : "390x844"),
-    "Konum izni sorgulanıyor...",
-    "Rehber taranıyor... 847 kişi bulundu",
-    "Fotoğraf galerisine erişiliyor...",
-    "Banka uygulamaları taranıyor...",
-    "Kayıtlı şifreler kopyalanıyor...",
-    "Sosyal medya oturumları ele geçiriliyor...",
-    "Veriler dışarı aktarılıyor... %100",
+const terminalLines = [
+    { text: "Bağlantı kuruluyor...", color: "text-yellow-400" },
+    { text: "Hedef cihaz tespit edildi.", color: "text-green-400" },
+    { text: "IP Adresi: 85.103.██.███ (Türkiye)", color: "text-green-400" },
+    { text: "Tarayıcı: Chrome 124.0 — Mobil", color: "text-green-400" },
+    { text: "İşletim Sistemi: Android 14 / iOS 18", color: "text-green-400" },
+    { text: "Konum izni alınıyor......... BAŞARILI", color: "text-green-400" },
+    { text: "Konum: 40.98██, 29.02██ — İstanbul", color: "text-green-400" },
+    { text: "Rehber taranıyor............. 1.247 kişi bulundu", color: "text-red-400" },
+    { text: "Fotoğraf galerisine erişiliyor... 3.891 dosya", color: "text-red-400" },
+    { text: "WhatsApp veritabanı kopyalanıyor...", color: "text-red-400" },
+    { text: "Banka uygulamaları tespit edildi: 3 adet", color: "text-red-400" },
+    { text: "Kayıtlı şifreler çıkartılıyor... 94 adet", color: "text-red-500" },
+    { text: "Instagram oturumu ele geçirildi", color: "text-red-500" },
+    { text: "Gmail oturumu ele geçirildi", color: "text-red-500" },
+    { text: "Tüm veriler şifreleniyor...", color: "text-red-500" },
+    { text: "TRANSFER TAMAMLANDI — %100", color: "text-red-600" },
 ];
 
 export default function Sim30() {
-    const [phase, setPhase] = useState<"hack" | "reveal">("hack");
+    const [phase, setPhase] = useState<"hack" | "skull" | "reveal">("hack");
     const [visibleLines, setVisibleLines] = useState(0);
-    const [showSkull, setShowSkull] = useState(false);
-    const [showReveal, setShowReveal] = useState(false);
-    const [glitchActive, setGlitchActive] = useState(true);
-    const [countdown, setCountdown] = useState(10);
+    const [countdown, setCountdown] = useState(15);
+    const [screenFlicker, setScreenFlicker] = useState(true);
 
-    // Terminal lines appearing one by one
+    // Terminal lines
     useEffect(() => {
-        if (phase === "hack" && visibleLines < stolenDataLines.length) {
-            const timer = setTimeout(() => {
-                setVisibleLines(prev => prev + 1);
-            }, 600);
+        if (phase === "hack" && visibleLines < terminalLines.length) {
+            const delay = visibleLines < 2 ? 800 : visibleLines < 7 ? 500 : 400;
+            const timer = setTimeout(() => setVisibleLines(prev => prev + 1), delay);
             return () => clearTimeout(timer);
         }
-        if (phase === "hack" && visibleLines >= stolenDataLines.length && !showSkull) {
-            const timer = setTimeout(() => setShowSkull(true), 800);
+        if (phase === "hack" && visibleLines >= terminalLines.length) {
+            const timer = setTimeout(() => setPhase("skull"), 1000);
             return () => clearTimeout(timer);
         }
-    }, [phase, visibleLines, showSkull]);
+    }, [phase, visibleLines]);
 
-    // Countdown after skull appears
+    // Countdown
     useEffect(() => {
-        if (showSkull && countdown > 0) {
+        if (phase === "skull" && countdown > 0) {
             const timer = setInterval(() => setCountdown(prev => prev - 1), 1000);
             return () => clearInterval(timer);
         }
-        if (showSkull && countdown === 0) {
+        if (phase === "skull" && countdown === 0) {
             setPhase("reveal");
         }
-    }, [showSkull, countdown]);
+    }, [phase, countdown]);
 
-    // Glitch flicker effect
+    // Screen flicker
     useEffect(() => {
-        if (phase === "hack") {
+        if (phase === "hack" || phase === "skull") {
             const interval = setInterval(() => {
-                setGlitchActive(false);
-                setTimeout(() => setGlitchActive(true), 80);
-            }, 3000);
+                setScreenFlicker(false);
+                setTimeout(() => setScreenFlicker(true), 60);
+            }, 4000 + Math.random() * 3000);
             return () => clearInterval(interval);
         }
     }, [phase]);
 
-    // Reveal animation
-    useEffect(() => {
-        if (phase === "reveal") {
-            const timer = setTimeout(() => setShowReveal(true), 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [phase]);
-
     return (
-        <div className="min-h-[480px] sm:min-h-[520px] rounded-xl overflow-hidden shadow-2xl border border-gray-700 flex flex-col font-sans relative max-w-sm sm:max-w-md mx-auto text-white">
+        <div className="fixed inset-0 z-[9999] overflow-y-auto" style={{ background: "#000" }}>
             <AnimatePresence mode="wait">
-                {/* PHASE 1: SCARY HACK SCREEN */}
+
+                {/* ===== HACK SCREEN ===== */}
                 {phase === "hack" && (
                     <motion.div
                         key="hack"
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: glitchActive ? 1 : 0.3 }}
-                        className="flex-1 flex flex-col bg-black relative overflow-hidden"
+                        animate={{ opacity: screenFlicker ? 1 : 0.1 }}
+                        transition={{ duration: 0.05 }}
+                        className="min-h-screen flex flex-col relative"
+                        style={{ background: "#0a0a0a" }}
                     >
-                        {/* Scan lines overlay */}
-                        <div
-                            className="absolute inset-0 pointer-events-none z-10 opacity-20"
-                            style={{
-                                background: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,0,0.03) 2px, rgba(0,255,0,0.03) 4px)",
-                            }}
+                        {/* CRT scan lines */}
+                        <div className="fixed inset-0 pointer-events-none z-10 opacity-[0.15]"
+                            style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.4) 1px, rgba(0,0,0,0.4) 3px)" }}
                         />
 
-                        {/* Red flashing header */}
+                        {/* Red pulsing top bar */}
                         <motion.div
-                            animate={{ backgroundColor: ["rgba(220,38,38,0.8)", "rgba(220,38,38,0.3)", "rgba(220,38,38,0.8)"] }}
-                            transition={{ repeat: Infinity, duration: 1.5 }}
-                            className="px-4 py-3 text-center z-20 relative"
+                            animate={{ backgroundColor: ["#dc2626", "#7f1d1d", "#dc2626"] }}
+                            transition={{ repeat: Infinity, duration: 1.2 }}
+                            className="sticky top-0 z-20 px-4 py-3 flex items-center justify-center gap-2"
                         >
-                            <div className="flex items-center justify-center gap-2">
-                                <motion.span
-                                    animate={{ opacity: [1, 0, 1] }}
-                                    transition={{ repeat: Infinity, duration: 0.8 }}
-                                    className="text-xl"
-                                >
-                                    ⚠️
-                                </motion.span>
-                                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider">
-                                    CİHAZINIZ ELE GEÇİRİLDİ
-                                </h2>
-                                <motion.span
-                                    animate={{ opacity: [1, 0, 1] }}
-                                    transition={{ repeat: Infinity, duration: 0.8 }}
-                                    className="text-xl"
-                                >
-                                    ⚠️
-                                </motion.span>
-                            </div>
+                            <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 0.6 }} className="text-lg sm:text-xl">⚠️</motion.span>
+                            <span className="text-white font-bold text-xs sm:text-sm tracking-widest uppercase">CİHAZINIZ ELE GEÇİRİLDİ</span>
+                            <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 0.6 }} className="text-lg sm:text-xl">⚠️</motion.span>
                         </motion.div>
 
-                        {/* Terminal output */}
-                        <div className="flex-1 p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-y-auto z-20 relative">
-                            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-red-500/30">
+                        {/* Terminal */}
+                        <div className="flex-1 p-4 sm:p-8 font-mono z-20 relative max-w-2xl mx-auto w-full">
+                            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-red-900/50">
                                 <span className="text-red-500 animate-pulse text-xs">● REC</span>
-                                <span className="text-red-400 text-[11px]">root@attacker:~$</span>
+                                <span className="text-red-700 text-[11px] sm:text-xs">root@attacker:~#</span>
                             </div>
 
-                            {stolenDataLines.slice(0, visibleLines).map((line, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className="flex items-start gap-2 mb-1.5"
-                                >
-                                    <span className="text-red-500 shrink-0">{'>'}</span>
-                                    <span className={`${i >= 6 ? "text-red-400" : "text-green-400"}`}>
-                                        {line}
-                                    </span>
-                                    {i === visibleLines - 1 && i < stolenDataLines.length - 1 && (
-                                        <span className="inline-block w-2 h-4 bg-green-400 animate-pulse ml-0.5" />
-                                    )}
-                                </motion.div>
-                            ))}
+                            <div className="space-y-1.5 sm:space-y-2">
+                                {terminalLines.slice(0, visibleLines).map((line, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: -5 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.15 }}
+                                        className="flex items-start gap-2"
+                                    >
+                                        <span className="text-red-700 shrink-0 text-xs sm:text-sm">$</span>
+                                        <span className={`text-xs sm:text-sm ${line.color} leading-relaxed`}>
+                                            {line.text}
+                                        </span>
+                                    </motion.div>
+                                ))}
 
-                            {/* Skull + countdown after all lines */}
-                            {showSkull && (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className="mt-6 text-center"
-                                >
-                                    <div className="text-6xl sm:text-7xl mb-3">💀</div>
-                                    <p className="text-red-500 font-bold text-base sm:text-lg uppercase tracking-widest mb-2">
-                                        TÜM VERİLERİNİZ ÇALINDI
-                                    </p>
-                                    <p className="text-red-400/70 text-xs mb-4">
-                                        Fidye ödemezseniz verileriniz yayınlanacak
-                                    </p>
-
-                                    {/* Fake countdown */}
-                                    <div className="inline-block bg-red-900/50 border border-red-500/50 rounded-lg px-6 py-3">
-                                        <p className="text-[11px] text-red-300 uppercase mb-1">Kalan Süre</p>
-                                        <p className="text-3xl sm:text-4xl font-mono font-bold text-red-500 tracking-widest">
-                                            00:00:{countdown.toString().padStart(2, "0")}
-                                        </p>
+                                {/* Blinking cursor */}
+                                {visibleLines < terminalLines.length && (
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-red-700 text-xs sm:text-sm">$</span>
+                                        <span className="inline-block w-2 h-4 bg-green-500 animate-pulse" />
                                     </div>
-                                </motion.div>
-                            )}
-                        </div>
-
-                        {/* Skip button - small, subtle */}
-                        <div className="p-2 z-20 relative text-center">
-                            <button
-                                onClick={() => setPhase("reveal")}
-                                className="text-[11px] text-gray-600 hover:text-gray-400 transition-colors bg-transparent border-none cursor-pointer py-2 px-4"
-                            >
-                                Geç →
-                            </button>
+                                )}
+                            </div>
                         </div>
                     </motion.div>
                 )}
 
-                {/* PHASE 2: THE REVEAL */}
+                {/* ===== SKULL + RANSOM ===== */}
+                {phase === "skull" && (
+                    <motion.div
+                        key="skull"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: screenFlicker ? 1 : 0.05 }}
+                        className="min-h-screen flex flex-col items-center justify-center relative px-4"
+                        style={{ background: "#0a0000" }}
+                    >
+                        {/* CRT lines */}
+                        <div className="fixed inset-0 pointer-events-none z-10 opacity-[0.12]"
+                            style={{ background: "repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,0,0,0.05) 1px, rgba(255,0,0,0.05) 3px)" }}
+                        />
+
+                        {/* Red vignette */}
+                        <div className="fixed inset-0 pointer-events-none z-10"
+                            style={{ background: "radial-gradient(ellipse at center, transparent 40%, rgba(139,0,0,0.4) 100%)" }}
+                        />
+
+                        <motion.div
+                            initial={{ scale: 0, rotate: -180 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: "spring", stiffness: 100, damping: 12 }}
+                            className="text-7xl sm:text-9xl mb-6 z-20"
+                        >
+                            💀
+                        </motion.div>
+
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="text-red-500 font-bold text-xl sm:text-3xl uppercase tracking-[0.15em] text-center mb-3 z-20 font-mono"
+                        >
+                            TÜM VERİLERİNİZ ÇALINDI
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6 }}
+                            className="text-red-400/60 text-xs sm:text-sm text-center mb-8 z-20 max-w-md"
+                        >
+                            Fotoğraflarınız, mesajlarınız ve banka bilgileriniz ele geçirildi.
+                            Fidye ödenmezse tüm verileriniz yayınlanacaktır.
+                        </motion.p>
+
+                        {/* Countdown */}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.9 }}
+                            className="z-20"
+                        >
+                            <div className="bg-black border-2 border-red-800 rounded-xl px-8 sm:px-12 py-4 sm:py-6 shadow-[0_0_40px_rgba(220,38,38,0.3)]">
+                                <p className="text-red-400 text-[11px] sm:text-xs uppercase tracking-widest text-center mb-2 font-mono">Kalan Süre</p>
+                                <motion.p
+                                    animate={{ opacity: [1, 0.5, 1] }}
+                                    transition={{ repeat: Infinity, duration: 1 }}
+                                    className="text-4xl sm:text-6xl font-mono font-bold text-red-600 tracking-[0.2em] text-center"
+                                >
+                                    00:00:{countdown.toString().padStart(2, "0")}
+                                </motion.p>
+                            </div>
+                        </motion.div>
+
+                        {/* BTC Address */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1.2 }}
+                            className="mt-6 z-20 text-center"
+                        >
+                            <p className="text-red-900 text-[11px] sm:text-xs font-mono">
+                                Ödeme adresi: bc1qxy2kgdygjr██████████████████
+                            </p>
+                        </motion.div>
+
+                        {/* Skip */}
+                        <button
+                            onClick={() => setPhase("reveal")}
+                            className="fixed bottom-6 right-6 text-red-900/40 hover:text-red-700 text-[11px] z-30 bg-transparent border-none cursor-pointer"
+                        >
+                            geç →
+                        </button>
+                    </motion.div>
+                )}
+
+                {/* ===== THE REVEAL ===== */}
                 {phase === "reveal" && (
                     <motion.div
                         key="reveal"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="flex-1 flex flex-col relative overflow-hidden"
-                        style={{ background: "linear-gradient(135deg, #0a0a1a, #0f172a)" }}
+                        transition={{ duration: 1 }}
+                        className="min-h-screen flex flex-col"
+                        style={{ background: "linear-gradient(180deg, #022c22 0%, #0a0a1a 40%, #0f172a 100%)" }}
                     >
-                        {/* Green "safe" header */}
-                        <motion.div
-                            initial={{ y: -50, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.3, type: "spring" }}
-                            className="bg-gradient-to-r from-green-600 to-emerald-600 px-4 py-4 text-center"
-                        >
+                        {/* Big shield */}
+                        <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-8 py-12">
                             <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
-                                className="text-4xl sm:text-5xl mb-2"
+                                initial={{ scale: 0, rotate: -90 }}
+                                animate={{ scale: 1, rotate: 0 }}
+                                transition={{ type: "spring", stiffness: 120, damping: 10, delay: 0.3 }}
+                                className="text-6xl sm:text-8xl mb-6"
                             >
                                 🛡️
                             </motion.div>
-                            <h2 className="text-lg sm:text-xl font-bold">RAHAT OLUN — HACKLENMEDİNİZ!</h2>
-                            <p className="text-green-100 text-xs sm:text-sm mt-1">Bu bir farkındalık deneyimiydi.</p>
-                        </motion.div>
 
-                        {/* Message */}
-                        <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
-                            <motion.div
+                            <motion.h1
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.6 }}
+                                className="text-emerald-400 font-bold text-xl sm:text-3xl text-center mb-2"
+                            >
+                                RAHAT OLUN
+                            </motion.h1>
+                            <motion.p
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.8 }}
-                                className="space-y-4"
+                                className="text-emerald-300/70 text-sm sm:text-lg text-center mb-8"
                             >
-                                <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                                Hacklenmediniz. Bu bir farkındalık deneyimiydi.
+                            </motion.p>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.1 }}
+                                className="max-w-lg w-full space-y-4"
+                            >
+                                <div className="bg-white/5 border border-white/10 rounded-xl p-4 sm:p-5">
                                     <p className="text-sm sm:text-base text-gray-200 leading-relaxed">
-                                        Az önce yaşadığınız o kalp çarpıntısı, o panik hissi...
-                                        İşte <strong className="text-white">sosyal mühendisliğin</strong> gücü tam olarak budur.
+                                        Az önce yaşadığınız o <strong className="text-white">kalp çarpıntısı</strong>, o panik anı...
+                                        İşte dolandırıcıların sizden beklediği tepki tam olarak buydu. Panik halindeki bir insan düşünemez, sorgulayamaz — sadece itaat eder.
                                     </p>
                                 </div>
 
-                                <div className="bg-blue-900/20 border border-blue-500/20 rounded-xl p-4">
-                                    <p className="text-xs sm:text-sm text-blue-200 leading-relaxed">
-                                        <strong className="text-blue-300">Gerçekte ne oldu?</strong> Hiçbir şey.
-                                        Hiçbir verinize erişilmedi, hiçbir bilginiz çalınmadı. Gördüğünüz her şey
-                                        sadece bir animasyondu. Ama gerçek bir dolandırıcı tam olarak bu korkuyu kullanır.
+                                <div className="bg-emerald-900/20 border border-emerald-500/20 rounded-xl p-4 sm:p-5">
+                                    <h3 className="text-emerald-400 font-bold text-sm mb-2">Gerçekte ne oldu?</h3>
+                                    <p className="text-xs sm:text-sm text-emerald-200/80 leading-relaxed">
+                                        Hiçbir şey. Hiçbir verinize erişilmedi, hiçbir bilginiz çalınmadı, hiçbir dosyanız kopyalanmadı.
+                                        Gördüğünüz her satır sadece bir animasyondu. IP adresiniz bile gerçek değildi.
                                     </p>
                                 </div>
 
-                                <div className="bg-red-900/20 border border-red-500/20 rounded-xl p-4">
-                                    <p className="text-xs sm:text-sm text-red-200 leading-relaxed">
-                                        <strong className="text-red-300">Ders:</strong> QR kod taradığınızda açılan sayfa
-                                        sizi korkutuyorsa, kişisel bilgi veya para istiyorsa — durun ve düşünün.
-                                        Tarayıcıyı kapatın. Gerçek bir tehlike olsaydı, size &quot;fidye ödeyin&quot; demezlerdi.
+                                <div className="bg-red-900/20 border border-red-500/20 rounded-xl p-4 sm:p-5">
+                                    <h3 className="text-red-400 font-bold text-sm mb-2">Bunu neden yaptık?</h3>
+                                    <p className="text-xs sm:text-sm text-red-200/80 leading-relaxed">
+                                        Çünkü gerçek dolandırıcılar tam olarak bu yöntemi kullanıyor.
+                                        Sahte bir QR kod, sahte bir link veya sahte bir pop-up ile sizi korkutup para veya bilgi istiyorlar.
+                                        <strong className="text-red-300"> Gerçek bir saldırı size &quot;hacklendiniz&quot; demez.</strong> Sessizce çalışır.
                                     </p>
                                 </div>
                             </motion.div>
 
-                            {/* Finale - Book ending */}
-                            {showReveal && (
-                                <motion.div
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3, duration: 0.8 }}
-                                    className="mt-6 bg-gradient-to-br from-blue-900/40 to-purple-900/40 rounded-xl p-5 border border-blue-500/20 text-center"
+                            {/* Book finale */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.8, duration: 0.8 }}
+                                className="mt-8 sm:mt-12 max-w-lg w-full bg-gradient-to-br from-blue-900/30 to-purple-900/30 rounded-2xl p-6 sm:p-8 border border-blue-500/20 text-center"
+                            >
+                                <div className="text-4xl sm:text-5xl mb-4">🏆</div>
+                                <h2 className="font-bold text-blue-300 text-lg sm:text-xl mb-4">Kitabın Sonuna Ulaştınız</h2>
+                                <p className="text-xs sm:text-sm text-gray-300 leading-relaxed mb-6">
+                                    30 bölüm boyunca sosyal mühendisliğin en yaygın taktiklerini deneyimlediniz.
+                                    Artık bir telefon çaldığında, bir e-posta geldiğinde veya bir QR kod gördüğünüzde
+                                    bir anlığına durup düşüneceksiniz:
+                                </p>
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 2.5 }}
+                                    className="text-base sm:text-lg font-bold text-white italic leading-relaxed"
                                 >
-                                    <div className="text-3xl sm:text-4xl mb-3">🏆</div>
-                                    <h3 className="font-bold text-blue-300 text-base sm:text-lg mb-3">Kitabın Sonuna Ulaştınız!</h3>
-                                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                                        30 bölüm boyunca sosyal mühendisliğin en yaygın taktiklerini deneyimlediniz.
-                                        Artık bir telefon çaldığında, bir e-posta geldiğinde veya bir QR kod gördüğünüzde
-                                        durup düşüneceksiniz:
-                                    </p>
-                                    <motion.p
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ delay: 1 }}
-                                        className="text-sm sm:text-base font-bold text-white mt-4 italic leading-relaxed"
+                                    &quot;Bu benim düşüncem mi, yoksa birisi bana bunu düşündürtüyor mu?&quot;
+                                </motion.p>
+                                <motion.p
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 3 }}
+                                    className="text-xs text-gray-500 mt-4"
+                                >
+                                    — Osman Can Çetlenbik
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 3.5 }}
+                                    className="mt-6"
+                                >
+                                    <a
+                                        href="/"
+                                        className="inline-block bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-3 px-8 rounded-xl transition-colors no-underline"
                                     >
-                                        &quot;Bu benim düşüncem mi, yoksa birisi bana bunu düşündürtüyor mu?&quot;
-                                    </motion.p>
-                                    <motion.p
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ delay: 1.5 }}
-                                        className="text-xs text-gray-400 mt-4"
-                                    >
-                                        — Osman Can Çetlenbik
-                                    </motion.p>
+                                        Ana Sayfaya Dön
+                                    </a>
                                 </motion.div>
-                            )}
+                            </motion.div>
                         </div>
                     </motion.div>
                 )}

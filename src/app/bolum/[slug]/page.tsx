@@ -46,6 +46,11 @@ export default function ChapterPage({ params }: { params: Promise<{ slug: string
     const SimComponent = simulations[slug];
     if (!SimComponent) notFound();
 
+    // Bölüm 30: Tam ekran deneyim — ChapterLayout yok
+    if (slug === "qr-kod-tuzagi") {
+        return <SimComponent />;
+    }
+
     return (
         <ChapterLayout chapter={chapter}>
             <SimComponent />
