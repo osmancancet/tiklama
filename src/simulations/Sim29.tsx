@@ -315,7 +315,7 @@ export default function Sim29() {
                             title={correct ? "Hüseyin Bey Kurtuldu!" : "Hesap Boşaltıldı!"}
                             message={correct
                                 ? "Doğru karar! Hüseyin Bey SMS'teki linke tıklamak yerine resmi uygulama mağazasından bankasını aradı. Gerçek uygulamanın zaten güncel olduğunu gördü ve dolandırıcılık girişimini fark etti."
-                                : "Hüseyin Bey sahte uygulamaya bilgilerini girdi. Saldırgan TC kimlik, şifre ve SMS onay kodunu ele geçirip hesaptaki 47.500 TL'yi saniyeler içinde başka hesaplara aktardı. Uygulama 'İşlem başarısız' diyerek Hüseyin Bey'yı oyaladı."}
+                                : "Hüseyin Bey sahte uygulamaya bilgilerini girdi. Saldırgan TC kimlik, şifre ve SMS onay kodunu ele geçirip hesaptaki 47.500 TL'yi saniyeler içinde başka hesaplara aktardı. Uygulama 'İşlem başarısız' diyerek Hüseyin Bey'i oyaladı."}
                             lesson="Banka uygulamalarını YALNIZCA resmi App Store veya Google Play'den indirin. SMS ile gelen 'güncelleme' linkleri sahte olabilir. Gerçek bankalar asla SMS ile uygulama linki göndermez."
                             onReset={() => {
                                 setPhase("sms");

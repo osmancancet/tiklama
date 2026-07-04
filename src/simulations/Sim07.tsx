@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
@@ -7,6 +7,11 @@ export default function Sim07() {
     const [phase, setPhase] = useState<"player" | "decision" | "result">("player");
     const [correct, setCorrect] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
+
+    // unmount'ta konuşmayı durdur (sayfadan çıkınca ses devam etmesin)
+    useEffect(() => () => {
+        if (typeof window !== 'undefined') window.speechSynthesis?.cancel();
+    }, []);
 
     const togglePlay = () => {
         if (typeof window === 'undefined' || !window.speechSynthesis) {
@@ -120,7 +125,7 @@ export default function Sim07() {
                         ? "Sakin kalıp doğrulama sorusu sorarak bunun bir yapay zeka klonlaması olduğunu anladınız."
                         : "Panikle hareket ettiniz. Telefondaki ses, kızınızın sosyal medyadaki videolarından üretilmiş bir Deepfake sesiydi."}
                     lesson="Aile içi güvenlik parolası belirleyin. Yapay zeka ile sesler kolayca klonlanabilir, telefonda duyduğunuz sesin gerçek olduğundan emin olmak için özel bir soru sorun."
-                    onReset={() => { setPhase("player"); setIsPlaying(false); }}
+                    onReset={() => { if (typeof window !== 'undefined') window.speechSynthesis?.cancel(); setPhase("player"); setIsPlaying(false); }}
                 />
                 </div>
             )}

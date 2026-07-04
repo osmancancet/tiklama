@@ -80,7 +80,7 @@ export default function Sim11() {
                                 onClick={() => { setCorrect(false); setPhase("result"); }}
                                 className="flex-1 bg-white text-red-900 py-3 rounded font-bold hover:bg-gray-200 transition-colors"
                             >
-                                💸 Fidyeyi Öde ($5000)
+                                💸 Fidyeyi Öde (0.1 BTC)
                             </button>
                             <button
                                 onClick={() => { setCorrect(true); setPhase("result"); }}

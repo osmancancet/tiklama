@@ -64,6 +64,16 @@ export default function Sim30() {
 
     return (
         <div className="fixed inset-0 z-[9999] overflow-y-auto" style={{ background: "#000" }}>
+            {/* Deneyimi geçme yolu (tam ekran kilitlenmesin) */}
+            {(phase === "hack" || phase === "skull") && (
+                <button
+                    onClick={() => setPhase("reveal")}
+                    className="fixed top-3 right-3 z-[60] text-white/40 hover:text-white/90 text-xs font-mono border border-white/20 rounded px-3 py-1.5 bg-black/40 backdrop-blur-sm transition-colors"
+                    aria-label="Deneyimi geç"
+                >
+                    Geç ⏭
+                </button>
+            )}
             <AnimatePresence mode="wait">
 
                 {/* ===== HACK SCREEN ===== */}
@@ -73,7 +83,7 @@ export default function Sim30() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: screenFlicker ? 1 : 0.1 }}
                         transition={{ duration: 0.05 }}
-                        className="min-h-screen flex flex-col relative"
+                        className="min-h-[100dvh] flex flex-col relative"
                         style={{ background: "#0a0a0a" }}
                     >
                         {/* CRT scan lines */}
@@ -133,7 +143,7 @@ export default function Sim30() {
                         key="skull"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: screenFlicker ? 1 : 0.05 }}
-                        className="min-h-screen flex flex-col items-center justify-center relative px-4"
+                        className="min-h-[100dvh] flex flex-col items-center justify-center relative px-4"
                         style={{ background: "#0a0000" }}
                     >
                         {/* CRT lines */}
@@ -222,7 +232,7 @@ export default function Sim30() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1 }}
-                        className="min-h-screen flex flex-col"
+                        className="min-h-[100dvh] flex flex-col"
                         style={{ background: "linear-gradient(180deg, #022c22 0%, #0a0a1a 40%, #0f172a 100%)" }}
                     >
                         {/* Big shield */}

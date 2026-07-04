@@ -22,19 +22,19 @@ export default function Sim18() {
 
                         <div className="relative w-full max-w-md h-48 sm:h-64 mb-8">
                             {/* YOU (Buyer) */}
-                            <div className="absolute top-0 left-0 bg-blue-600 text-white p-2 rounded-lg text-xs w-24">
+                            <div className="absolute top-0 left-0 bg-blue-600 text-white p-2 rounded-lg text-xs w-20 sm:w-24">
                                 <span className="text-2xl block">😊</span>
                                 SİZ (Alıcı)
                             </div>
 
                             {/* REAL SELLER */}
-                            <div className="absolute top-0 right-0 bg-green-600 text-white p-2 rounded-lg text-xs w-24">
+                            <div className="absolute top-0 right-0 bg-green-600 text-white p-2 rounded-lg text-xs w-20 sm:w-24">
                                 <span className="text-2xl block">👴</span>
                                 SATICI (Gerçek)
                             </div>
 
                             {/* SCAMMER */}
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-red-600 text-white p-2 rounded-lg text-xs w-24 animate-pulse">
+                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-red-600 text-white p-2 rounded-lg text-xs w-20 sm:w-24 animate-pulse">
                                 <span className="text-2xl block">🤡</span>
                                 ARACI (Dolandırıcı)
                             </div>

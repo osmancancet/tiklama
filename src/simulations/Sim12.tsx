@@ -81,7 +81,7 @@ export default function Sim12() {
                         title={correct ? "Güvenli Bağlantı!" : "Man-in-the-Middle Saldırısı!"}
                         message={correct
                             ? "Doğru tercih! Resepsiyondan şifresini aldığınız şifreli (kilitli) ağa bağlanarak veya kendi hücresel verinizi kullanarak verilerinizi şifrelediniz."
-                            : "Tuzağa düştünüz! 'Free_Guest_WiFi' gibi şifresiz ağlar genellikle hackerlar tarafından kurulur (Evil Twin). Bu ağ üzerinden yaptığınız tüm bankacılık işlemleri izlendi."}
+                            : "Tuzağa düştünüz! 'Free_Guest_WiFi' gibi şifresiz ağlar genellikle saldırganlar tarafından kurulur (Evil Twin). Bu ağ üzerinden yaptığınız tüm bankacılık işlemleri izlendi."}
                         lesson="Halka açık şifresiz Wi-Fi ağlarında asla bankacılık işlemi veya e-devlet girişi yapmayın. Mümkünse VPN veya kendi mobil verinizi kullanın."
                         onReset={() => setPhase("list")}
                     />

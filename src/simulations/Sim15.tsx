@@ -22,7 +22,7 @@ export default function Sim15() {
                             <div className="w-24 h-24 bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto border-2 border-white/20 overflow-hidden">
                                 <span className="text-4xl">🏦</span>
                             </div>
-                            <h2 className="text-3xl font-bold text-white mb-1">Müşteri Hiz.</h2>
+                            <h2 className="text-3xl font-bold text-white mb-1">Müşteri Hizmetleri</h2>
                             <p className="text-lg text-gray-400">0850 444 0 444</p>
                             <p className="text-xs text-red-500 mt-2 font-bold animate-pulse">! Şüpheli Arama Olabilir</p>
                         </div>
@@ -60,7 +60,7 @@ export default function Sim15() {
                         className="flex-1 flex flex-col items-center bg-gray-800 p-6"
                     >
                         <div className="text-center mb-8">
-                            <h3 className="text-xl font-bold text-white">Müşteri Hiz.</h3>
+                            <h3 className="text-xl font-bold text-white">Müşteri Hizmetleri</h3>
                             <p className="text-sm text-green-400">00:12</p>
                         </div>
 

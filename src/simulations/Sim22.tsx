@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
@@ -7,15 +7,21 @@ export default function Sim22() {
     const [phase, setPhase] = useState<"search" | "download" | "install" | "result">("search");
     const [correct, setCorrect] = useState(false);
     const [progress, setProgress] = useState(0);
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+    // unmount'ta çalışan interval'i temizle (sızıntı/uyarı önlenir)
+    useEffect(() => () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+    }, []);
 
     const startInstall = () => {
         setPhase("install");
         let p = 0;
-        const interval = setInterval(() => {
+        intervalRef.current = setInterval(() => {
             p += 5;
             setProgress(p);
             if (p >= 100) {
-                clearInterval(interval);
+                if (intervalRef.current) clearInterval(intervalRef.current);
                 setCorrect(false);
                 setPhase("result");
             }
@@ -68,7 +74,7 @@ export default function Sim22() {
                                 ! Kurulumdan önce antivirüsü kapatın, yoksa crack silinir!
                             </p>
 
-                            <div className="flex gap-4">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                                 <button
                                     onClick={startInstall}
                                     className="bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded font-bold shadow-[0_0_20px_rgba(34,197,94,0.5)]"

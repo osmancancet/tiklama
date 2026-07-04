@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 interface TerminalTextProps {
@@ -14,11 +14,18 @@ export default function TerminalText({ lines, speed = 30, onComplete, className 
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
     const [isComplete, setIsComplete] = useState(false);
+    const completedRef = useRef(false);
+
+    // lines değişirse tamamlanma bayrağını sıfırla
+    useEffect(() => { completedRef.current = false; }, [lines]);
 
     useEffect(() => {
         if (currentLineIndex >= lines.length) {
-            setIsComplete(true);
-            onComplete?.();
+            if (!completedRef.current) {
+                completedRef.current = true;
+                setIsComplete(true);
+                onComplete?.();
+            }
             return;
         }
 

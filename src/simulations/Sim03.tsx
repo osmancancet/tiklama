@@ -1,11 +1,20 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim03() {
     const [phase, setPhase] = useState<"desktop" | "window" | "hacked" | "result">("desktop");
     const [correct, setCorrect] = useState(false);
+    const [clock, setClock] = useState("");
+
+    // Saati istemcide güncelle (SSR hydration uyuşmazlığını önler)
+    useEffect(() => {
+        const update = () => setClock(new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }));
+        update();
+        const id = setInterval(update, 30000);
+        return () => clearInterval(id);
+    }, []);
 
     return (
         <div className="bg-cover bg-center min-h-[480px] sm:min-h-[520px] max-w-sm sm:max-w-md mx-auto rounded-xl overflow-hidden shadow-2xl border border-gray-700 relative select-none font-sans"
@@ -21,7 +30,7 @@ export default function Sim03() {
                         <div className="w-1 h-1 bg-white"></div>
                     </div>
                 </div>
-                <div className="text-white/80 text-xs font-mono">{new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</div>
+                <div className="text-white/80 text-xs font-mono">{clock}</div>
             </div>
 
             <AnimatePresence>

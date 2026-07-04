@@ -21,6 +21,8 @@
   --neon-purple: #a78bfa;
   --border-color: rgba(255, 255, 255, 0.1);
   --bg-card-hover: rgba(255, 255, 255, 0.08);
+  --terminal-green: #22c55e;
+  --warning-yellow: #facc15;
 }
 
 @theme inline {
@@ -39,6 +41,8 @@
   --color-danger-red: var(--danger-red);
   --color-border-color: var(--border-color);
   --color-bg-card-hover: var(--bg-card-hover);
+  --color-terminal-green: var(--terminal-green);
+  --color-warning-yellow: var(--warning-yellow);
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -63,6 +67,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Mobile: Prevent accidental text selection during interactions */
   -webkit-text-size-adjust: 100%;
+}
+
+/* Fix: keyframe/utility sınıfları (simülasyonlarda kullanılıyor) */
+@keyframes slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+.writing-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
 
 /* Elite Scrollbar */

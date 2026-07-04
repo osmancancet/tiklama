@@ -5,8 +5,8 @@ import SimulationResult from "@/components/SimulationResult";
 import TerminalText from "@/components/TerminalText";
 
 const chatMessages = [
-    { name: "Hüseyin", msg: "Hilmi ne oldu lan?", color: "#3b82f6" },
-    { name: "Yusuf", msg: "Abi virus falan mı geldi?", color: "#22c55e" },
+    { name: "Hüseyin", msg: "Hilmi ne oldu ya?", color: "#3b82f6" },
+    { name: "Yusuf", msg: "Abi virüs falan mı geldi?", color: "#22c55e" },
     { name: "Ozan", msg: "Kapatsana tarayıcıyı Ctrl+W bas!", color: "#f59e0b" },
     { name: "Hilmi", msg: "Kapanmıyor! Numarayı arıyorum...", color: "#ef4444" },
 ];
@@ -29,13 +29,12 @@ export default function Sim26() {
     const [chatIndex, setChatIndex] = useState(0);
     const [terminalDone, setTerminalDone] = useState(false);
 
-    // Countdown timer for lock screen
+    // Countdown timer for lock screen (tek interval; her saniye yeniden kurulmaz)
     useEffect(() => {
-        if (phase === "lockscreen" && timeLeft > 0) {
-            const timer = setInterval(() => setTimeLeft(prev => prev - 1), 1000);
-            return () => clearInterval(timer);
-        }
-    }, [phase, timeLeft]);
+        if (phase !== "lockscreen") return;
+        const timer = setInterval(() => setTimeLeft(prev => (prev > 0 ? prev - 1 : 0)), 1000);
+        return () => clearInterval(timer);
+    }, [phase]);
 
     // Chat messages animation
     useEffect(() => {
@@ -117,7 +116,7 @@ export default function Sim26() {
                                 ⚠️
                             </motion.div>
 
-                            <h1 className="text-xl font-bold mb-2">WİNDOWS DEFENDER UYARISI</h1>
+                            <h1 className="text-xl font-bold mb-2">WINDOWS DEFENDER UYARISI</h1>
                             <p className="text-sm mb-4 max-w-xs">
                                 Bilgisayarınızda <span className="font-bold text-yellow-300">Trojan:Win32/Emotet</span> tespit edildi!
                                 Kişisel verileriniz tehlikede.

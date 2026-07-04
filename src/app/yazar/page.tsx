@@ -72,7 +72,7 @@ export default function AuthorPage() {
 
                     <div className="text-center md:text-left relative z-20">
                         <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">Öğr. Gör. Osman Can Çetlenbik</h1>
-                        <p className="text-lg text-accent-blue font-mono mb-4">Akademisyen & Yazar</p>
+                        <p className="text-lg text-accent-blue font-mono mb-4">Akademisyen & Bilgisayar Mühendisi</p>
                         <p className="text-text-secondary leading-relaxed max-w-2xl text-sm mb-6">
                             Manisa Celal Bayar Üniversitesi'nde Öğretim Görevlisi olarak çalışmaktadır.
                             Süleyman Demirel Üniversitesi Bilgisayar Mühendisliği lisans ve Isparta Uygulamalı Bilimler Üniversitesi Yüksek Lisans eğitimlerini tamamlamıştır.
@@ -219,7 +219,7 @@ export default function AuthorPage() {
                                 <span className="inline-block px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold mb-3 border border-blue-500/20">MAKALE</span>
                                 <h4 className="text-white font-bold text-lg mb-2 leading-tight group-hover:text-blue-200 transition-colors">IOT SECURITY AND SOFTWARE TESTING</h4>
                                 <p className="text-sm text-text-secondary italic mb-2">Çetlenbik, O. C., Süzen, A. A. & Duman, B. (2024)</p>
-                                <p className="text-xs text-text-secondary/60">Yalvaç Akademi Dergisi, 9()</p>
+                                <p className="text-xs text-text-secondary/60">Yalvaç Akademi Dergisi, Cilt 9</p>
                             </motion.div>
 
                             <motion.div variants={listItemVariants} className="group p-6 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/20 transition-all hover:bg-white/[0.04]">

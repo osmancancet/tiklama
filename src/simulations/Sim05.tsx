@@ -52,13 +52,11 @@ export default function Sim05() {
     const [currentStory, setCurrentStory] = useState(0);
     const [correct, setCorrect] = useState(false);
 
+    // Hikayeler arasında ilerle; son hikayeden sonra başa döner -> asla kilitlenmez.
+    const goNext = () => setCurrentStory(curr => (curr + 1) % stories.length);
+
     const handleNext = () => {
-        if (currentStory < stories.length - 1) {
-            setCurrentStory(curr => curr + 1);
-        } else {
-            // End of stories, treated as sharing all safely? No, specific check on risk slide needed.
-            // Let's change mechanic: On the risk slide, user must chose.
-        }
+        goNext();
     };
 
     const handlePrev = () => {
@@ -69,27 +67,23 @@ export default function Sim05() {
 
     const handleShare = () => {
         if (stories[currentStory].risk) {
+            // Riskli görseli (biniş kartı) paylaşmak = başarısız
             setCorrect(false);
             setPhase("result");
         } else {
-            if (currentStory < stories.length - 1) {
-                setCurrentStory(curr => curr + 1);
-            } else {
-                // Completed safely? No, the risk was in the middle.
-                // If they shared the risk slide, they fail.
-            }
+            // Zararsız hikaye; feed'de ilerle
+            goNext();
         }
     };
 
     const handleDelete = () => {
         if (stories[currentStory].risk) {
+            // Riskli görseli silmek = doğru karar
             setCorrect(true);
             setPhase("result");
         } else {
-            // Deleted a harmless story
-            if (currentStory < stories.length - 1) {
-                setCurrentStory(curr => curr + 1);
-            }
+            // Zararsız hikayeyi sil ve ilerle
+            goNext();
         }
     };
 

@@ -99,7 +99,7 @@ export default function Sim04() {
                             isCorrect={correct}
                             title={correct ? "Güvenlik İhlali Önlendi!" : "Tailgating Saldırısı Başarılı!"}
                             message={correct
-                                ? "Nezaket kuralları güvenlikten önemli değildir. Kişiyi güvenliğe yönlendirerek izinsiz birinin binaya girmesini (veya kartsız giriş yapılmasını) engellediniz."
+                                ? "Nezaket, güvenlikten daha önemli olamaz. Kişiyi güvenliğe yönlendirerek izinsiz birinin binaya girmesini (veya kartsız giriş yapılmasını) engellediniz."
                                 : "Nezaketinize yenildiniz. 'Tailgating' (Kuyruk Takibi) saldırısına izin verdiniz. Bu kişi rakip firma casusu veya kötü niyetli biri olabilirdi."}
                             lesson="Profesyonel nezaket güvenlik açıklarına sebep olmamalıdır. Kartını unutan veya 'elleri dolu' olan kişileri her zaman güvenlik görevlisine yönlendirin."
                             onReset={() => setPhase("scene")}

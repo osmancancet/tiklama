@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 import { Phone, PhoneOff, Mic, Volume2, GripHorizontal } from "lucide-react";
@@ -9,6 +9,12 @@ export default function Sim01() {
     const [correct, setCorrect] = useState(false);
     const [timer, setTimer] = useState(0);
     const [dial, setDial] = useState("");
+    const failTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // unmount'ta bekleyen zamanlayıcıyı temizle
+    useEffect(() => () => {
+        if (failTimerRef.current) clearTimeout(failTimerRef.current);
+    }, []);
 
     // Timer logic
     useEffect(() => {
@@ -34,9 +40,9 @@ export default function Sim01() {
 
     const handleKeypadPress = (num: string) => {
         setDial(prev => prev + num);
-        // If user presses any key, it's a fail (they fell for the "press 1" trap)
-        if (dial.length >= 0) {
-            setTimeout(() => {
+        // Herhangi bir tuşa basmak = "1'e bas" tuzağına düşmek. Sonucu yalnızca bir kez planla.
+        if (!failTimerRef.current) {
+            failTimerRef.current = setTimeout(() => {
                 setCorrect(false);
                 setPhase("result");
             }, 800);
@@ -172,12 +178,12 @@ export default function Sim01() {
                                 <div className="text-4xl font-light mb-8 h-12 flex items-center tracking-widest">
                                     {dial.split('').map((d, index) => <span key={index} className="mx-1">●</span>)}
                                 </div>
-                                <div className="grid grid-cols-3 gap-x-6 gap-y-4">
+                                <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-[240px] sm:max-w-[280px] mx-auto">
                                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, "*", 0, "#"].map((num) => (
                                         <button
                                             key={num}
                                             onClick={() => handleKeypadPress(num.toString())}
-                                            className="w-16 h-16 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md flex flex-col items-center justify-center transition-colors"
+                                            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/10 hover:bg-white/20 active:bg-white/30 backdrop-blur-md flex flex-col items-center justify-center transition-colors"
                                         >
                                             <span className="text-2xl font-light">{num}</span>
                                         </button>

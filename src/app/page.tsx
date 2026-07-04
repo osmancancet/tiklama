@@ -153,7 +153,7 @@ export default function HomePage() {
               30 Farklı Saldırı Senaryosu
             </h2>
             <p className="text-text-muted mt-3 max-w-xl mx-auto text-sm">
-              Her bölümde gerçek bir vaka incelenir ve sen karar verirsin. Doğru mu yaparsın, tuzağa mı düşersin?
+              Her bölümde gerçek bir vaka incelenir ve siz karar verirsiniz. Doğru mu yaparsınız, tuzağa mı düşersiniz?
             </p>
           </motion.div>
 

@@ -35,7 +35,7 @@ export default function Sim24() {
                                 {/* Fake Exam Paper Look */}
                                 <div className="absolute inset-0 p-4 text-[6px] text-black">
                                     <p className="font-bold text-lg mb-4 text-center">TYT DENEME</p>
-                                    <p>Lorem ipsum dolor sit amet...</p>
+                                    <p>Aşağıdakilerden hangisi doğrudur?</p>
                                     <p>1. Soru: .................</p>
                                 </div>
                                 <div className="absolute inset-0 bg-black/50 z-10 flex items-center justify-center text-white font-bold text-xs text-center p-2">
@@ -48,7 +48,7 @@ export default function Sim24() {
                             Tamamı için sadece 500 TL. Hemen gönder, soruları al. IBAN: TR12...
                         </div>
 
-                        <div className="mt-auto grid grid-cols-2 gap-2">
+                        <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-2">
                             <button
                                 onClick={() => setPhase("blackmail")}
                                 className="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded font-bold text-sm"

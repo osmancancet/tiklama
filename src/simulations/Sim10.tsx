@@ -1,11 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SimulationResult from "@/components/SimulationResult";
 
 export default function Sim10() {
     const [phase, setPhase] = useState<"login" | "dashboard" | "result">("login");
     const [correct, setCorrect] = useState(false);
+    const [clock, setClock] = useState("--:--:--");
+    const [viewers, setViewers] = useState(1);
+
+    // Kamera saati ve izleyici sayısını istemcide üret (SSR hydration uyuşmazlığını önler)
+    useEffect(() => {
+        const update = () => {
+            setClock(new Date().toLocaleTimeString());
+            setViewers(Math.floor((Date.now() / 1000) % 10) + 1);
+        };
+        update();
+        const id = setInterval(update, 1000);
+        return () => clearInterval(id);
+    }, []);
 
     return (
         <div className="bg-gray-100 min-h-[480px] sm:min-h-[520px] max-w-sm sm:max-w-md mx-auto rounded-xl overflow-hidden shadow-2xl border border-gray-400 flex flex-col font-sans relative">
@@ -32,7 +45,7 @@ export default function Sim10() {
                                 REC
                             </div>
                             <div className="absolute top-4 left-4 text-white font-mono text-xs bg-black/50 px-2 py-1 rounded">
-                                CAM_01 • {new Date().toLocaleTimeString()}
+                                CAM_01 • {clock}
                             </div>
 
                             {/* Viewer Count - Pressure Element */}
@@ -42,7 +55,7 @@ export default function Sim10() {
                                 transition={{ delay: 2 }}
                                 className="absolute bottom-4 left-4 bg-red-900/80 text-white px-3 py-1 rounded border border-red-500/50 text-xs flex items-center gap-2"
                             >
-                                👁️ <span className="font-bold">LIVE VIEWERS: {Math.floor(Date.now() / 1000 % 10) + 1}</span>
+                                👁️ <span className="font-bold">LIVE VIEWERS: {viewers}</span>
                             </motion.div>
                         </div>
 

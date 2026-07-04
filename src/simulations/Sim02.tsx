@@ -78,7 +78,7 @@ export default function Sim02() {
                                         onClick={() => i < 3 ? setPhase("compose") : null}
                                         className="px-3 py-1 hover:bg-gray-100 rounded text-xs text-gray-700 flex items-center gap-1 transition-colors whitespace-nowrap"
                                     >
-                                        {i === 0 && "↩️"} {i === 1 && "StartCall↩️"} {i === 2 && "➡️"} {i === 3 && "📦"} {i === 4 && "🗑️"}
+                                        {i === 0 && "↩️"} {i === 1 && "↪️"} {i === 2 && "➡️"} {i === 3 && "📦"} {i === 4 && "🗑️"}
                                         {action}
                                     </button>
                                 ))}
