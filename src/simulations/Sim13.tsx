@@ -44,7 +44,7 @@ export default function Sim13() {
                         </div>
 
                         {/* Fake Link Block */}
-                        <div className="self-end w-full max-w-[80%]">
+                        <div className="self-end w-full max-w-[80%] min-w-0">
                             <button
                                 onClick={() => setPhase("payment")}
                                 className="w-full bg-white rounded-lg shadow-sm overflow-hidden text-left group hover:opacity-90 transition-opacity"
@@ -67,7 +67,7 @@ export default function Sim13() {
                     >
                         <div className="p-2 border-b flex items-center bg-gray-50">
                             <span className="text-xs text-gray-500 mr-2">🔒</span>
-                            <div className="flex-1 bg-white border rounded px-2 py-1 text-xs text-gray-700 truncate">
+                            <div className="flex-1 min-w-0 bg-white border rounded px-2 py-1 text-xs text-gray-700 truncate">
                                 https://guvenli-sahibinden-param-guvende.com/odeme...
                             </div>
                             <button onClick={() => setPhase("chat")} className="ml-2 text-gray-500 text-lg">✕</button>

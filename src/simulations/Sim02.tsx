@@ -40,7 +40,7 @@ export default function Sim02() {
                         <motion.div
                             key="inbox"
                             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                            className="flex-1 bg-white p-0 md:p-4"
+                            className="flex-1 min-w-0 bg-white p-0 md:p-4"
                         >
                             <div className="border-b border-gray-200 p-3 md:hidden font-bold text-[#0078d4]">Gelen Kutusu</div>
                             <div
@@ -67,7 +67,7 @@ export default function Sim02() {
                         <motion.div
                             key="email"
                             initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ opacity: 0 }}
-                            className="flex-1 bg-white flex flex-col h-full overflow-y-auto"
+                            className="flex-1 min-w-0 bg-white flex flex-col h-full overflow-y-auto"
                         >
                             {/* Email Toolbar */}
                             <div className="border-b border-gray-200 p-2 flex gap-2 overflow-x-auto">

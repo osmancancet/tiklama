@@ -20,12 +20,12 @@ export default function Sim14() {
                     <motion.div
                         key="email"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                        className="flex-1 p-6 flex flex-col"
+                        className="flex-1 p-6 flex flex-col min-w-0"
                     >
                         <h2 className="text-xl font-bold mb-4">Re: Köşk Satışı / Tapu Devir İşlemleri</h2>
 
                         {/* Old Email (Context) */}
-                        <div className="mb-4 opacity-50 border-l-2 border-gray-300 pl-4 py-2">
+                        <div className="mb-4 opacity-50 border-l-2 border-gray-300 pl-4 py-2 min-w-0">
                             <div className="flex justify-between text-xs mb-1">
                                 <span className="font-bold">Av. Kemal Yılmaz</span>
                                 <span>Dün 14:00</span>

@@ -17,13 +17,13 @@ export default function Sim06() {
                     <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
                     <div className="w-3 h-3 rounded-full bg-green-400"></div>
                 </div>
-                <div className="flex-1 flex gap-2">
-                    <div className="bg-white rounded px-3 py-1 text-xs text-gray-600 flex-1 flex items-center justify-between border border-gray-300 relative group cursor-help"
+                <div className="flex-1 flex gap-2 min-w-0">
+                    <div className="bg-white rounded px-3 py-1 text-xs text-gray-600 flex-1 min-w-0 flex items-center justify-between border border-gray-300 relative group cursor-help"
                         onMouseEnter={() => setShowHint(true)}
                         onMouseLeave={() => setShowHint(false)}>
-                        <div className="flex items-center gap-2 overflow-hidden">
+                        <div className="flex items-center gap-2 overflow-hidden min-w-0 flex-1">
                             <span className="text-gray-400">🔒</span>
-                            <span className="truncate">https://secure-banka.com.tr.login-update.xyz/giris</span>
+                            <span className="truncate min-w-0">https://secure-banka.com.tr.login-update.xyz/giris</span>
                         </div>
                         <span className="text-[11px] text-blue-500 hover:underline">URL'yi İncele 🔍</span>
 
