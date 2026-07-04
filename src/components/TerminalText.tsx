@@ -13,8 +13,10 @@ export default function TerminalText({ lines, speed = 30, onComplete, className 
     const [displayedLines, setDisplayedLines] = useState<string[]>([]);
     const [currentLineIndex, setCurrentLineIndex] = useState(0);
     const [currentCharIndex, setCurrentCharIndex] = useState(0);
-    const [isComplete, setIsComplete] = useState(false);
     const completedRef = useRef(false);
+
+    // isComplete state yerine türetilir (effect gövdesinde setState yok)
+    const isComplete = currentLineIndex >= lines.length;
 
     // lines değişirse tamamlanma bayrağını sıfırla
     useEffect(() => { completedRef.current = false; }, [lines]);
@@ -23,7 +25,6 @@ export default function TerminalText({ lines, speed = 30, onComplete, className 
         if (currentLineIndex >= lines.length) {
             if (!completedRef.current) {
                 completedRef.current = true;
-                setIsComplete(true);
                 onComplete?.();
             }
             return;

@@ -75,7 +75,7 @@ export default function Sim21() {
                                     <div
                                         key={i}
                                         className="w-full bg-green-500 rounded-t"
-                                        style={{ height: `${Math.random() * 100}%`, transition: 'height 0.5s' }}
+                                        style={{ height: `${Math.min(100, (graphData[i] ?? 2) * 10)}%`, transition: 'height 0.5s' }}
                                     ></div>
                                 ))}
                             </div>

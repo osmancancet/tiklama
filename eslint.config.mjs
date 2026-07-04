@@ -13,6 +13,15 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // JSX metnindeki Türkçe tırnak/kesme işaretleri geçerli; kural gürültü üretiyor.
+      "react/no-unescaped-entities": "off",
+      // Avatarlar runtime onError yedeği, kamera görseli uzak kaynak kullanıyor;
+      // next/image bu kalıplarda friction yaratıyor.
+      "@next/next/no-img-element": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

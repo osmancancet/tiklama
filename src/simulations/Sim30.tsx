@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const terminalLines = [
     { text: "Bağlantı kuruluyor...", color: "text-yellow-400" },
@@ -40,15 +41,14 @@ export default function Sim30() {
         }
     }, [phase, visibleLines]);
 
-    // Countdown
+    // Countdown (setState yalnızca setTimeout callback'inde -> effect gövdesinde değil)
     useEffect(() => {
-        if (phase === "skull" && countdown > 0) {
-            const timer = setInterval(() => setCountdown(prev => prev - 1), 1000);
-            return () => clearInterval(timer);
-        }
-        if (phase === "skull" && countdown === 0) {
-            setPhase("reveal");
-        }
+        if (phase !== "skull") return;
+        const timer = setTimeout(() => {
+            if (countdown <= 1) setPhase("reveal");
+            else setCountdown(countdown - 1);
+        }, 1000);
+        return () => clearTimeout(timer);
     }, [phase, countdown]);
 
     // Screen flicker
@@ -331,12 +331,12 @@ export default function Sim30() {
                                     transition={{ delay: 3.5 }}
                                     className="mt-6"
                                 >
-                                    <a
+                                    <Link
                                         href="/"
                                         className="inline-block bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-3 px-8 rounded-xl transition-colors no-underline"
                                     >
                                         Ana Sayfaya Dön
-                                    </a>
+                                    </Link>
                                 </motion.div>
                             </motion.div>
                         </div>

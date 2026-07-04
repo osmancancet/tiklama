@@ -34,7 +34,11 @@ export default function Navbar() {
                         <div className="relative"
                             onMouseEnter={() => setChaptersOpen(true)}
                             onMouseLeave={() => setChaptersOpen(false)}>
-                            <button className="text-sm text-text-secondary hover:text-neon-blue transition-colors bg-transparent border-none cursor-pointer font-[inherit] py-2">
+                            <button
+                                onClick={() => setChaptersOpen((o) => !o)}
+                                aria-expanded={chaptersOpen}
+                                aria-haspopup="true"
+                                className="text-sm text-text-secondary hover:text-neon-blue transition-colors bg-transparent border-none cursor-pointer font-[inherit] py-2">
                                 Bölümler ▾
                             </button>
                             <AnimatePresence>

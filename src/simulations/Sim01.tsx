@@ -158,7 +158,7 @@ export default function Sim01() {
                                     {[...Array(10)].map((_, i) => (
                                         <motion.div
                                             key={i}
-                                            animate={{ height: [10, Math.random() * 40 + 10, 10] }}
+                                            animate={{ height: [10, ((i * 17) % 32) + 14, 10] }}
                                             transition={{ repeat: Infinity, duration: 0.5, delay: i * 0.1 }}
                                             className="w-1.5 bg-green-500/80 rounded-full"
                                         />

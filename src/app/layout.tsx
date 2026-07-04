@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className="matrix-bg antialiased" suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <Navbar />
         <main>{children}</main>
         <Footer />

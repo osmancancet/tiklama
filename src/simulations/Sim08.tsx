@@ -102,7 +102,7 @@ export default function Sim08() {
                         <div className="absolute inset-0 opacity-10 pointer-events-none flex justify-around">
                             {[...Array(10)].map((_, i) => (
                                 <div key={i} className="animate-[pulse_0.5s_infinite] text-xs writing-vertical">
-                                    {Math.random().toString(36).substring(2, 10)} 10101
+                                    {((i + 3) * 7654321).toString(36).slice(0, 8)} 10101
                                 </div>
                             ))}
                         </div>
@@ -120,7 +120,7 @@ export default function Sim08() {
                                 &gt; Progress: [{Array(Math.floor(progress / 5)).fill("=").join("")}{Array(20 - Math.floor(progress / 5)).fill(" ").join("")}] {Math.floor(progress)}%
                             </div>
                             <div className="text-green-600/60">
-                                &gt; Trying: {Math.random().toString(36).slice(-8)}
+                                &gt; Trying: {((progress + 1) * 7654321).toString(36).slice(-8)}
                             </div>
                             <div className="text-green-700/40">
                                 &gt; Trying property: user_password
