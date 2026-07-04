@@ -6,7 +6,7 @@ import TerminalText from "@/components/TerminalText";
 
 const aftermathItems = [
     { icon: "💳", text: "Adınıza açılmış kredi kartı: 45.000 TL borç", delay: 0 },
-    { icon: "🏢", text: "Adınıza kurulan paravan şirket: 'BM Digital Ltd.'", delay: 800 },
+    { icon: "🏢", text: "Adınıza kurulan paravan şirket: 'Çetlenbik Dijital Ltd. Şti.'", delay: 800 },
     { icon: "📱", text: "Adınıza açılmış 3 telefon hattı", delay: 1600 },
     { icon: "⚖️", text: "İcra takibi başlatıldı: 128.000 TL", delay: 2400 },
     { icon: "🚫", text: "Kredi notu: 0 — Hiçbir bankadan kredi alamazsınız", delay: 3200 },
